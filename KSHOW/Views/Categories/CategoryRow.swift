@@ -27,7 +27,7 @@ var items: [Landmark]
 
                     ForEach(items) { landmark in
 
-                        NavigationLink(destination: LandmarkDetail(landmark: landmark)) {
+                        NavigationLink(destination: ShowDetail(landmark: landmark)) {
 
                                                     CategoryItem(landmark: landmark)
 

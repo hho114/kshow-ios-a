@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection: Tab = .featured
     
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     enum Tab {
         
         case featured
@@ -19,31 +19,58 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView(selection: $selection) {
-            
-            CategoryHome()
-                .tabItem {
-                    
-                    Label("Featured", systemImage: "star")
-                    
+        
+        VStack{
+            if self.status{
+                HomeScreen()
+                
+            } else {
+                VStack{
+                    Login()
                 }
-                .tag(Tab.featured)
-            
-            
-            LandmarkList()
-                .tabItem {
-                    
-                    Label("List", systemImage: "list.bullet")
-                    
+                .onAppear{
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+                        
+                        self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                    }
                 }
-                .tag(Tab.list)
+            }
+            
             
         }
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(ModelData())
+    
+    struct HomeScreen: View{
+        @State private var selection: Tab = .featured
+        
+        var body: some View{
+            TabView(selection: $selection) {
+                
+                
+                CategoryHome()
+                    .tabItem {
+                        
+                        Label("Featured", systemImage: "star")
+                        
+                    }
+                    .tag(Tab.featured)
+                
+                
+                ShowList()
+                    .tabItem {
+                        
+                        Label("List", systemImage: "list.bullet")
+                        
+                    }
+                    .tag(Tab.list)
+                
+            }
+        }
+    }
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView().environmentObject(ModelData())
+        }
     }
 }

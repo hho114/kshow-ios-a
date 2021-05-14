@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LandmarkList: View {
+struct ShowList: View {
     
     @EnvironmentObject var modelData: ModelData
     @State private var showFavoritesOnly = false
@@ -26,8 +26,8 @@ struct LandmarkList: View {
                 })
                 ForEach(filteredLandmarks)
                 {landmark in
-                NavigationLink(destination: LandmarkDetail(landmark: landmark)){
-               LandmarkRow(landmark: landmark)
+                NavigationLink(destination: ShowDetail(landmark: landmark)){
+               ShowRow(landmark: landmark)
                     }
                 }
             }
@@ -39,7 +39,7 @@ struct LandmarkList: View {
 struct LandmarkList_Previews: PreviewProvider {
     static var previews: some View {
         
-        LandmarkList().environmentObject(ModelData())
+        ShowList().environmentObject(ModelData())
         
 //
 //        ForEach(["iPhone SE (2nd generation)", "iPhone XS Max"], id: \.self){
