@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import ObjectMapper
 
 
 @main
@@ -43,6 +44,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //            print("Can not access data")
 //            print(error.localizedDescription)
 //        }
+//        var lUsers: User
+       
         
         return true
     }

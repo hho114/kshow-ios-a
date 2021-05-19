@@ -16,24 +16,28 @@ struct Login: View{
     @State var alert = false
     @State var error = ""
     @State var title = ""
+    @State var isSendVerify = false
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
+       NavigationView{
         VStack(){
-            Image("finance_app").resizable().frame(width: 300.0, height: 255.0, alignment: .top)
+            Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
             
             Text("Sign in to your account")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 15)
             
-            TextField("Username or Email",text:self.$email)
+            TextField("Email",text:self.$email)
                 .autocapitalization(.none)
                 .padding()
+                .keyboardType(.emailAddress)
                 .background(RoundedRectangle(cornerRadius:6).stroke(borderColor,lineWidth:2))
                 .padding(.top, 0)
             
+
             HStack(spacing: 15){
                 VStack{
                     if self.visible {
@@ -48,15 +52,14 @@ struct Login: View{
                 Button(action: {
                     self.visible.toggle()
                 }) {
-                    //Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
+                    
                     Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
-                        .foregroundColor(self.color)
                         .opacity(0.8)
                 }
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 6)
-            .stroke(borderColor,lineWidth: 2))
+            .stroke(self.borderColor,lineWidth: 2))
             .padding(.top, 10)
             
             HStack{
@@ -67,7 +70,6 @@ struct Login: View{
                 }) {
                     Text("Forget Password")
                         .fontWeight(.medium)
-//                        .foregroundColor(Color("Dominant"))
                 }.padding(.top, 10.0)
             }
             
@@ -75,11 +77,11 @@ struct Login: View{
             Button(action: {
                 self.Verify()
             }) {
-                Text("Sign in")
+                Text("SIGN IN")
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.vertical)
-                 .frame(width: UIScreen.main.bounds.width - 50)
+//                 .frame(width: UIScreen.main.bounds.width - 50)
             }
 //            .background(Color("Dominant"))
             .cornerRadius(6)
@@ -92,17 +94,20 @@ struct Login: View{
             HStack(spacing: 5){
                 Text("Don't have an account ?")
                 
+                
                 NavigationLink(destination: SignUp()){
-                    Text("Sign up")
+                    Text("Sign Up")
                     .fontWeight(.bold)
-//                    .foregroundColor(Color("Dominant"))
+                        .foregroundColor(.primary)
                 }
                 
                 Text("now").multilineTextAlignment(.leading)
                 
             }.padding(.top, 25)
-        }
-        .padding(.horizontal, 25)
+        }.padding(.horizontal, 25)
+       
+       }
+
         
     }
     
@@ -111,16 +116,49 @@ struct Login: View{
             Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
                 
                 if err != nil{
-                    
-                    self.error = err!.localizedDescription
+                    print(err!.localizedDescription)
+                    self.error = "Email or Password incorrect"
                     self.title = "Login Error"
                     self.alert.toggle()
                     return
                 }
                 
-                print("Login success!")
-                UserDefaults.standard.set(true, forKey: "status")
-                NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                if let user = res?.user{
+                    if user.isEmailVerified
+                    {
+                        print("Login success!")
+                        UserDefaults.standard.set(true, forKey: "status")
+                        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                    }
+                    else
+                    {
+                        print("User need verify email")
+                        if !self.isSendVerify {
+                        user.sendEmailVerification { (error) in
+                            if error != nil{
+                                self.error = error?.localizedDescription ?? "Email verify error"
+                                self.title = "Verify Error"
+                                self.alert.toggle()
+                            }
+                            else{
+                                self.isSendVerify = true
+                                self.error = "Open your email that is used to sign up to verify your email in order to login"
+                                self.title = "Verify"
+                                self.alert.toggle()
+                            }
+                            
+                        }
+                        }else{
+                            self.error = "Open your email that is used to sign up to verify your email in order to login"
+                            self.title = "Verify"
+                            self.alert.toggle()
+                        }
+
+                    }
+                }
+                
+                
+                
             }
         }else{
             self.title = "Login Error"

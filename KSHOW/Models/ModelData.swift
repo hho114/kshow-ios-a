@@ -7,11 +7,16 @@
 
 import Foundation
 import Combine
+import FirebaseDatabase
+import FirebaseAuth
+import ObjectMapper
 
 final class ModelData: ObservableObject{
+    
     @Published var landmarks: [Landmark] = load("landmarkData.json")
     var hikes: [Hike] = load("hikeData.json")
     @Published var profile = Profile.default
+    
     
     var features: [Landmark] {
 
@@ -41,17 +46,6 @@ func load<T:Decodable>(_ filename: String) -> T {
         fatalError("Couldn't find \(filename) in main bundle")
     }
     
-//    let authData = "{email: email , password: password , returnSecureToken: true}"
-//    let url = URL(string: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAiSWbEUZ-cUyzxO6kzitlV9_BRm4_-8VY&email=email.com&password=123456&returnSecureToken=true")!
-//    var request = URLRequest(url: url)
-////    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//    request.httpMethod = "POST"
-//    URLSession.shared.dataTask(with: request) { data, response, error in
-//        // handle the result here.
-//        print(response ?? "n/a")
-//        print(data ?? "n/a")
-//    }.resume()
-//   
     do{
        
         
@@ -69,3 +63,37 @@ func load<T:Decodable>(_ filename: String) -> T {
         fatalError("Couldn't parse \(filename) as \(T.self)\n\(error)")
     }
 }
+
+func loadUserData<T:Decodable>() -> T {
+    var data: Data?
+    let ref = Database.database().reference()
+    if let userId = Auth.auth().currentUser?.uid.description
+    {
+        
+        ref.child("users").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+        print("Getting data")
+        // Get user value
+           
+
+//        print("jsondata: \(value!)")
+        
+        //let user = User(username: username)
+        
+    }) { (error) in
+        print("Can not access data")
+        print(error.localizedDescription)
+    }
+    }
+    
+   
+    
+    do{
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    }catch{
+        fatalError("Couldn't parseas \(T.self)\n\(error)")
+    }
+      
+}
+
+

@@ -16,13 +16,26 @@ struct ContentView: View {
         
         case list
         
+        case menu
+        
     }
     
     var body: some View {
         
-        VStack{
+
+            VStack{
+               
             if self.status{
-                HomeScreen()
+                VStack{
+                    HomeScreen()
+                }
+                .onAppear{
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+                        
+                        self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                    }
+                }
+                
                 
             } else {
                 VStack{
@@ -38,6 +51,10 @@ struct ContentView: View {
             
             
         }
+       
+        
+        
+        
     }
     
     struct HomeScreen: View{
@@ -50,7 +67,7 @@ struct ContentView: View {
                 CategoryHome()
                     .tabItem {
                         
-                        Label("Featured", systemImage: "star")
+                        Label("", systemImage: "house")
                         
                     }
                     .tag(Tab.featured)
@@ -59,12 +76,32 @@ struct ContentView: View {
                 ShowList()
                     .tabItem {
                         
-                        Label("List", systemImage: "list.bullet")
+                        Label("", systemImage: "star")
                         
                     }
                     .tag(Tab.list)
                 
+               
+//                ShowList()
+//                    .tabItem {
+//
+//                        Label("", systemImage: "square.and.arrow.down")
+//
+//                    }
+//                    .tag(Tab.list)
+                
+                Menu()
+                    .tabItem {
+                        
+                        Label("", systemImage: "list.bullet")
+                        
+                    }
+                    .tag(Tab.menu)
+                    
+                
             }
+            .transition(.slide).animation(.easeInOut(duration: 0.5))
+            
         }
     }
     

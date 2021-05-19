@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseDatabase
 
 struct SignUp: View{
     
@@ -21,18 +22,18 @@ struct SignUp: View{
     
     @State var alert = false
     @State var error = ""
-    
+    @State var title = ""
+    @Environment(\.presentationMode) var presentationMode
+ 
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
-    
-        
-        VStack(alignment: .leading){
+//        VStack(){
             
-            GeometryReader{_ in
+//            GeometryReader{_ in
                 
                 VStack{
-                    Image("finance_app").resizable().frame(width: 300.0, height: 255.0, alignment: .center)
+                    Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
                     
                     Text("Sign up a new account")
                         .font(.title)
@@ -40,8 +41,9 @@ struct SignUp: View{
                         .foregroundColor(self.color)
                         .padding(.top, 15)
                     
-                    TextField("Username or Email",text:self.$email)
+                    TextField("Email",text:self.$email)
                         .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
                         .padding()
                         .background(RoundedRectangle(cornerRadius:6).stroke(self.borderColor,lineWidth:2))
                         .padding(.top, 0)
@@ -54,13 +56,14 @@ struct SignUp: View{
                             } else {
                                 SecureField("Password", text: self.$pass)
                                     .autocapitalization(.none)
+                                    
                             }
                         }
                         
                         Button(action: {
                             self.visible.toggle()
                         }) {
-                            //Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
+                            
                             Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
                                 .opacity(0.8)
                         }
@@ -101,7 +104,7 @@ struct SignUp: View{
                     Button(action: {
                         self.Register()
                     }) {
-                        Text("Sign up")
+                        Text("SIGN UP")
                             .foregroundColor(.white)
                             .fontWeight(.bold)
                             .padding(.vertical)
@@ -111,15 +114,16 @@ struct SignUp: View{
                     .cornerRadius(6)
                     .padding(.top, 15)
                     .alert(isPresented: self.$alert){()->Alert in
-                        return Alert(title: Text("Sign up error"), message: Text("\(self.error)"), dismissButton:
+                        return Alert(title: Text("\(self.title)"), message: Text("\(self.error)"), dismissButton:
                             .default(Text("OK").fontWeight(.semibold)))
                     }
                     
                 }
                 .padding(.horizontal, 25)
-            }
-        }
+//            }
+//        }
     }
+    
     func Register(){
         if self.email != ""{
             
@@ -128,21 +132,62 @@ struct SignUp: View{
                 Auth.auth().createUser(withEmail: self.email, password: self.pass) { (res, err) in
                     
                     if err != nil{
-                        
+                        print(err!.localizedDescription)
                         self.error = err!.localizedDescription
+                        self.title = "Sign up error"
                         self.alert.toggle()
                         return
                     }
                     
                     print("success")
-                    
-                    UserDefaults.standard.set(true, forKey: "status")
-                    NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                   
+
+                    if let user = res?.user{
+                        let ref = Database.database().reference()
+                        ref.child("users").child(user.uid).setValue(["username": "user","email": self.email])
+                        
+                        if user.isEmailVerified
+                        {
+                            print("Login success!")
+                            UserDefaults.standard.set(true, forKey: "status")
+                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                        }
+                        else
+                        {
+                            print("User need verify email")
+                           
+
+                                user.sendEmailVerification { (error) in
+                                if error != nil{
+                                    self.error = error?.localizedDescription ?? "Email verify error, please try again"
+                                    self.title = "Verify Error"
+                                    self.alert.toggle()
+                                }
+                                else{
+                                    
+                                    self.error = "Open your email that is used to sign up to verify your email in order to login"
+                                    self.title = "Verify"
+                                    self.alert.toggle()
+                                    
+                                }
+                                
+                                }
+                                
+
+                            
+
+                            UserDefaults.standard.set(false, forKey: "status")
+                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                            self.presentationMode.wrappedValue.dismiss()
+
+                        }
+                    }
                 }
             }
             else{
                 
                 self.error = "Password mismatch"
+                self.title = "Sign up error"
                 self.alert.toggle()
             }
         }
@@ -153,4 +198,6 @@ struct SignUp: View{
         }
         
     }
+    
 }
+

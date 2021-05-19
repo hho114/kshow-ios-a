@@ -11,6 +11,7 @@ struct ProfileHost: View {
     @Environment(\.editMode) var editMode
     @EnvironmentObject var modelData: ModelData
     @State private var draftProfile = Profile.default
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -55,11 +56,14 @@ struct ProfileHost: View {
                                                }
 
                        }
+            
 
                 }
 
                 .padding()
     }
+    
+    
 }
 
 struct ProfileHost_Previews: PreviewProvider {
