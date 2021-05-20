@@ -9,25 +9,25 @@ import SwiftUI
 
 struct ProfileSummary: View {
     @EnvironmentObject var modelData: ModelData
-    var profile: Profile
+    var user: User
     
     var body: some View {
         ScrollView {
 
                    VStack(alignment: .leading, spacing: 10) {
 
-                       Text(profile.username)
+                       Text(user.username)
 
                            .bold()
 
                            .font(.title)
 
+                    Text("Email: \(user.email)")
+//                       Text("Notifications: \(user.prefersNotifications ? "On": "Off" )")
 
-                       Text("Notifications: \(profile.prefersNotifications ? "On": "Off" )")
+                   
 
-                       Text("Seasonal Photos: \(profile.seasonalPhoto.rawValue)")
-
-                       Text("Goal Date: ") + Text(profile.goalDate, style: .date)
+//                       Text("Goal Date: ") + Text(profile.goalDate, style: .date)
 
                     Divider()
 
@@ -85,7 +85,7 @@ struct ProfileSummary: View {
 
 struct ProfileSummary_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileSummary(profile: Profile.default)
+        ProfileSummary(user: User.default)
             .environmentObject(ModelData())
     }
 }

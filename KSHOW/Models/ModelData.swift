@@ -16,11 +16,16 @@ final class ModelData: ObservableObject{
     @Published var landmarks: [Landmark] = load("landmarkData.json")
     var hikes: [Hike] = load("hikeData.json")
     @Published var profile = Profile.default
+    @Published var user = User.default
+    @Published var shows : [Show] = []
+    @Published var show = Show.default
+    @Published var category = Category.default
+//    @Published var categories: [String] = []
     
     
-    var features: [Landmark] {
+    var features: [Show] {
 
-            landmarks.filter { $0.isFeatured }
+            shows.filter { $0.isFeatured }
 
         }
 
@@ -64,36 +69,39 @@ func load<T:Decodable>(_ filename: String) -> T {
     }
 }
 
-func loadUserData<T:Decodable>() -> T {
-    var data: Data?
-    let ref = Database.database().reference()
-    if let userId = Auth.auth().currentUser?.uid.description
-    {
-        
-        ref.child("users").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-        print("Getting data")
-        // Get user value
-           
-
-//        print("jsondata: \(value!)")
-        
-        //let user = User(username: username)
-        
-    }) { (error) in
-        print("Can not access data")
-        print(error.localizedDescription)
-    }
-    }
-    
-   
-    
-    do{
-        let decoder = JSONDecoder()
-        return try decoder.decode(T.self, from: data)
-    }catch{
-        fatalError("Couldn't parseas \(T.self)\n\(error)")
-    }
-      
-}
+//func loadUserData<T:Decodable>() -> T {
+//    var data: Data
+//    let userID = Auth.auth().currentUser?.uid
+//    let ref = Database.database().reference()
+//    ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+//      // Get user value
+////      let value = snapshot.value as? NSDictionary
+////      let username = value?["username"] as? String ?? ""
+////      let user = User(username: username)
+//        guard let value = snapshot.value as? [String: Any] else { return }
+//                do {
+//                    data = try JSONSerialization.data(withJSONObject: value, options: [])
+////                    let user = try JSONDecoder().decode(T.self, from: jsonData)
+////                    print(user)
+//                   
+//
+//                } catch let error {
+//                    print(error)
+//                }
+//
+//     
+//      }) { (error) in
+//        print(error.localizedDescription)
+//    }
+//    
+//    do{
+//        let decoder = JSONDecoder()
+//        return try decoder.decode(T.self, from: data)
+//    }catch{
+//        fatalError("Couldn't parse as \(T.self)\n\(error)")
+//    }
+//
+//      
+//}
 
 

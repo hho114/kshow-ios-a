@@ -140,11 +140,12 @@ struct SignUp: View{
                     }
                     
                     print("success")
-                   
 
                     if let user = res?.user{
+//                        let token = email.components(separatedBy: "@")
+//                        let username = token[0]
                         let ref = Database.database().reference()
-                        ref.child("users").child(user.uid).setValue(["username": "user","email": self.email])
+                        ref.child("users").child(user.uid).setValue(["id": user.uid,"email": self.email])
                         
                         if user.isEmailVerified
                         {

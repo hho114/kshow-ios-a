@@ -8,36 +8,18 @@
 import Foundation
 import SwiftUI
 
-//class User {
-//    var uid: String
-//    var email: String?
-//    var displayName: String?
-//
-//    init(uid: String, displayName: String?, email: String?) {
-//        self.uid = uid
-//        self.email = email
-//        self.displayName = displayName
-//    }
-//
-//}
 
 struct User: Codable, Identifiable {
     
-    var id: String? = nil
-    var email: String? = nil
-    var userName: String? = nil
-    var permission: String? = nil
-    var photoUrl: String? = nil
-    var vip: Bool? = nil
+    var id: String
+    var email: String
+    var username: String
+//    var prefersNotifications = true
+    var permission: String
+    var photoUrl: String
+    var vip: Bool
     
-//    required init?( map: Map){
-//     }
-//
-//     func mapping(map: Map) {
-//       self.id  <- map["id"]
-//       self.userName   <- map["username"]
-//        self.email <- map["email"]
-//     }
-
+    static let `default` = User( id: "00000",email: "email.com",username: "user", permission: "", photoUrl: "",vip: false)
+    
 
 }

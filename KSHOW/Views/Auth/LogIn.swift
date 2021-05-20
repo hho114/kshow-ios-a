@@ -7,9 +7,12 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseDatabase
+import CodableFirebase
+
 struct Login: View{
     
-    @State var email = ""
+    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
     @State var pass = ""
     @State var color = Color.black.opacity(0.7)
     @State var visible = false
@@ -17,7 +20,7 @@ struct Login: View{
     @State var error = ""
     @State var title = ""
     @State var isSendVerify = false
-    
+    @EnvironmentObject var modelData: ModelData
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
@@ -117,7 +120,7 @@ struct Login: View{
                 
                 if err != nil{
                     print(err!.localizedDescription)
-                    self.error = "Email or Password incorrect"
+                    self.error = err!.localizedDescription
                     self.title = "Login Error"
                     self.alert.toggle()
                     return
@@ -129,6 +132,11 @@ struct Login: View{
                         print("Login success!")
                         UserDefaults.standard.set(true, forKey: "status")
                         NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                        UserDefaults.standard.set(email, forKey: "email")
+                        NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
+                        
+                        fetchUserData(userId: user.uid)
+                        
                     }
                     else
                     {
@@ -165,6 +173,55 @@ struct Login: View{
             self.error = "Please fill all the content property"
             self.alert = true
         }
+    }
+    
+    func fetchUserData(userId: String) {
+
+        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else { return }
+            do {
+                let model = try FirebaseDecoder().decode(User.self, from: value)
+                print(model)
+                modelData.user = model
+                fetchCategories()
+            } catch let error {
+                print(error)
+            }
+        })
+    }
+    
+    func fetchCategories() {
+        Database.database().reference().child("categories").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else { return }
+            
+            do {
+                let model = try FirebaseDecoder().decode(Category.self, from: value)
+                print(model)
+                modelData.category = model
+               fetchShows()
+            } catch let error {
+                print(error)
+            }
+        })
+    }
+    
+    func fetchShows() {
+
+        Database.database().reference().child("wiki").observe(.value) { snapshot in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+            
+            do {
+                let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
+                print(model)
+                modelData.shows.append(model)
+
+            } catch let error {
+                print(error)
+            }
+          }
+
+        }
+        
     }
     
     func ResetPassword(){

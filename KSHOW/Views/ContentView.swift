@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
+  
+   
     enum Tab {
         
         case featured
@@ -25,7 +28,7 @@ struct ContentView: View {
 
             VStack{
                
-            if self.status{
+            if self.status {
                 VStack{
                     HomeScreen()
                 }
@@ -46,15 +49,16 @@ struct ContentView: View {
                         
                         self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
                     }
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name("email"), object: nil, queue: .main) { (_) in
+                        
+                        self.email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
+                    }
+                    
                 }
             }
             
             
         }
-       
-        
-        
-        
     }
     
     struct HomeScreen: View{
@@ -101,9 +105,13 @@ struct ContentView: View {
                 
             }
             .transition(.slide).animation(.easeInOut(duration: 0.5))
-            
+            .onAppear{
+           
+            }
         }
     }
+    
+
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
@@ -111,3 +119,5 @@ struct ContentView: View {
         }
     }
 }
+
+

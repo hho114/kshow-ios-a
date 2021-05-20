@@ -23,11 +23,11 @@ struct CategoryHome: View {
 //                        .frame(width: 50)
 //                }
 
-                PageView(pages: modelData.features.map { FeatureCard(landmark: $0) })
-
-                                    .aspectRatio(3 / 2, contentMode: .fit)
-
-                                    .listRowInsets(EdgeInsets())
+//                PageView(pages: modelData.features.map { FeatureCard(landmark: $0) })
+//
+//                                    .aspectRatio(3 / 2, contentMode: .fit)
+//
+//                                    .listRowInsets(EdgeInsets())
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 
@@ -38,6 +38,7 @@ struct CategoryHome: View {
             }
             .listStyle(InsetListStyle())
             .navigationTitle("KSHOW")
+//            .navigationTitle(modelData.user.username)
 //            .toolbar {
 //
 //                Button(action: { self.showingProfile.toggle() }) {

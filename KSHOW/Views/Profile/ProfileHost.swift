@@ -10,7 +10,8 @@ import SwiftUI
 struct ProfileHost: View {
     @Environment(\.editMode) var editMode
     @EnvironmentObject var modelData: ModelData
-    @State private var draftProfile = Profile.default
+//    @State private var draftProfile = Profile.default
+    @State private var draftUser = User.default
 //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -22,7 +23,7 @@ struct ProfileHost: View {
 
                                     Button("Cancel") {
 
-                                        draftProfile = modelData.profile
+                                        draftUser = modelData.user
 
                                         editMode?.animation().wrappedValue = .inactive
 
@@ -33,25 +34,25 @@ struct ProfileHost: View {
 
                            EditButton()
 
-                       }
+                    }
 
 
             if editMode?.wrappedValue == .inactive {
 
-                           ProfileSummary(profile: modelData.profile)
+                           ProfileSummary(user: modelData.user)
 
                        } else {
 
-                        ProfileEditor(profile: $draftProfile)
+                        ProfileEditor(user: $draftUser)
                             .onAppear {
 
-                                                   draftProfile = modelData.profile
+                                                   draftUser = modelData.user
 
                                                }
 
                                                .onDisappear {
 
-                                                   modelData.profile = draftProfile
+                                                   modelData.user = draftUser
 
                                                }
 

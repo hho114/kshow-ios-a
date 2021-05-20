@@ -74,12 +74,12 @@ struct TextOverlay: View {
 
 }
 
-struct FeatureCard_Previews: PreviewProvider {
-
-    static var previews: some View {
-
-        FeatureCard(landmark: ModelData().features[0])
-
-    }
-
-}
+//struct FeatureCard_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//
+//        FeatureCard(landmark: ModelData().features[0])
+//
+//    }
+//
+//}
