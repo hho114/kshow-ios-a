@@ -12,11 +12,11 @@ struct ShowList: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showFavoritesOnly = false
     
-    var filteredLandmarks: [Landmark]{
-        modelData.landmarks.filter{
-            landmark in (!showFavoritesOnly || landmark.isFavorite)
-        }
-    }
+//    var filteredLandmarks: [Landmark]{
+//        modelData.landmarks.filter{
+//            landmark in (!showFavoritesOnly || landmark.isFavorite)
+//        }
+//    }
     
     var body: some View {
         NavigationView {
@@ -24,10 +24,11 @@ struct ShowList: View {
                 Toggle(isOn: $showFavoritesOnly, label: {
                     Text("Favorites only")
                 })
-                ForEach(filteredLandmarks)
-                {landmark in
-                NavigationLink(destination: ShowDetail(landmark: landmark)){
-               ShowRow(landmark: landmark)
+                ForEach(modelData.shows)
+                {show in
+                NavigationLink(destination: ShowDetail(show: show)){
+               ShowRow(show: show)
+                    
                     }
                 }
             }

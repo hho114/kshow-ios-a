@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6FA028A45A97DC4568A69BE0 /* Pods_KSHOW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD719588A65A8E07AF4EDECE /* Pods_KSHOW.framework */; };
+		FA0FF91F26586E86004FA561 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0FF91E26586E86004FA561 /* Permission.swift */; };
 		FA479DE12654367900E8E56D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA479DE02654367900E8E56D /* Menu.swift */; };
 		FA479DE32656C1DF00E8E56D /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA479DE22656C1DF00E8E56D /* Show.swift */; };
-		FA479DE52656FDB900E8E56D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA479DE42656FDB900E8E56D /* Category.swift */; };
 		FA509774264C325E00D94F4E /* KSHOWApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA509773264C325E00D94F4E /* KSHOWApp.swift */; };
 		FA509776264C325E00D94F4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA509775264C325E00D94F4E /* ContentView.swift */; };
 		FA509778264C326100D94F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA509777264C326100D94F4E /* Assets.xcassets */; };
@@ -47,9 +47,9 @@
 		24FB9AA3CE4BFECDF4628809 /* Pods-KSHOW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSHOW.debug.xcconfig"; path = "Target Support Files/Pods-KSHOW/Pods-KSHOW.debug.xcconfig"; sourceTree = "<group>"; };
 		98132D3E370EF4BCA14009C3 /* Pods-KSHOW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSHOW.release.xcconfig"; path = "Target Support Files/Pods-KSHOW/Pods-KSHOW.release.xcconfig"; sourceTree = "<group>"; };
 		DD719588A65A8E07AF4EDECE /* Pods_KSHOW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KSHOW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0FF91E26586E86004FA561 /* Permission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
 		FA479DE02654367900E8E56D /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		FA479DE22656C1DF00E8E56D /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
-		FA479DE42656FDB900E8E56D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FA509770264C325E00D94F4E /* KSHOW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSHOW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA509773264C325E00D94F4E /* KSHOWApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSHOWApp.swift; sourceTree = "<group>"; };
 		FA509775264C325E00D94F4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				FA5097AF264D8EEA00D94F4E /* Profile.swift */,
 				FAC10495264F140D008E56C4 /* User.swift */,
 				FA479DE22656C1DF00E8E56D /* Show.swift */,
-				FA479DE42656FDB900E8E56D /* Category.swift */,
+				FA0FF91E26586E86004FA561 /* Permission.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -392,6 +392,7 @@
 				FA5097AB264D8E9800D94F4E /* CategoryItem.swift in Sources */,
 				FA5097A9264D8E9800D94F4E /* CategoryHome.swift in Sources */,
 				FA5097A3264D8E7A00D94F4E /* CircleImage.swift in Sources */,
+				FA0FF91F26586E86004FA561 /* Permission.swift in Sources */,
 				FA509776264C325E00D94F4E /* ContentView.swift in Sources */,
 				FA5097A2264D8E7A00D94F4E /* MapView.swift in Sources */,
 				FA5097AA264D8E9800D94F4E /* CategoryRow.swift in Sources */,
@@ -411,7 +412,6 @@
 				FA479DE32656C1DF00E8E56D /* Show.swift in Sources */,
 				FA50979B264D8BB800D94F4E /* ShowDetail.swift in Sources */,
 				FA509774264C325E00D94F4E /* KSHOWApp.swift in Sources */,
-				FA479DE52656FDB900E8E56D /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

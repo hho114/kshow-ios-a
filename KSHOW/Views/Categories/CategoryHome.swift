@@ -11,6 +11,7 @@ struct CategoryHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     
+    
     var body: some View {
                 
                NavigationView {
@@ -22,16 +23,22 @@ struct CategoryHome: View {
 //                        .scaledToFit()
 //                        .frame(width: 50)
 //                }
+                if !modelData.features.isEmpty
+                {
+                    
+                    PageView(pages: modelData.features.map { FeatureCard(show: $0) })
 
-//                PageView(pages: modelData.features.map { FeatureCard(landmark: $0) })
-//
-//                                    .aspectRatio(3 / 2, contentMode: .fit)
-//
-//                                    .listRowInsets(EdgeInsets())
+                                        .aspectRatio(3 / 2, contentMode: .fit)
+
+                                        .listRowInsets(EdgeInsets())
+                }
+                
+               
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 
                     CategoryRow(categoryName: key, items: modelData.categories[key]!)
+                    
 
                 }.listRowInsets(EdgeInsets())
 
@@ -71,8 +78,8 @@ struct CategoryHome: View {
 
 
 
-struct CategoryHome_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryHome().environmentObject(ModelData())
-    }
-}
+//struct CategoryHome_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CategoryHome().environmentObject(ModelData())
+//    }
+//}

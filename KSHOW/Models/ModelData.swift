@@ -18,28 +18,49 @@ final class ModelData: ObservableObject{
     @Published var profile = Profile.default
     @Published var user = User.default
     @Published var shows : [Show] = []
-    @Published var show = Show.default
-    @Published var category = Category.default
-//    @Published var categories: [String] = []
+//    @Published var show = Show.default
+    @Published var permission = Permission.default
     
     
     var features: [Show] {
 
-            shows.filter { $0.isFeatured }
+         shows.filter { $0.isFeatured }
 
         }
+//    var features: [Landmark] {
+//
+//          let shows =  landmarks.filter { $0.isFeatured }
+//        print("show feature filter: \(shows)")
+//        return shows
+//
+//        }
 
 
-    var categories: [String: [Landmark]] {
+//    var categories: [String: [Landmark]] {
+//
+//           Dictionary(
+//
+//               grouping: landmarks,
+//
+//               by: { $0.category.rawValue }
+//
+//           )
+//
+//       }
+    var categories: [String: [Show]] {
 
-           Dictionary(
-
-               grouping: landmarks,
-
-               by: { $0.category.rawValue }
-
-           )
-
+        var cate: [String: [Show]] = [:]
+        for cateType in permission.categoryType {
+            var showsAdded: [Show] = []
+            for show in shows {
+                if show.category.contains(cateType) {
+                    showsAdded.append(show)
+                }
+            }
+            cate[cateType] = showsAdded
+        }
+        
+        return cate
        }
 
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Show: Codable, Identifiable {
+struct Show: Hashable, Codable, Identifiable {
     
     var id: String
     var name: String
@@ -18,9 +18,10 @@ struct Show: Codable, Identifiable {
     var isFeatured: Bool
     var thumbnailImageUrl: String
     var trailerUrl: String
+    var category: [String]
     
     
-    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: "", description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "")
+    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: "", description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "", category: [])
     
 
 }

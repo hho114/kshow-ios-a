@@ -6,30 +6,32 @@
 //
 
 import SwiftUI
-
+import Kingfisher
 
 struct FeatureCard: View {
 
-    var landmark: Landmark
-
+//    var landmark: Landmark
+    var show: Show
 
     var body: some View {
 
-        landmark.featureImage?
-
-            .resizable()
-
-            .aspectRatio(3 / 2, contentMode: .fit)
-            .overlay(TextOverlay(landmark: landmark))
-
+//        landmark.featureImage?
+//
+//            .resizable()
+//
+//            .aspectRatio(3 / 2, contentMode: .fit)
+//            .overlay(TextOverlay(landmark: landmark))
+        KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
+                    .aspectRatio(3 / 2, contentMode: .fit)
+                    .overlay(TextOverlay(show: show))
     }
 
 }
 
 struct TextOverlay: View {
 
-    var landmark: Landmark
-
+//    var landmark: Landmark
+    var show: Show
 
     var gradient: LinearGradient {
 
@@ -54,13 +56,13 @@ struct TextOverlay: View {
 
             VStack(alignment: .leading) {
 
-                Text(landmark.name)
+                Text(show.name)
 
                     .font(.title)
 
                     .bold()
 
-                Text(landmark.park)
+                Text(show.name)
 
             }
 

@@ -183,22 +183,22 @@ struct Login: View{
                 let model = try FirebaseDecoder().decode(User.self, from: value)
                 print(model)
                 modelData.user = model
-                fetchCategories()
+                fetchPermission()
             } catch let error {
                 print(error)
             }
         })
     }
     
-    func fetchCategories() {
-        Database.database().reference().child("categories").observeSingleEvent(of: .value, with: { snapshot in
+    func fetchPermission() {
+
+        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else { return }
-            
             do {
-                let model = try FirebaseDecoder().decode(Category.self, from: value)
+                let model = try FirebaseDecoder().decode(Permission.self, from: value)
                 print(model)
-                modelData.category = model
-               fetchShows()
+                modelData.permission = model
+                fetchShows()
             } catch let error {
                 print(error)
             }
@@ -223,6 +223,7 @@ struct Login: View{
         }
         
     }
+    
     
     func ResetPassword(){
         if self.email != ""{
