@@ -143,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				FA509773264C325E00D94F4E /* KSHOWApp.swift */,
-				FAC10492264F12A6008E56C4 /* Controls */,
 				FA509786264D855E00D94F4E /* Resources */,
 				FA509785264D855100D94F4E /* Models */,
 				FA509784264D853900D94F4E /* Views */,
@@ -250,13 +249,6 @@
 				FA5097A7264D8E9700D94F4E /* CategoryRow.swift */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		FAC10492264F12A6008E56C4 /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controls;
 			sourceTree = "<group>";
 		};
 		FAC10497264F17D3008E56C4 /* Auth */ = {

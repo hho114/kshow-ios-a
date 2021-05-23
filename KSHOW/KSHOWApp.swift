@@ -17,18 +17,25 @@ struct KSHOWApp: App {
     
     @StateObject private var modelData = ModelData()
     
+   
     var body: some Scene {
         WindowGroup {
             
-            ContentView().environmentObject(modelData)
+            ContentView()
+                .environmentObject(modelData)
             
         }
     }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+//        UserDefaults.standard.set(false, forKey: "status")
+//        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
         
 //        let userID = Auth.auth().currentUser?.uid
 //        let ref = Database.database().reference()
@@ -56,4 +63,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         return true
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        
+        
+    }
+    
+    
 }

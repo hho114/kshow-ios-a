@@ -105,7 +105,7 @@ struct SignUp: View{
                         self.Register()
                     }) {
                         Text("SIGN UP")
-                            .foregroundColor(.white)
+//                            .foregroundColor(.white)
                             .fontWeight(.bold)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
@@ -152,6 +152,10 @@ struct SignUp: View{
                             print("Login success!")
                             UserDefaults.standard.set(true, forKey: "status")
                             NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                            UserDefaults.standard.set(email, forKey: "email")
+                            NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
+                            UserDefaults.standard.set(pass, forKey: "pass")
+                            NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
                         }
                         else
                         {
@@ -173,12 +177,9 @@ struct SignUp: View{
                                 }
                                 
                                 }
-                                
-
-                            
-
-                            UserDefaults.standard.set(false, forKey: "status")
-                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+//
+//                            UserDefaults.standard.set(false, forKey: "status")
+//                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
                             self.presentationMode.wrappedValue.dismiss()
 
                         }

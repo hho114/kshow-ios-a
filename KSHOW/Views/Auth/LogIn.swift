@@ -13,7 +13,7 @@ import CodableFirebase
 struct Login: View{
     
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-    @State var pass = ""
+    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
     @State var color = Color.black.opacity(0.7)
     @State var visible = false
     @State var alert = false
@@ -21,6 +21,7 @@ struct Login: View{
     @State var title = ""
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
+    
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
@@ -81,7 +82,7 @@ struct Login: View{
                 self.Verify()
             }) {
                 Text("SIGN IN")
-                    .foregroundColor(.white)
+//                    .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.vertical)
 //                 .frame(width: UIScreen.main.bounds.width - 50)
@@ -115,6 +116,7 @@ struct Login: View{
     }
     
     func Verify(){
+
         if self.email != "" && self.pass != ""{
             Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
                 
@@ -134,8 +136,9 @@ struct Login: View{
                         NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
                         UserDefaults.standard.set(email, forKey: "email")
                         NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
+                        UserDefaults.standard.set(pass, forKey: "pass")
+                        NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
                         
-                        fetchUserData(userId: user.uid)
                         
                     }
                     else
@@ -175,54 +178,54 @@ struct Login: View{
         }
     }
     
-    func fetchUserData(userId: String) {
-
-        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value else { return }
-            do {
-                let model = try FirebaseDecoder().decode(User.self, from: value)
-                print(model)
-                modelData.user = model
-                fetchPermission()
-            } catch let error {
-                print(error)
-            }
-        })
-    }
-    
-    func fetchPermission() {
-
-        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value else { return }
-            do {
-                let model = try FirebaseDecoder().decode(Permission.self, from: value)
-                print(model)
-                modelData.permission = model
-                fetchShows()
-            } catch let error {
-                print(error)
-            }
-        })
-    }
-    
-    func fetchShows() {
-
-        Database.database().reference().child("wiki").observe(.value) { snapshot in
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-            
-            do {
-                let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
-                print(model)
-                modelData.shows.append(model)
-
-            } catch let error {
-                print(error)
-            }
-          }
-
-        }
-        
-    }
+//    func fetchUserData(userId: String) {
+//
+//        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
+//            guard let value = snapshot.value else { return }
+//            do {
+//                let model = try FirebaseDecoder().decode(User.self, from: value)
+//                print(model)
+//                modelData.user = model
+//                fetchPermission()
+//            } catch let error {
+//                print(error)
+//            }
+//        })
+//    }
+//    
+//    func fetchPermission() {
+//
+//        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
+//            guard let value = snapshot.value else { return }
+//            do {
+//                let model = try FirebaseDecoder().decode(Permission.self, from: value)
+//                print(model)
+//                modelData.permission = model
+//                fetchShows()
+//            } catch let error {
+//                print(error)
+//            }
+//        })
+//    }
+//    
+//    func fetchShows() {
+//
+//        Database.database().reference().child("wiki").observe(.value) { snapshot in
+//            for child in snapshot.children.allObjects as! [DataSnapshot] {
+//            
+//            do {
+//                let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
+//                print(model)
+//                modelData.shows.append(model)
+//
+//            } catch let error {
+//                print(error)
+//            }
+//          }
+//
+//        }
+//        
+//    }
     
     
     func ResetPassword(){

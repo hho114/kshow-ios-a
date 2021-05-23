@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseDatabase
+import CodableFirebase
 
 struct ContentView: View {
-    
+    @EnvironmentObject var modelData: ModelData
+//    @StateObject private var modelData = ModelData()
+
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-  
+    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
+//  
    
     enum Tab {
         
@@ -29,7 +35,9 @@ struct ContentView: View {
             VStack{
                
             if self.status {
+                
                 VStack{
+                    
                     HomeScreen()
                 }
                 .onAppear{
@@ -37,6 +45,7 @@ struct ContentView: View {
                         
                         self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
                     }
+                    
                 }
                 
                 
@@ -49,10 +58,8 @@ struct ContentView: View {
                         
                         self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
                     }
-                    NotificationCenter.default.addObserver(forName: NSNotification.Name("email"), object: nil, queue: .main) { (_) in
-                        
-                        self.email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-                    }
+
+                   
                     
                 }
             }
@@ -61,7 +68,56 @@ struct ContentView: View {
         }
     }
     
+    func fetchUserData(userId: String) {
+
+        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else { return }
+            do {
+                let model = try FirebaseDecoder().decode(User.self, from: value)
+                print(model)
+                modelData.user = model
+                fetchPermission()
+            } catch let error {
+                print(error)
+            }
+        })
+    }
+    
+    func fetchPermission() {
+
+        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else { return }
+            do {
+                let model = try FirebaseDecoder().decode(Permission.self, from: value)
+                print(model)
+                modelData.permission = model
+                fetchShows()
+            } catch let error {
+                print(error)
+            }
+        })
+    }
+    
+    func fetchShows() {
+
+        Database.database().reference().child("wiki").observe(.value) { snapshot in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+            
+            do {
+                let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
+                print(model)
+                modelData.shows.append(model)
+
+            } catch let error {
+                print(error)
+            }
+          }
+
+        }
+        
+    }
     struct HomeScreen: View{
+        @EnvironmentObject var modelData: ModelData
         @State private var selection: Tab = .featured
         
         var body: some View{
@@ -106,18 +162,18 @@ struct ContentView: View {
             }
             .transition(.slide).animation(.easeInOut(duration: 0.5))
             .onAppear{
-           
+                
             }
         }
     }
     
 
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView().environmentObject(ModelData())
-        }
-    }
+//    struct ContentView_Previews: PreviewProvider {
+//        static var previews: some View {
+//            ContentView().environmentObject(ModelData())
+//        }
+//    }
 }
 
 

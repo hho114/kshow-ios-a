@@ -13,9 +13,9 @@ import ObjectMapper
 
 final class ModelData: ObservableObject{
     
-    @Published var landmarks: [Landmark] = load("landmarkData.json")
-    var hikes: [Hike] = load("hikeData.json")
-    @Published var profile = Profile.default
+//    @Published var landmarks: [Landmark] = load("landmarkData.json")
+//    var hikes: [Hike] = load("hikeData.json")
+//    @Published var profile = Profile.default
     @Published var user = User.default
     @Published var shows : [Show] = []
 //    @Published var show = Show.default

@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct Menu: View {
+    @EnvironmentObject var modelData: ModelData
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 20) {
@@ -47,6 +49,10 @@ struct Menu: View {
       try firebaseAuth.signOut()
         UserDefaults.standard.set(false, forKey: "status")
         NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+        modelData.shows = []
+        modelData.user = User.default
+        modelData.permission = Permission.default
+        
         
     } catch let signOutError as NSError {
       print ("Error signing out: %@", signOutError)
