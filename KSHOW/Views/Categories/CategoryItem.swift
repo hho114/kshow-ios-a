@@ -30,6 +30,8 @@ struct CategoryItem: View {
             Text(show.name)
                 .foregroundColor(.primary)
                 .font(.caption)
+//            ShowList()
+            
 
         }
 

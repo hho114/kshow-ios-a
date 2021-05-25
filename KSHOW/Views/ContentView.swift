@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
 //    @StateObject private var modelData = ModelData()
 
-    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @State var status = false
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
     @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
 //  
@@ -57,6 +57,7 @@ struct ContentView: View {
                     NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
                         
                         self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+//                        self.resetAccount()
                     }
 
                    
@@ -68,54 +69,27 @@ struct ContentView: View {
         }
     }
     
-    func fetchUserData(userId: String) {
-
-        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value else { return }
-            do {
-                let model = try FirebaseDecoder().decode(User.self, from: value)
-                print(model)
-                modelData.user = model
-                fetchPermission()
-            } catch let error {
-                print(error)
-            }
-        })
-    }
     
-    func fetchPermission() {
-
-        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value else { return }
-            do {
-                let model = try FirebaseDecoder().decode(Permission.self, from: value)
-                print(model)
-                modelData.permission = model
-                fetchShows()
-            } catch let error {
-                print(error)
-            }
-        })
-    }
+//    func resetAccount() {
+//        if Auth.auth().currentUser != nil{
+//            let firebaseAuth = Auth.auth()
+//        do {
+//          try firebaseAuth.signOut()
+//            UserDefaults.standard.set(false, forKey: "status")
+//            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+//            modelData.shows = []
+//            modelData.user = User.default
+//            modelData.permission = Permission.default
+//
+//
+//        } catch let signOutError as NSError {
+//          print ("Error signing out: %@", signOutError)
+//        }
+//        }
+//
+//    }
     
-    func fetchShows() {
 
-        Database.database().reference().child("wiki").observe(.value) { snapshot in
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-            
-            do {
-                let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
-                print(model)
-                modelData.shows.append(model)
-
-            } catch let error {
-                print(error)
-            }
-          }
-
-        }
-        
-    }
     struct HomeScreen: View{
         @EnvironmentObject var modelData: ModelData
         @State private var selection: Tab = .featured

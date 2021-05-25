@@ -44,7 +44,7 @@ struct CategoryHome: View {
 
             }
             .listStyle(InsetListStyle())
-            .navigationTitle("KSHOW")
+            .navigationTitle("Featured")
 //            .navigationTitle(modelData.user.username)
 //            .toolbar {
 //

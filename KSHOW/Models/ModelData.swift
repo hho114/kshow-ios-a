@@ -18,6 +18,7 @@ final class ModelData: ObservableObject{
 //    @Published var profile = Profile.default
     @Published var user = User.default
     @Published var shows : [Show] = []
+    @Published var episodes : [Episode] = []
 //    @Published var show = Show.default
     @Published var permission = Permission.default
     

@@ -31,9 +31,10 @@ struct CategoryRow: View {
                         NavigationLink(destination: ShowDetail(show: show)) {
 
                                                     CategoryItem(show: show)
-                            
+
 
                                                 }
+                        
 
                     }
                     
