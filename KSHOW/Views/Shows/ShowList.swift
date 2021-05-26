@@ -26,7 +26,7 @@ struct ShowList: View {
                 })
                 ForEach(modelData.shows)
                 {show in
-                NavigationLink(destination: ShowDetail(show: show)){
+                NavigationLink(destination: ShowDetailView(show: show)){
                         ShowRow(show: show)
                     
                     }

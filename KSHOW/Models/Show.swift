@@ -19,9 +19,9 @@ struct Show: Hashable, Codable, Identifiable {
     var thumbnailImageUrl: String
     var trailerUrl: String
     var category: [String]
+    var numberOfSeasonDisplay: Int
     
-    
-    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: "", description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "", category: [])
+    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: "", description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "", category: [], numberOfSeasonDisplay: 0)
     
 
 }

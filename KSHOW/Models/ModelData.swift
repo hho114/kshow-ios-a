@@ -21,6 +21,7 @@ final class ModelData: ObservableObject{
     @Published var episodes : [Episode] = []
 //    @Published var show = Show.default
     @Published var permission = Permission.default
+    @Published var casts : [Cast] = []
     
     
     var features: [Show] {

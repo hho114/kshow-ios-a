@@ -25,15 +25,15 @@ struct CategoryHome: View {
 //                }
                 if !modelData.features.isEmpty
                 {
-                    
+
                     PageView(pages: modelData.features.map { FeatureCard(show: $0) })
 
                                         .aspectRatio(3 / 2, contentMode: .fit)
 
                                         .listRowInsets(EdgeInsets())
                 }
-                
-               
+//
+                CastRow()
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 
@@ -44,7 +44,7 @@ struct CategoryHome: View {
 
             }
             .listStyle(InsetListStyle())
-            .navigationTitle("Featured")
+//            .navigationTitle("Featured")
 //            .navigationTitle(modelData.user.username)
 //            .toolbar {
 //

@@ -28,7 +28,7 @@ struct CategoryRow: View {
 
                     ForEach(items) { show in
 
-                        NavigationLink(destination: ShowDetail(show: show)) {
+                        NavigationLink(destination: ShowDetailView(show: show)) {
 
                                                     CategoryItem(show: show)
 

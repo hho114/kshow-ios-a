@@ -198,13 +198,31 @@ struct Login: View{
                 let model = try FirebaseDecoder().decode(Permission.self, from: value)
                 print(model)
                 modelData.permission = model
-                fetchShows()
+                fetchCasts()
             } catch let error {
                 print(error)
             }
         })
     }
-    
+    func fetchCasts() {
+
+        Database.database().reference().child("stars").observe(.value) { snapshot in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+            do {
+                let model = try FirebaseDecoder().decode(Cast.self, from: child.value as Any)
+                print(model)
+                modelData.casts.append(model)
+                
+            } catch let error {
+                print(error)
+            }
+                
+                
+          }
+            self.fetchShows()
+        }
+        
+    }
     func fetchShows() {
 
         Database.database().reference().child("wiki").observe(.value) { snapshot in

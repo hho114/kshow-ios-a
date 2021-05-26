@@ -13,7 +13,7 @@ import FirebaseDatabase
 struct ShowDetail: View {
     @EnvironmentObject var modelData: ModelData
 //    var landmark : Landmark
-//    @State var episodes: [Episode] = []
+    @State var episodes: [Episode] = []
     var show: Show
     @State var load = true
     var landmarkIndex: Int {
@@ -50,7 +50,7 @@ struct ShowDetail: View {
             if !self.load {
                 List{
                    
-                    ForEach(modelData.episodes)
+                    ForEach(episodes)
                     {episode in
                     NavigationLink(destination: EpisodeDetail(episode: episode)){
                             EpisodeRow(episode: episode)
@@ -85,7 +85,7 @@ struct ShowDetail: View {
             do {
                 let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)
                 print(model)
-                modelData.episodes.append(model)
+                episodes.append(model)
                 UserDefaults.standard.set(false, forKey: "load")
                 NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
             } catch let error {

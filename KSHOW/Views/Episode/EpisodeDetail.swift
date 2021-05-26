@@ -10,18 +10,18 @@ import AVKit
 
 struct EpisodeDetail: View {
     var episode: Episode
+
     var body: some View {
         
-//        Text("Episode url: \(episode.videoUrl)")
         VideoPlayer(player: AVPlayer(url:  URL(string: episode.videoUrl)!)) {
-//            VStack {
-//                Text("KSHOW")
-//                    .foregroundColor(.black)
-//                    .background(Color.white.opacity(0.7))
-//                Spacer()
-//            }
-//            .frame(width: 400, height: 300)
+            VStack {
+                Image("kshow_logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 50)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+         
         
     }
     
