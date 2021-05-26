@@ -98,13 +98,11 @@ struct ContentView: View {
                     .tag(Tab.list)
                 
                
-//                ShowList()
-//                    .tabItem {
-//
-//                        Label("", systemImage: "square.and.arrow.down")
-//
-//                    }
-//                    .tag(Tab.list)
+                SearchView()
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }.tag(1)
                 
                 Menu()
                     .tabItem {

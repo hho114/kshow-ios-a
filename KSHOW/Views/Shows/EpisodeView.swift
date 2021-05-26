@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EpisodeView: View {
-    var episodes: [Episode]
+    var episodes: [Episode] = []
     @Binding var showSeasonPicker: Bool
     @Binding var selectedSeason: Int
     func getEpisodes(forSeason season: Int) -> [Episode] {

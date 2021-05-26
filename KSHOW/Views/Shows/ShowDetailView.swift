@@ -62,7 +62,7 @@ struct ShowDetailView: View {
                           CastRow()
                             
                             HStack(spacing: 30) {
-                                SmallVerticalButton(isOn: true, text: "My List", imageForSelected: "checkmark", imageForNonSelected: "plus") {
+                                SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
                                     //
                                 }
                                 SmallVerticalButton(isOn: false, text: "Rate", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {

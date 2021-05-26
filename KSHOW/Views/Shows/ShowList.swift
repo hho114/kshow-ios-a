@@ -21,9 +21,9 @@ struct ShowList: View {
     var body: some View {
         NavigationView {
             List{
-                Toggle(isOn: $showFavoritesOnly, label: {
-                    Text("Favorites only")
-                })
+//                Toggle(isOn: $showFavoritesOnly, label: {
+//                    Text("Favorites only")
+//                })
                 ForEach(modelData.shows)
                 {show in
                 NavigationLink(destination: ShowDetailView(show: show)){

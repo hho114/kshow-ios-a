@@ -14,9 +14,10 @@ struct Cast: Codable, Identifiable {
     var id: String
     var name: String
     var imageUrl: String
+    var profileUrl: String
 
     
-    static let `default` = Cast( id: "00000",name: "namecast", imageUrl: "n/a")
+    static let `default` = Cast( id: "00000",name: "namecast", imageUrl: "", profileUrl: "")
     
 
 }
