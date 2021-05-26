@@ -77,7 +77,7 @@ struct CustomTabSwitcher: View {
 
             }
         }
-        .foregroundColor(.white)
+//        .foregroundColor(.white)
     }
     
     func fetchEpisodeList(){

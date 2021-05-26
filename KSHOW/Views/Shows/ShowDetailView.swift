@@ -58,6 +58,7 @@ struct ShowDetailView: View {
                             CurrentEpisodeInformationView(show: show)
                             
 //                            CastInfoView(show: show)
+                            CastRow()
                           CastRow()
                             
                             HStack(spacing: 30) {
@@ -96,7 +97,7 @@ struct ShowDetailView: View {
                                 Text("Season \(season + 1)")
                                     .font(selectedSeason == season + 1 ? .title : .title2)
                                     .bold()
-                                    .foregroundColor(selectedSeason == season + 1 ? .primary : .secondary)
+//                                    .foregroundColor(selectedSeason == season + 1 ? .white : .secondary)
                                 
                             })
                             
@@ -131,7 +132,7 @@ struct MovieSubHeadingInfoView: View {
     var show: Show
     var body: some View {
         HStack(spacing: 20) {
-            Image(systemName: "hand.thumbsup.fill")
+//            Image(systemName: "hand.thumbsup.fill")
 //                .foregroundColor(.white)
             Text(show.name)
             RatingView(rating: "\(show.rating)")

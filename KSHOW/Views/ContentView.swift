@@ -70,25 +70,6 @@ struct ContentView: View {
     }
     
     
-//    func resetAccount() {
-//        if Auth.auth().currentUser != nil{
-//            let firebaseAuth = Auth.auth()
-//        do {
-//          try firebaseAuth.signOut()
-//            UserDefaults.standard.set(false, forKey: "status")
-//            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-//            modelData.shows = []
-//            modelData.user = User.default
-//            modelData.permission = Permission.default
-//
-//
-//        } catch let signOutError as NSError {
-//          print ("Error signing out: %@", signOutError)
-//        }
-//        }
-//
-//    }
-    
 
     struct HomeScreen: View{
         @EnvironmentObject var modelData: ModelData

@@ -11,7 +11,6 @@ import AVKit
 
 struct SwiftUIVideoView: View {
     var url: URL
-    @Environment(\.presentationMode) var presentationMode
     private var player: AVPlayer {
         return AVPlayer(url: url)
     }
