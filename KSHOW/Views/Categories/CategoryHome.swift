@@ -26,14 +26,19 @@ struct CategoryHome: View {
                 if !modelData.features.isEmpty
                 {
 
-                    PageView(pages: modelData.features.map { FeatureCard(show: $0) })
+                    PageView(pages: modelData.features.map {
+                                
+                                FeatureCard(show: $0)
+                        
+                    }
+                    )
 
                                         .aspectRatio(3 / 2, contentMode: .fit)
 
                                         .listRowInsets(EdgeInsets())
                 }
 //
-                CastRow()
+                CastRow(casts: modelData.casts, title: "Top Star")
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 
@@ -65,6 +70,8 @@ struct CategoryHome: View {
 //                                .environmentObject(modelData)
 //
 //                        }
+            .navigationBarTitle("")
+                    .navigationBarHidden(true)
         }
 
             

@@ -9,15 +9,16 @@ import SwiftUI
 
 struct CastRow: View {
     
-//    var  casts: [Cast]
-    @EnvironmentObject var modelData: ModelData
+    var  casts: [Cast]
+    var title: String
+//    @EnvironmentObject var modelData: ModelData
 
 //    @Binding var showPreviewFullscreen: Bool
 //    @Binding var previewStartingIndex: Int
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Cast:")
+            Text("\(title):")
                 .font(.title3)
                 .bold()
 //                .foregroundColor(.white)
@@ -25,7 +26,7 @@ struct CastRow: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(modelData.casts) { cast in
+                    ForEach(casts) { cast in
                        
                         VStack
                         {

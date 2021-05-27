@@ -7,11 +7,15 @@
 
 import SwiftUI
 import Kingfisher
+import FirebaseDatabase
+import CodableFirebase
 
 struct ShowDetailView: View {
 //    var movie: Movie
     var show: Show
     let screen = UIScreen.main.bounds
+    @EnvironmentObject var modelData: ModelData
+
     
     @State private var showSeasonPicker = false
     @State private var selectedSeason = 1
@@ -58,8 +62,8 @@ struct ShowDetailView: View {
                             CurrentEpisodeInformationView(show: show)
                             
 //                            CastInfoView(show: show)
-                            CastRow()
-                          CastRow()
+                          
+                            CastRow(casts: modelData.casts, title: "Casts")
                             
                             HStack(spacing: 30) {
                                 SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
@@ -76,7 +80,7 @@ struct ShowDetailView: View {
                             }
                             .padding(.leading, 20)
                             
-                            CustomTabSwitcher(tabs: [.episodes, .trailer, .more], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                            CustomTabSwitcher(tabs: [.episodes, .trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                         }
                         .padding(.horizontal, 10)
                     }
@@ -119,6 +123,28 @@ struct ShowDetailView: View {
             }
         }
     }
+    
+//    func fetchEpisodeList(){
+//           
+//           Database.database().reference().child("shows").child(show.id).observe(.value) { snapshot in
+//            
+//            modelData.episodes = []
+//               for child in snapshot.children.allObjects as! [DataSnapshot] {
+//               do {
+//                   let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)
+//                   print(model)
+//                    modelData.episodes.append(model)
+//                   UserDefaults.standard.set(false, forKey: "load")
+//                   NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
+//               } catch let error {
+//                   print(error)
+//               }
+//                   
+//                   
+//             }
+//               
+//           }
+//       }
     
 }
 

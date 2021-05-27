@@ -25,6 +25,8 @@ struct ContentView: View {
         
         case list
         
+        case search
+        
         case menu
         
     }
@@ -66,7 +68,8 @@ struct ContentView: View {
             }
             
             
-            }.ignoresSafeArea()
+            }.navigationBarTitle("")
+            .navigationBarHidden(true)
     }
     
     
@@ -83,7 +86,7 @@ struct ContentView: View {
                 CategoryHome()
                     .tabItem {
                         
-                        Label("", systemImage: "house")
+                        Label("Home", systemImage: "house")
                         
                     }
                     .tag(Tab.featured)
@@ -92,22 +95,22 @@ struct ContentView: View {
                 ShowList()
                     .tabItem {
                         
-                        Label("", systemImage: "star")
+                        Label("Follow", systemImage: "checkmark")
                         
                     }
                     .tag(Tab.list)
                 
                
-                SearchView()
-                    .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }.tag(1)
-                
+//                SearchView()
+//                    .tabItem {
+//                        Image(systemName: "magnifyingglass")
+//                        Text("Search")
+//                    }.tag(Tab.search)
+//                
                 Menu()
                     .tabItem {
                         
-                        Label("", systemImage: "list.bullet")
+                        Label("Menu", systemImage: "list.bullet")
                         
                     }
                     .tag(Tab.menu)
@@ -115,9 +118,7 @@ struct ContentView: View {
                 
             }
             .transition(.slide).animation(.easeInOut(duration: 0.5))
-            .onAppear{
-                
-            }
+            
         }
     }
     

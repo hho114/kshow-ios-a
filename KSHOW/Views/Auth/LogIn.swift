@@ -108,10 +108,9 @@ struct Login: View{
                 
             }.padding(.top, 25)
         }.padding(.horizontal, 25)
-        .onAppear{
-            
-        }
-       
+        
+        .navigationBarTitle("")
+                .navigationBarHidden(true)
        }
 
         

@@ -34,11 +34,11 @@ struct HomeView: View {
                         .zIndex(-1)
                     
                     
-                    CastRow(
+//                    CastRow(
                         
 //                        showPreviewFullscreen: $showPreviewFullscreen,
 //                        previewStartingIndex: $previewStartingIndex
-                    )
+//                    )
                     
                     CategoryHome()
 //                    HomeStack(vm: vm, topRowSelection: topRowSelection, genre: homeGenre, movieDetailToShow: $movieDetailToShow)

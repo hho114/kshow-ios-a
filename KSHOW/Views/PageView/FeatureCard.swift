@@ -21,9 +21,15 @@ struct FeatureCard: View {
 //
 //            .aspectRatio(3 / 2, contentMode: .fit)
 //            .overlay(TextOverlay(landmark: landmark))
-        KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
-                    .aspectRatio(3 / 2, contentMode: .fit)
+//        NavigationView{
+//            NavigationLink(destination: ShowDetailView(show: show)){
+                KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
+                            .aspectRatio(3 / 2, contentMode: .fit)
                     .overlay(TextOverlay(show: show))
+//            }
+            
+//        }
+        
     }
 
 }

@@ -62,7 +62,7 @@ struct CustomTabSwitcher: View {
                         fetchEpisodeList()
                         NotificationCenter.default.addObserver(forName: NSNotification.Name("load"), object: nil, queue: .main) { (_) in
                             
-                            self.load = UserDefaults.standard.value(forKey: "load") as? Bool ?? false
+                            self.load = UserDefaults.standard.value(forKey: "load") as? Bool ?? true
 
                         }
                     }
@@ -83,6 +83,8 @@ struct CustomTabSwitcher: View {
     func fetchEpisodeList(){
            
            Database.database().reference().child("shows").child(show.id).observe(.value) { snapshot in
+            
+            modelData.episodes = []
                for child in snapshot.children.allObjects as! [DataSnapshot] {
                do {
                    let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)

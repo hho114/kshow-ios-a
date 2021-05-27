@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,6 +34,7 @@
 		FA0FF95F265DE59D004FA561 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0FF95E265DE59D004FA561 /* SearchView.swift */; };
 		FA0FF961265DE5BB004FA561 /* PopularShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0FF960265DE5BB004FA561 /* PopularShowsView.swift */; };
 		FA0FF963265DE5D3004FA561 /* SearchResultsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0FF962265DE5D3004FA561 /* SearchResultsGrid.swift */; };
+		FA46527A265EE99300EAE211 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = FA465279265EE99300EAE211 /* VideoPlayer */; };
 		FA479DE12654367900E8E56D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA479DE02654367900E8E56D /* Menu.swift */; };
 		FA479DE32656C1DF00E8E56D /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA479DE22656C1DF00E8E56D /* Show.swift */; };
 		FA509774264C325E00D94F4E /* KSHOWApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA509773264C325E00D94F4E /* KSHOWApp.swift */; };
@@ -140,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FA028A45A97DC4568A69BE0 /* Pods_KSHOW.framework in Frameworks */,
+				FA46527A265EE99300EAE211 /* VideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +412,7 @@
 			);
 			name = KSHOW;
 			packageProductDependencies = (
+				FA465279265EE99300EAE211 /* VideoPlayer */,
 			);
 			productName = KSHOW;
 			productReference = FA509770264C325E00D94F4E /* KSHOW.app */;
@@ -439,6 +442,7 @@
 			);
 			mainGroup = FA509767264C325E00D94F4E;
 			packageReferences = (
+				FA465278265EE99300EAE211 /* XCRemoteSwiftPackageReference "VideoPlayer" */,
 			);
 			productRefGroup = FA509771264C325E00D94F4E /* Products */;
 			projectDirPath = "";
@@ -754,6 +758,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA465278265EE99300EAE211 /* XCRemoteSwiftPackageReference "VideoPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wxxsw/VideoPlayer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA465279265EE99300EAE211 /* VideoPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA465278265EE99300EAE211 /* XCRemoteSwiftPackageReference "VideoPlayer" */;
+			productName = VideoPlayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA509768264C325E00D94F4E /* Project object */;
 }

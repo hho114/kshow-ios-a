@@ -11,11 +11,24 @@ import AVKit
 
 struct SwiftUIVideoView: View {
     var url: URL
+    @State var pause = false
     private var player: AVPlayer {
         return AVPlayer(url: url)
     }
     var body: some View {
-        VideoPlayer(player: player)
+        ZStack{
+            
+            VideoPlayer(player: player).onAppear() {
+                // Start the player going, otherwise controls don't appear
+                player.play()
+                
+            }
+            .onDisappear() {
+                // Stop the player when the view disappears
+                player.pause()
+            }
+        }
+        
     }
 }
 
