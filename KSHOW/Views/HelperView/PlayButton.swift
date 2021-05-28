@@ -33,15 +33,15 @@ struct PlayButton: View {
     }
 }
 
-struct WhiteButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.black
-                .edgesIgnoringSafeArea(.all)
-            PlayButton(text: "Play", imageName: "play.fill") {
-                print("Tapped")
-            }
-        }
-    }
-}
+//struct WhiteButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            Color.black
+//                .edgesIgnoringSafeArea(.all)
+//            PlayButton(text: "Play", imageName: "play.fill") {
+//                print("Tapped")
+//            }
+//        }
+//    }
+//}
 

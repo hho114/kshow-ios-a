@@ -10,7 +10,8 @@ import SwiftUI
 struct CategoryHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
-    
+    let screen = UIScreen.main.bounds
+   
     
     var body: some View {
                 
@@ -23,21 +24,28 @@ struct CategoryHome: View {
 //                        .scaledToFit()
 //                        .frame(width: 50)
 //                }
-                if !modelData.features.isEmpty
-                {
-
-                    PageView(pages: modelData.features.map {
-                                
-                                FeatureCard(show: $0)
-                        
-                    }
-                    )
-
-                                        .aspectRatio(3 / 2, contentMode: .fit)
-
-                                        .listRowInsets(EdgeInsets())
-                }
+//                if !modelData.features.isEmpty
+//                {
 //
+//                    PageView(pages: modelData.features.map {
+//
+//                                FeatureCard(show: $0)
+//
+//                    }
+//                    )
+//
+//                                        .aspectRatio(3 / 2, contentMode: .fit)
+//
+//                                        .listRowInsets(EdgeInsets())
+//                }
+
+                TopShowPreview(show: modelData.features[0])
+//
+                    
+//                    .frame(width: screen.width)
+//                    .padding(.top, -110)
+//                    .zIndex(-1)
+                
                 CastRow(casts: modelData.casts, title: "Top Star")
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in

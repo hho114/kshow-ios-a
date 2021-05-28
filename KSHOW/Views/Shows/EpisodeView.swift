@@ -35,7 +35,7 @@ struct EpisodeView: View {
             ForEach(getEpisodes(forSeason: selectedSeason)) { episode in
                 VStack(alignment: .leading) {
                     HStack {
-                        VideoPreviewImage(imageURL: URL(string:episode.imageUrl)!, videoURL: URL(string:episode.videoUrl)!)
+                        VideoPreviewImage(imageURL: URL(string:episode.imageUrl)!, videoURL: episode.videoUrl)
                             .frame(width: 120, height: 70)
                             .clipped()
                         

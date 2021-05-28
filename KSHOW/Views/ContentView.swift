@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var status = false
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
     @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
+    @State var loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
 //  
    
     enum Tab {
@@ -33,43 +34,48 @@ struct ContentView: View {
     
     var body: some View {
         
-
-            VStack{
-               
-            if self.status {
-                
-                VStack{
-                    
-                    HomeScreen()
-                }
-                .onAppear{
-                    NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-                        
-                        self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                    }
-                    
-                }
-                
-                
-            } else {
-                VStack{
-                    Login()
-                }
-                .onAppear{
-                    NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-                        
-                        self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-//                        self.resetAccount()
-                    }
-
-                   
-                    
-                }
-            }
+        LoadingView(isShowing: .constant(UserDefaults.standard.value(forKey: "loading") as? Bool ?? false))
+        {
             
+                        VStack{
+                           
+                        if self.status {
+                            
+                            VStack{
             
-            }.navigationBarTitle("")
-            .navigationBarHidden(true)
+                                HomeScreen()
+                            }
+                           .onAppear{
+                            
+                            NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+                                
+                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                            }
+                                
+                            }
+                            
+                            
+                        } else {
+                            VStack{
+                                Login()
+                            }
+                            .onAppear{
+                                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+                                    
+                                    self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
+            //                        self.resetAccount()
+                                }
+
+                               
+                                
+                            }
+                        }
+                        
+                        
+                        }
+        }
+
     }
     
     

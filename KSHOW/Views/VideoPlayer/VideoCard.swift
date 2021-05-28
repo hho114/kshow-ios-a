@@ -26,7 +26,7 @@ struct VideoCard: View {
             
         }.onTapGesture {
             // You Tapped the Video Card!
-            showPlayIcon = !showPlayIcon
+//            showPlayIcon = !showPlayIcon
         }
 
     }

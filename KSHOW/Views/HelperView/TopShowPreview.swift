@@ -10,6 +10,7 @@ import Kingfisher
 
 struct TopShowPreview: View {
     let show: Show
+    @State private var showingVideoPlayer = false
     func shouldShowCircleAfterCategory(_ cat: String) -> Bool {
         guard let index = show.category.firstIndex(of: cat) else {
             return false
@@ -20,7 +21,7 @@ struct TopShowPreview: View {
         ZStack {
             KFImage(URL(string:show.thumbnailImageUrl))
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
             VStack {
                 Spacer()
                 HStack {
@@ -29,7 +30,7 @@ struct TopShowPreview: View {
                             .font(.footnote)
                         if shouldShowCircleAfterCategory(category) {
                             Image(systemName: "circle.fill")
-                                .foregroundColor(.blue)
+//                                .foregroundColor(.blue)
                                 .font(.system(size: 4))
                         }
                     }
@@ -42,8 +43,13 @@ struct TopShowPreview: View {
                     Spacer()
                     PlayButton(text: "Play", imageName: "play.fill") {
                         //
+                        showingVideoPlayer = true
                     }
                     .frame(width: 120)
+                    .fullScreenCover(isPresented: $showingVideoPlayer, content: {
+                        VideoWebView(url: show.trailerUrl)
+                    })
+                    
                     Spacer()
                     SmallVerticalButton(isOn: true, text: "Info", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {
                         //
@@ -55,7 +61,7 @@ struct TopShowPreview: View {
             .background(LinearGradient.blackTopToBottom)
             .padding(.top, 300)
         }
-        .foregroundColor(.white)
+//        .foregroundColor(.white)
     }
 }
 

@@ -118,7 +118,9 @@ struct Login: View{
     
    
     func Verify(){
-
+        UserDefaults.standard.set(true, forKey: "loading")
+        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+        
         if self.email != "" && self.pass != ""{
             Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
                 
@@ -251,6 +253,8 @@ struct Login: View{
         NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
         UserDefaults.standard.set(pass, forKey: "pass")
         NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
+        UserDefaults.standard.set(false, forKey: "loading")
+        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
     }
     
     
