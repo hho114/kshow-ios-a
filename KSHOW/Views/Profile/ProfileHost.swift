@@ -15,61 +15,65 @@ struct ProfileHost: View {
 //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
 
-            HStack {
+            VStack(alignment: .leading, spacing: 20) {
 
-                if editMode?.wrappedValue == .active {
+                HStack {
 
-                                    Button("Cancel") {
+                    if editMode?.wrappedValue == .active {
 
-                                        draftUser = modelData.user
+                                        Button("Cancel") {
 
-                                        editMode?.animation().wrappedValue = .inactive
+                                            draftUser = modelData.user
+
+                                            editMode?.animation().wrappedValue = .inactive
+
+                                        }
 
                                     }
+                               Spacer()
 
-                                }
-                           Spacer()
+                               EditButton()
 
-                           EditButton()
+                        }
+
+
+                if editMode?.wrappedValue == .inactive {
+
+                               ProfileSummary(user: modelData.user)
+
+                           } else {
+
+                            ProfileEditor(user: $draftUser)
+                                .onAppear {
+
+                                                       draftUser = modelData.user
+
+                                                   }
+
+                                                   .onDisappear {
+
+                                                       modelData.user = draftUser
+
+                                                   }
+
+                           }
+                
 
                     }
-
-
-            if editMode?.wrappedValue == .inactive {
-
-                           ProfileSummary(user: modelData.user)
-
-                       } else {
-
-                        ProfileEditor(user: $draftUser)
-                            .onAppear {
-
-                                                   draftUser = modelData.user
-
-                                               }
-
-                                               .onDisappear {
-
-                                                   modelData.user = draftUser
-
-                                               }
-
-                       }
             
+            .padding()
 
-                }
-
-                .padding()
-    }
-    
-    
-}
-
-struct ProfileHost_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileHost().environmentObject(ModelData())
+        
         
     }
+    
+    
 }
+
+//struct ProfileHost_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileHost().environmentObject(ModelData())
+//        
+//    }
+//}

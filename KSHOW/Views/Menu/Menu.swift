@@ -35,11 +35,14 @@ struct Menu: View {
                     
                     
                 }
-//                .navigationTitle("Menu")
+
+                
                 .listStyle(SidebarListStyle())
                 
 
             }
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
     }
     
@@ -52,6 +55,9 @@ struct Menu: View {
         modelData.shows = []
         modelData.user = User.default
         modelData.permission = Permission.default
+        modelData.casts = []
+        
+        
         
         
     } catch let signOutError as NSError {

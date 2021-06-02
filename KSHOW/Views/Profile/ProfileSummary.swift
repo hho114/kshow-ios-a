@@ -12,80 +12,85 @@ struct ProfileSummary: View {
     var user: User
     
     var body: some View {
-        ScrollView {
+        
+            ScrollView{
 
-                   VStack(alignment: .leading, spacing: 10) {
+                       VStack() {
 
-                       Text(user.username)
+                           Text(user.username)
 
-                           .bold()
+                               .bold()
 
-                           .font(.title)
+                               .font(.title)
 
-                    Text("Email: \(user.email)")
-//                       Text("Notifications: \(user.prefersNotifications ? "On": "Off" )")
+                        Text("Email: \(user.email)")
+    //                       Text("Notifications: \(user.prefersNotifications ? "On": "Off" )")
 
-                   
+                       
 
-//                       Text("Goal Date: ") + Text(profile.goalDate, style: .date)
+    //                       Text("Goal Date: ") + Text(profile.goalDate, style: .date)
 
-                    Divider()
+                        Divider()
 
 
-//                    VStack(alignment: .leading) {
-//
-//                        Text("Completed Badges")
-//
-//                            .font(.headline)
-//
-//
-//                        ScrollView(.horizontal) {
-//
-//                            HStack {
-//
-//                                HikeBadge(name: "First Hike")
-//
-//                                HikeBadge(name: "Earth Day")
-//
-//                                    .hueRotation(Angle(degrees: 90))
-//
-//                                HikeBadge(name: "Tenth Hike")
-//
-//                                    .grayscale(0.5)
-//
-//                                    .hueRotation(Angle(degrees: 45))
-//
-//                            }
-//
-//                            .padding(.bottom)
-//
-//                        }
-//
-//                    }
-//                    
-//                    
-//                    Divider()
-//
-//
-//                                   VStack(alignment: .leading) {
-//
-//                                       Text("Recent Hikes")
-//
-//                                           .font(.headline)
-//
-//
-//                                       HikeView(hike: modelData.hikes[0])
-//
-//                                   }
+    //                    VStack(alignment: .leading) {
+    //
+    //                        Text("Completed Badges")
+    //
+    //                            .font(.headline)
+    //
+    //
+    //                        ScrollView(.horizontal) {
+    //
+    //                            HStack {
+    //
+    //                                HikeBadge(name: "First Hike")
+    //
+    //                                HikeBadge(name: "Earth Day")
+    //
+    //                                    .hueRotation(Angle(degrees: 90))
+    //
+    //                                HikeBadge(name: "Tenth Hike")
+    //
+    //                                    .grayscale(0.5)
+    //
+    //                                    .hueRotation(Angle(degrees: 45))
+    //
+    //                            }
+    //
+    //                            .padding(.bottom)
+    //
+    //                        }
+    //
+    //                    }
+    //
+    //
+    //                    Divider()
+    //
+    //
+    //                                   VStack(alignment: .leading) {
+    //
+    //                                       Text("Recent Hikes")
+    //
+    //                                           .font(.headline)
+    //
+    //
+    //                                       HikeView(hike: modelData.hikes[0])
+    //
+    //                                   }
+                       }
+                       
                    }
+           
+        
+        
 
-               }
     }
 }
 
-struct ProfileSummary_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileSummary(user: User.default)
-            .environmentObject(ModelData())
-    }
-}
+//struct ProfileSummary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileSummary(user: User.default)
+//            .environmentObject(ModelData())
+//    }
+//}
