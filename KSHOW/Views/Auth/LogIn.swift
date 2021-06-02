@@ -25,7 +25,8 @@ struct Login: View{
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
-       NavigationView{
+        LoadingView(isShowing: $startVerify){
+        NavigationView{
         VStack(){
             Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
             
@@ -81,13 +82,15 @@ struct Login: View{
             Button(action: {
                 self.Verify()
                 self.startVerify = true
+//                UserDefaults.standard.set(true, forKey: "loading")
+//                NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
             }) {
                 Text("SIGN IN")
 //                    .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.vertical)
 //                 .frame(width: UIScreen.main.bounds.width - 50)
-            }.disabled(startVerify)
+            }
 //            .background(Color("Dominant"))
             .cornerRadius(6)
             .padding(.top, 15)
@@ -112,15 +115,14 @@ struct Login: View{
         
         .navigationBarTitle("")
                 .navigationBarHidden(true)
-       }
+       }}
 
         
     }
     
    
     func Verify(){
-        UserDefaults.standard.set(true, forKey: "loading")
-        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+        
         
         if self.email != "" && self.pass != ""{
             Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
@@ -256,6 +258,7 @@ struct Login: View{
         NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
         UserDefaults.standard.set(false, forKey: "loading")
         NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+        self.startVerify = false
     }
     
     

@@ -33,7 +33,8 @@ struct SignUp: View{
             
 //            GeometryReader{_ in
                 
-                VStack{
+                LoadingView(isShowing: $startSignup){
+                    VStack{
                     Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
                     
                     Text("Sign up a new account")
@@ -111,7 +112,7 @@ struct SignUp: View{
                             .fontWeight(.bold)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
-                    }.disabled(startSignup)
+                    }
 //                    .background(Color("Dominant"))
                     .cornerRadius(6)
                     .padding(.top, 15)
@@ -120,7 +121,7 @@ struct SignUp: View{
                             .default(Text("OK").fontWeight(.semibold)))
                     }
                     
-                }
+                }}
                 .padding(.horizontal, 25)
 //            }
 //        }
@@ -158,6 +159,7 @@ struct SignUp: View{
                             NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
                             UserDefaults.standard.set(pass, forKey: "pass")
                             NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
+                            self.startSignup = false
                         }
                         else
                         {

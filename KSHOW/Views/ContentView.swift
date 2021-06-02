@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var status = false
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
     @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
-    @State var loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
+//    @State var loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
 //  
    
     enum Tab {
@@ -34,8 +34,8 @@ struct ContentView: View {
     
     var body: some View {
         
-        LoadingView(isShowing: .constant(UserDefaults.standard.value(forKey: "loading") as? Bool ?? false))
-        {
+//        LoadingView(isShowing: .constant(UserDefaults.standard.value(forKey: "loading") as? Bool ?? false))
+//        {
             
                         VStack{
                            
@@ -63,7 +63,7 @@ struct ContentView: View {
                                 NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
                                     
                                     self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
+//                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
             //                        self.resetAccount()
                                 }
 
@@ -74,7 +74,7 @@ struct ContentView: View {
                         
                         
                         }
-        }
+//        }
 
     }
     
