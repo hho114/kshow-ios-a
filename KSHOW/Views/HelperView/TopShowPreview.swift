@@ -22,6 +22,7 @@ struct TopShowPreview: View {
             KFImage(URL(string:show.thumbnailImageUrl))
                 .resizable()
                 .scaledToFit()
+            
             VStack {
                 Spacer()
                 HStack {
@@ -46,7 +47,7 @@ struct TopShowPreview: View {
                         showingVideoPlayer = true
                     }
                     .frame(width: 120)
-                    .fullScreenCover(isPresented: $showingVideoPlayer, content: {
+                    .sheet(isPresented: $showingVideoPlayer, content: {
                         VideoWebView(url: show.trailerUrl)
                     })
                     
@@ -58,7 +59,7 @@ struct TopShowPreview: View {
                 }
                 .padding(.vertical, 14)
             }
-            .background(LinearGradient.blackTopToBottom)
+//            .background(LinearGradient.blackTopToBottom)
             .padding(.top, 300)
         }
 //        .foregroundColor(.white)

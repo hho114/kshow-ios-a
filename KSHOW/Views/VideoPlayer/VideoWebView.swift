@@ -11,8 +11,26 @@ import WebKit
 struct VideoWebView: View {
     var url: String
     var body: some View {
+        VStack{
+//            PlayButton(text: "", imageName: "arrowtriangle.down") {
+//
+//            }
+//            .frame(width: 120)
+            Button(action: {
+                print("Edit button was tapped")
+            }) {
+//                I
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrowtriangle.down")
+                    
+                    Spacer()
+                }
+            }
+            
+            Webview(url: URL(string: url)!)
+        }
         
-        Webview(url: URL(string: url)!)
     }
 }
 
@@ -25,6 +43,7 @@ struct Webview: UIViewRepresentable {
         let webview = WKWebView()
         webview.navigationDelegate = navigationHelper
         webview.configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
+        webview.allowsBackForwardNavigationGestures = false
         webview.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
             for cookie in cookies {
                 if cookie.name == "authentication" {
@@ -35,7 +54,10 @@ struct Webview: UIViewRepresentable {
             }
         }
         let request = URLRequest(url: self.url, cachePolicy: .returnCacheDataElseLoad)
-        webview.load(request)
+            webview.load(request)
+//        let embededHTML = "<html><body><iframe src=\"https://www.fembed.com/v/y24l0fe1dj0jqd6\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"422px\"></iframe></body></html>"
+//        webview.loadHTMLString(embededHTML, baseURL: nil)
+
 
         return webview
     }
@@ -43,7 +65,8 @@ struct Webview: UIViewRepresentable {
     func updateUIView(_ webview: WKWebView, context: UIViewRepresentableContext<Webview>) {
         let request = URLRequest(url: self.url, cachePolicy: .returnCacheDataElseLoad)
         webview.load(request)
-       
+//        let embededHTML = "<html><body><iframe src=\"https://www.fembed.com/v/y24l0fe1dj0jqd6\" scrolling=\"false\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
+//        webview.loadHTMLString(embededHTML, baseURL: nil)
     }
     
 }

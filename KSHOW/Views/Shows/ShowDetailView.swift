@@ -19,7 +19,7 @@ struct ShowDetailView: View {
     
     @State private var showSeasonPicker = false
     @State private var selectedSeason = 1
-    
+    @State private var showingVideoPlayer = false
 //    @Binding var showDetailToShow: Show?
     
     var body: some View {
@@ -58,7 +58,12 @@ struct ShowDetailView: View {
                             
                             PlayButton(text: "Play", imageName: "play.fill", backgroundColor: .red) {
                                 print("PlayButton Tapped")
+                                showingVideoPlayer = true
                             }
+                            .frame(width: 120)
+                            .sheet(isPresented: $showingVideoPlayer, content: {
+                                VideoWebView(url: show.trailerUrl)
+                            })
                             CurrentEpisodeInformationView(show: show)
                             
 //                            CastInfoView(show: show)

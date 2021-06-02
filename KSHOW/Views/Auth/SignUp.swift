@@ -23,6 +23,7 @@ struct SignUp: View{
     @State var alert = false
     @State var error = ""
     @State var title = ""
+    @State var startSignup = false
     @Environment(\.presentationMode) var presentationMode
  
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
@@ -103,13 +104,14 @@ struct SignUp: View{
                     // Sign up button
                     Button(action: {
                         self.Register()
+                        self.startSignup = true
                     }) {
                         Text("SIGN UP")
 //                            .foregroundColor(.white)
                             .fontWeight(.bold)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
-                    }
+                    }.disabled(startSignup)
 //                    .background(Color("Dominant"))
                     .cornerRadius(6)
                     .padding(.top, 15)

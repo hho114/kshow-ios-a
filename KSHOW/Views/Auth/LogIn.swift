@@ -21,7 +21,7 @@ struct Login: View{
     @State var title = ""
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
-    
+    @State var startVerify = false
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
@@ -80,13 +80,14 @@ struct Login: View{
             // Sign in button
             Button(action: {
                 self.Verify()
+                self.startVerify = true
             }) {
                 Text("SIGN IN")
 //                    .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.vertical)
 //                 .frame(width: UIScreen.main.bounds.width - 50)
-            }
+            }.disabled(startVerify)
 //            .background(Color("Dominant"))
             .cornerRadius(6)
             .padding(.top, 15)

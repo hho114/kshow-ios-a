@@ -39,12 +39,16 @@ struct CategoryHome: View {
 //                                        .listRowInsets(EdgeInsets())
 //                }
 
-                TopShowPreview(show: modelData.features[0])
-//
-                    
-//                    .frame(width: screen.width)
-//                    .padding(.top, -110)
-//                    .zIndex(-1)
+                if (modelData.features.count > 0)
+                {
+                    TopShowPreview(show: modelData.features[0])
+//                                        .frame(width: screen.width)
+                                        .padding(.top, -110)
+                                        .zIndex(-1)
+                }
+                
+
+
                 
                 CastRow(casts: modelData.casts, title: "Top Star")
 

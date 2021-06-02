@@ -35,14 +35,14 @@ struct SmallVerticalButton: View {
     }
 }
 
-struct SmallVerticalButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.black
-                .edgesIgnoringSafeArea(.all)
-            SmallVerticalButton(isOn: true, text: "My List", imageForSelected: "checkmark", imageForNonSelected: "plus") {
-                print("action")
-            }
-        }
-    }
-}
+//struct SmallVerticalButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            Color.black
+//                .edgesIgnoringSafeArea(.all)
+//            SmallVerticalButton(isOn: true, text: "My List", imageForSelected: "checkmark", imageForNonSelected: "plus") {
+//                print("action")
+//            }
+//        }
+//    }
+//}
