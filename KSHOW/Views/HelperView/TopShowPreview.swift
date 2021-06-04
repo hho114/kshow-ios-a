@@ -42,14 +42,14 @@ struct TopShowPreview: View {
                         //
                     }
                     Spacer()
-                    PlayButton(text: "Play", imageName: "play.fill") {
-                        //
-                        showingVideoPlayer = true
-                    }
-                    .frame(width: 120)
-                    .sheet(isPresented: $showingVideoPlayer, content: {
-                        VideoWebView(url: show.trailerUrl)
-                    })
+//                    PlayButton(text: "Play", imageName: "play.fill") {
+//                        //
+//                        showingVideoPlayer = true
+//                    }
+//                    .frame(width: 120)
+//                    .sheet(isPresented: $showingVideoPlayer, content: {
+//                        VideoWebView(url: show.trailerUrl)
+//                    })
                     
                     Spacer()
                     SmallVerticalButton(isOn: true, text: "Info", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {

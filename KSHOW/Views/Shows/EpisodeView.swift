@@ -11,6 +11,7 @@ struct EpisodeView: View {
     var episodes: [Episode] = []
     @Binding var showSeasonPicker: Bool
     @Binding var selectedSeason: Int
+    var imageUrl: String = ""
     func getEpisodes(forSeason season: Int) -> [Episode] {
         episodes.filter({ $0.season == season })
     }
@@ -35,7 +36,7 @@ struct EpisodeView: View {
             ForEach(getEpisodes(forSeason: selectedSeason)) { episode in
                 VStack(alignment: .leading) {
                     HStack {
-                        VideoPreviewImage(imageURL: URL(string:episode.imageUrl)!, videoURL: episode.videoUrl)
+                        VideoPreviewImage(imageURL: URL(string:imageUrl)!, videoURL: episode.videoUrl)
                             .frame(width: 120, height: 70)
                             .clipped()
                         

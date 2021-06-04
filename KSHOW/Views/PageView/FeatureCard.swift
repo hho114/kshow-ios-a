@@ -12,7 +12,7 @@ struct FeatureCard: View {
 
 //    var landmark: Landmark
     var show: Show
-
+    
     var body: some View {
 
 //        landmark.featureImage?
@@ -22,11 +22,11 @@ struct FeatureCard: View {
 //            .aspectRatio(3 / 2, contentMode: .fit)
 //            .overlay(TextOverlay(landmark: landmark))
 //        NavigationView{
-//            NavigationLink(destination: ShowDetailView(show: show)){
+            NavigationLink(destination: ShowDetailView(show: show)){
                 KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
                             .aspectRatio(3 / 2, contentMode: .fit)
                     .overlay(TextOverlay(show: show))
-//            }
+            }
             
 //        }
         

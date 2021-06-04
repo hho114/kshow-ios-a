@@ -10,10 +10,11 @@ import Kingfisher
 
 struct EpisodeRow: View {
     var episode: Episode
+    var imageUrl: String
     var body: some View {
         HStack {
 //            landmark.image.resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            KFImage(URL(string: episode.imageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            KFImage(URL(string: imageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             Text("\(episode.episodeNumber)")
             Spacer()
 //            if landmark.isFavorite

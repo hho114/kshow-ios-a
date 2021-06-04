@@ -53,7 +53,7 @@ struct ShowDetail: View {
                     ForEach(episodes)
                     {episode in
                     NavigationLink(destination: EpisodeDetail(episode: episode)){
-                            EpisodeRow(episode: episode)
+                        EpisodeRow(episode: episode, imageUrl: show.thumbnailImageUrl)
                         
                         }
                     }.listStyle(InsetListStyle()).transition(.slide).animation(.easeInOut(duration: 0.5))

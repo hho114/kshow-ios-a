@@ -15,7 +15,6 @@ struct ShowDetailView: View {
     var show: Show
     let screen = UIScreen.main.bounds
     @EnvironmentObject var modelData: ModelData
-
     
     @State private var showSeasonPicker = false
     @State private var selectedSeason = 1

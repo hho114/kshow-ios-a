@@ -11,7 +11,7 @@ struct CategoryHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     let screen = UIScreen.main.bounds
-   
+//    @State show: Show
     
     var body: some View {
                 
@@ -27,12 +27,15 @@ struct CategoryHome: View {
 //                if !modelData.features.isEmpty
 //                {
 //
-//                    PageView(pages: modelData.features.map {
 //
-//                                FeatureCard(show: $0)
+//                        PageView(pages: modelData.features.map {
 //
-//                    }
-//                    )
+//                            FeatureCard(show: $0)
+//
+//                        }
+//                        )
+//
+//
 //
 //                                        .aspectRatio(3 / 2, contentMode: .fit)
 //
@@ -41,10 +44,15 @@ struct CategoryHome: View {
 
                 if (modelData.features.count > 0)
                 {
-                    TopShowPreview(show: modelData.features[0])
-//                                        .frame(width: screen.width)
-                                        .padding(.top, -110)
-                                        .zIndex(-1)
+                    NavigationLink(
+                        destination:ShowDetailView(show: modelData.features[0])
+                       ){
+                        TopShowPreview(show: modelData.features[0])
+    //                                        .frame(width: screen.width)
+                                            .padding(.top, -110)
+                                            .zIndex(-1)
+                    }
+                   
                 }
                 
 

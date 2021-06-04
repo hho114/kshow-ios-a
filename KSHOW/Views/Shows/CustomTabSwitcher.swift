@@ -54,7 +54,7 @@ struct CustomTabSwitcher: View {
             case .episodes:
                 
                 if !self.load {
-                    EpisodeView(episodes: modelData.episodes , showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                    EpisodeView(episodes: modelData.episodes , showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason, imageUrl: show.thumbnailImageUrl)
                 }
                 else
                 {

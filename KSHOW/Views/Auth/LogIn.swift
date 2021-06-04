@@ -256,8 +256,8 @@ struct Login: View{
         NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
         UserDefaults.standard.set(pass, forKey: "pass")
         NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
-        UserDefaults.standard.set(false, forKey: "loading")
-        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+//        UserDefaults.standard.set(false, forKey: "loading")
+//        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
         self.startVerify = false
     }
     
