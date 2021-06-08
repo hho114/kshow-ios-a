@@ -12,5 +12,9 @@ target 'KSHOW' do
   pod 'ObjectMapper'
   pod 'Kingfisher'
   pod 'CodableFirebase'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+
+
 
 end

@@ -54,9 +54,9 @@ struct EpisodeView: View {
                             .font(.system(size: 20))
                     }
                     
-                    Text(episode.description)
-                        .font(.system(size: 13))
-                        .lineLimit(3)
+//                    Text(episode.description)
+//                        .font(.system(size: 13))
+//                        .lineLimit(3)
                 }
                 .padding(.bottom, 20)
             }

@@ -82,7 +82,7 @@ struct CustomTabSwitcher: View {
     
     func fetchEpisodeList(){
            
-           Database.database().reference().child("shows").child(show.id).observe(.value) { snapshot in
+        modelData.ref.child("shows").child(show.id).observe(.value) { snapshot in
             
             modelData.episodes = []
                for child in snapshot.children.allObjects as! [DataSnapshot] {

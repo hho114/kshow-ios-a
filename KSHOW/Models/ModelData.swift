@@ -16,6 +16,9 @@ final class ModelData: ObservableObject{
 //    @Published var landmarks: [Landmark] = load("landmarkData.json")
 //    var hikes: [Hike] = load("hikeData.json")
 //    @Published var profile = Profile.default
+//    @Published var ref = Database.database(url: "https://kshow-product.firebaseio.com/").reference()
+    @Published var api = ""
+    @Published var ref = Database.database().reference()
     @Published var user = User.default
     @Published var shows : [Show] = []
     @Published var episodes : [Episode] = []
@@ -29,6 +32,8 @@ final class ModelData: ObservableObject{
          shows.filter { $0.isFeatured }
 
         }
+    
+   
 //    var features: [Landmark] {
 //
 //          let shows =  landmarks.filter { $0.isFeatured }
@@ -49,6 +54,7 @@ final class ModelData: ObservableObject{
 //           )
 //
 //       }
+    
     var categories: [String: [Show]] {
 
         var cate: [String: [Show]] = [:]

@@ -44,14 +44,20 @@ struct CategoryHome: View {
 
                 if (modelData.features.count > 0)
                 {
-                    NavigationLink(
-                        destination:ShowDetailView(show: modelData.features[0])
-                       ){
-                        TopShowPreview(show: modelData.features[0])
-    //                                        .frame(width: screen.width)
-                                            .padding(.top, -110)
-                                            .zIndex(-1)
-                    }
+                    ScrollView(.vertical, showsIndicators: false, content: {
+                        NavigationLink(
+                            destination:ShowDetailView(show: modelData.features[0])
+                           ){
+                            
+                                TopShowPreview(show: modelData.features[0])
+            //                                        .frame(width: screen.width)
+                                                    .padding(.top, -110)
+                                                    .zIndex(-1)
+                           
+                           
+                        }
+                    })
+                   
                    
                 }
                 
@@ -91,7 +97,7 @@ struct CategoryHome: View {
 //
 //                        }
             .navigationBarTitle("")
-                    .navigationBarHidden(true)
+            .navigationBarHidden(true)
         }
 
             

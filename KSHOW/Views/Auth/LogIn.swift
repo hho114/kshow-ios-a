@@ -19,9 +19,12 @@ struct Login: View{
     @State var alert = false
     @State var error = ""
     @State var title = ""
+    @State var userId = ""
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
     @State var startVerify = false
+//    var ref: DatabaseReference!
+    
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
@@ -138,8 +141,8 @@ struct Login: View{
                 if let user = res?.user{
                     if user.isEmailVerified
                     {
-                        
-                        fetchUserData(userId: user.uid)
+                        userId = user.uid
+                        fetchAPI()
                         
                     }
                     else
@@ -178,10 +181,25 @@ struct Login: View{
             self.alert = true
         }
     }
-    
-    func fetchUserData(userId: String) {
+    func fetchAPI() {
 
-        Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
+        modelData.ref.child("api").observeSingleEvent(of: .value, with: { (snapshot) in
+                  // Get user value
+                  let value = snapshot.value as? NSDictionary
+//                  let api = value?["mobile"] as? String ?? ""
+                    if let api = value?["test"] as? String{
+                        self.modelData.ref = Database.database(url: api).reference()
+                    }
+                   fetchUserData()
+        
+                  }) { (error) in
+                    print(error.localizedDescription)
+                }
+    }
+    
+    func fetchUserData() {
+
+        modelData.ref.child("users").child(self.userId).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else { return }
             do {
                 let model = try FirebaseDecoder().decode(User.self, from: value)
@@ -196,7 +214,7 @@ struct Login: View{
     
     func fetchPermission() {
 
-        Database.database().reference().child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
+        modelData.ref.child("permissions").child(modelData.user.permission).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else { return }
             do {
                 let model = try FirebaseDecoder().decode(Permission.self, from: value)
@@ -210,7 +228,7 @@ struct Login: View{
     }
     func fetchCasts() {
 
-        Database.database().reference().child("stars").observe(.value) { snapshot in
+        modelData.ref.child("stars").observe(.value) { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Cast.self, from: child.value as Any)
@@ -229,7 +247,7 @@ struct Login: View{
     }
     func fetchShows() {
 
-        Database.database().reference().child("wiki").observe(.value) { snapshot in
+        self.modelData.ref.child("wiki").observe(.value) { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)

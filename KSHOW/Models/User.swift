@@ -9,9 +9,8 @@ import Foundation
 import SwiftUI
 
 
-struct User: Codable, Identifiable {
+struct User: Codable {
     
-    var id: String
     var email: String
     var username: String
 //    var prefersNotifications = true
@@ -19,7 +18,7 @@ struct User: Codable, Identifiable {
     var photoUrl: String
     var vip: Bool
     
-    static let `default` = User( id: "00000",email: "email.com",username: "user", permission: "", photoUrl: "",vip: false)
+    static let `default` = User( email: "email.com",username: "user", permission: "", photoUrl: "",vip: false)
     
 
 }

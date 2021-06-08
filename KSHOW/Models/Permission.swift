@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Permission: Codable, Identifiable {
+struct Permission: Codable {
     
     var id: String
     var categoryType: [String]
     var features: [String]
     
-    static let `default` = Permission(id:"000",categoryType: [],features: [])
+    static let `default` = Permission(id: "permission",categoryType: [],features: [])
 }
