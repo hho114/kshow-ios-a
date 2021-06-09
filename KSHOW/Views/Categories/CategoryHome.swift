@@ -54,7 +54,6 @@ struct CategoryHome: View {
                                                     .padding(.top, -110)
                                                     .zIndex(-1)
                            
-                           
                         }
                     })
                    
@@ -64,7 +63,7 @@ struct CategoryHome: View {
 
 
                 
-                CastRow(casts: modelData.casts, title: "Top Star")
+                CastRow(casts: modelData.casts, title: "Top Star") 
 
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 

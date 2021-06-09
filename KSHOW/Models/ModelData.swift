@@ -17,7 +17,7 @@ final class ModelData: ObservableObject{
 //    var hikes: [Hike] = load("hikeData.json")
 //    @Published var profile = Profile.default
 //    @Published var ref = Database.database(url: "https://kshow-product.firebaseio.com/").reference()
-    @Published var api = ""
+//    @Published var api = "https://kshow-product.firebaseio.com/"
     @Published var ref = Database.database().reference()
     @Published var user = User.default
     @Published var shows : [Show] = []

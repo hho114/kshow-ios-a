@@ -59,6 +59,7 @@ struct EpisodeView: View {
 //                        .lineLimit(3)
                 }
                 .padding(.bottom, 20)
+                
             }
             Spacer()
         }

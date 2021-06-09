@@ -11,7 +11,6 @@ import Kingfisher
 struct VideoPreviewImage: View {
     var imageURL: URL
     var videoURL: String
-    @State var initialVideo = UserDefaults.standard.value(forKey: "initialVideo") as? Bool ?? false
 
     @State private var showingVideoPlayer = false
     
@@ -32,12 +31,7 @@ struct VideoPreviewImage: View {
             .sheet(isPresented: $showingVideoPlayer, content: {
 //                SwiftUIVideoView(url: videoURL)
 //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
-                VideoWebView(url: videoURL).onAppear{
-                    NotificationCenter.default.addObserver(forName: NSNotification.Name("initialVideo"), object: nil, queue: .main) { (_) in
-                        
-                        self.initialVideo = UserDefaults.standard.value(forKey: "initialVideo") as? Bool ?? false
-                    }
-                }
+                VideoWebView(url: videoURL, isPresented: $showingVideoPlayer)
             })
         }
         

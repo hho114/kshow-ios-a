@@ -142,7 +142,7 @@ struct Login: View{
                     if user.isEmailVerified
                     {
                         userId = user.uid
-                        fetchAPI()
+                        fetchUserData()
                         
                     }
                     else
@@ -181,21 +181,21 @@ struct Login: View{
             self.alert = true
         }
     }
-    func fetchAPI() {
-
-        modelData.ref.child("api").observeSingleEvent(of: .value, with: { (snapshot) in
-                  // Get user value
-                  let value = snapshot.value as? NSDictionary
-//                  let api = value?["mobile"] as? String ?? ""
-                    if let api = value?["test"] as? String{
-                        self.modelData.ref = Database.database(url: api).reference()
-                    }
-                   fetchUserData()
-        
-                  }) { (error) in
-                    print(error.localizedDescription)
-                }
-    }
+//    func fetchAPI() {
+//
+//        modelData.ref.child("api").observeSingleEvent(of: .value, with: { (snapshot) in
+//                  // Get user value
+//                  let value = snapshot.value as? NSDictionary
+////                  let api = value?["mobile"] as? String ?? ""
+//                    if let api = value?["test"] as? String{
+//                        self.modelData.ref = Database.database(url: api).reference()
+//                    }
+//                   fetchUserData()
+//
+//                  }) { (error) in
+//                    print(error.localizedDescription)
+//                }
+//    }
     
     func fetchUserData() {
 

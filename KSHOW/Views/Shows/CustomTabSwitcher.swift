@@ -68,12 +68,14 @@ struct CustomTabSwitcher: View {
                     }
                     
                 }
+                //TODO: Future feature
             case .trailer:
                 TrailerListView(showName: show.name, thumbnailImageURL: show.thumbnailImageUrl, videoURL: show.trailerUrl)
 //            case .more:
 //                MoreLikeThisView(movies: movie.moreLikeThisMovies)
             case .more:
                 TrailerListView(showName: show.name, thumbnailImageURL: show.thumbnailImageUrl, videoURL: show.trailerUrl)
+
 
             }
         }
@@ -104,6 +106,7 @@ struct CustomTabSwitcher: View {
 }
 enum CustomTab: String {
     case episodes = "EPISODES"
+    //TODO: future feature
     case trailer = "TRAILERS & MORE"
     case more = "MORE LIKE THIS"
 }

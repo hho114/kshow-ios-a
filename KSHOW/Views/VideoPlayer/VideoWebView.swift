@@ -10,19 +10,19 @@ import WebKit
 
 struct VideoWebView: View {
     var url: String
+    @Binding var isPresented: Bool
     var body: some View {
         VStack{
-//            PlayButton(text: "", imageName: "arrowtriangle.down") {
-//
-//            }
-//            .frame(width: 120)
+
             Button(action: {
-                print("Edit button was tapped")
+                print("close button was tapped")
+                isPresented = false
             }) {
-//                I
+                //            I
                 HStack {
                     Spacer()
-                    Image(systemName: "arrowtriangle.down")
+                    Image(systemName: "arrowtriangle.down").foregroundColor(.white)
+                    
                     
                     Spacer()
                 }
@@ -75,8 +75,7 @@ class WebViewHelper: NSObject, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("webview didFinishNavigation")
-//        UserDefaults.standard.set(true, forKey: "initialVideo")
-//        NotificationCenter.default.post(name: NSNotification.Name("initialVideo"), object: nil)
+
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -91,16 +90,7 @@ class WebViewHelper: NSObject, WKNavigationDelegate {
 
         print("didReceiveAuthenticationChallenge")
         completionHandler(.performDefaultHandling, nil)
-//        if  !(UserDefaults.standard.value(forKey: "initialVideo") as? Bool ?? false) {
-//            print("performDefaultHandling")
-//            completionHandler(.performDefaultHandling, nil)
-//
-//
-//        }
-//        else{
-//            print("cancelAuthenticationChallenge")
-//            completionHandler(.cancelAuthenticationChallenge, nil)
-//        }
+
         
     }
 }

@@ -61,7 +61,7 @@ struct ShowDetailView: View {
                             }
                             .frame(width: 120)
                             .sheet(isPresented: $showingVideoPlayer, content: {
-                                VideoWebView(url: show.trailerUrl)
+                                VideoWebView(url: show.trailerUrl, isPresented: $showingVideoPlayer)
                             })
                             CurrentEpisodeInformationView(show: show)
                             
@@ -83,8 +83,8 @@ struct ShowDetailView: View {
                                 Spacer()
                             }
                             .padding(.leading, 20)
-                            
-                            CustomTabSwitcher(tabs: [.episodes, .trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+//                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                            CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                         }
                         .padding(.horizontal, 10)
                     }
