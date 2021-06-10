@@ -139,6 +139,7 @@ struct SignUp: View{
                         self.error = err!.localizedDescription
                         self.title = "Sign up error"
                         self.alert.toggle()
+                        self.startSignup = false
                         return
                     }
                     
@@ -149,7 +150,7 @@ struct SignUp: View{
 //                        let username = token[0]
                         let ref = Database.database().reference()
                         ref.child("users").child(user.uid).setValue(["id": user.uid,"email": self.email])
-                        
+                        self.startSignup = false
                         if user.isEmailVerified
                         {
                             print("Login success!")
@@ -159,12 +160,12 @@ struct SignUp: View{
                             NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
                             UserDefaults.standard.set(pass, forKey: "pass")
                             NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
-                            self.startSignup = false
+                           
                         }
                         else
                         {
                             print("User need verify email")
-                           
+                            
 
                                 user.sendEmailVerification { (error) in
                                 if error != nil{

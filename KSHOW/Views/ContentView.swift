@@ -101,7 +101,7 @@ struct ContentView: View {
                 ShowList()
                     .tabItem {
                         
-                        Label("Follow", systemImage: "checkmark")
+                        Label("Shows", systemImage: "list.bullet")
                         
                     }
                     .tag(Tab.list)
@@ -116,7 +116,7 @@ struct ContentView: View {
                 Menu()
                     .tabItem {
                         
-                        Label("Menu", systemImage: "list.bullet")
+                        Label("Menu", systemImage: "slider.horizontal.3")
                         
                     }
                     .tag(Tab.menu)

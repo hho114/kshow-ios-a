@@ -135,6 +135,7 @@ struct Login: View{
                     self.error = err!.localizedDescription
                     self.title = "Login Error"
                     self.alert.toggle()
+                    self.startVerify = false
                     return
                 }
                 
@@ -147,6 +148,7 @@ struct Login: View{
                     }
                     else
                     {
+                        self.startVerify = false
                         print("User need verify email")
                         if !self.isSendVerify {
                         user.sendEmailVerification { (error) in
@@ -166,6 +168,7 @@ struct Login: View{
                         }else{
                             self.error = "Open your email that is used to sign up to verify your email in order to login"
                             self.title = "Verify"
+
                             self.alert.toggle()
                         }
 
@@ -228,7 +231,7 @@ struct Login: View{
     }
     func fetchCasts() {
 
-        modelData.ref.child("stars").observe(.value) { snapshot in
+        modelData.ref.child("top-casts").observe(.value) { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Cast.self, from: child.value as Any)
