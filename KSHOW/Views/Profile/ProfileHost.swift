@@ -15,22 +15,22 @@ struct ProfileHost: View {
 //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-
-            VStack(alignment: .leading, spacing: 20) {
+       
+            VStack(alignment: .leading, spacing: 10) {
 
                 HStack {
-
-                    if editMode?.wrappedValue == .active {
-
-                                        Button("Cancel") {
-
-                                            draftUser = modelData.user
-
-                                            editMode?.animation().wrappedValue = .inactive
-
-                                        }
-
-                                    }
+//
+////                    if editMode?.wrappedValue == .active {
+////
+////                                        Button("Cancel") {
+////
+////                                            draftUser = modelData.user
+////
+////                                            editMode?.animation().wrappedValue = .inactive
+////
+////                                        }
+////
+////                                    }
                                Spacer()
 
                                EditButton()
@@ -61,8 +61,11 @@ struct ProfileHost: View {
                 
 
                     }
+//            .padding()
+          
             
-            .padding()
+            
+            
 
         
         

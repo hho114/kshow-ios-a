@@ -145,6 +145,7 @@ struct Login: View{
                         userId = user.uid
                         fetchUserData()
                         
+                        
                     }
                     else
                     {

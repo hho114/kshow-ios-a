@@ -7,6 +7,8 @@
 
 import SwiftUI
 import FirebaseAuth
+import StoreKit
+
 
 struct Menu: View {
     @EnvironmentObject var modelData: ModelData
@@ -19,14 +21,18 @@ struct Menu: View {
                         Label("Profile", systemImage: "person.crop.circle").padding()
                         
                     }
-                    NavigationLink(destination: ProfileHost()){
-                        Label("Setting", systemImage: "slider.horizontal.3").padding()
+//                    NavigationLink(destination: ProfileHost()){
+//                        Label("Setting", systemImage: "slider.horizontal.3").padding()
+//                        
+//                    }
+                    //TODO: Create contact new page with contact and report issue button
+                    Button(action: {
                         
-                    }
-                    NavigationLink(destination: ProfileHost()){
-                        Label("Contact Us", systemImage: "exclamationmark.bubble").padding()
-                        
-                    }
+                    }, label: {
+                        Label("Need Help", systemImage: "exclamationmark.bubble").padding()
+                    })
+                    
+                   
                     Button(action: {
                         self.SignOut()
                     }) {
@@ -71,3 +77,4 @@ struct Menu: View {
 //        Menu()
 //    }
 //}
+

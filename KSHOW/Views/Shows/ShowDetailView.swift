@@ -49,8 +49,8 @@ struct ShowDetailView: View {
                             KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
                                 .aspectRatio(contentMode: .fit)
                             MovieSubHeadingInfoView(show: show)
-                            if let text = show.description  {
-                                Text(text)
+                            if let text = show.currentEpisode["ep"]  {
+                                Text("Lastest Episode: \(text)")
                                     .bold()
                                     .font(.headline)
                             }
@@ -73,7 +73,7 @@ struct ShowDetailView: View {
                                 SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
                                     //
                                 }
-                                SmallVerticalButton(isOn: false, text: "Rate", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
+                                SmallVerticalButton(isOn: false, text: "Like", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
                                     //
                                 }
                                 SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
@@ -233,17 +233,17 @@ struct CurrentEpisodeInformationView: View {
     var body: some View {
         Group {
             HStack {
-                Text(show.currentEpisode)
+                Text(show.description)
                     .bold()
                 Spacer()
             }
             .padding(.vertical, 4)
             
-            HStack {
-                Text(show.currentEpisode)
-                    .font(.subheadline)
-                Spacer()
-            }
+//            HStack {
+//                Text(show.currentEpisode)
+//                    .font(.subheadline)
+//                Spacer()
+//            }
         }
     }
 }

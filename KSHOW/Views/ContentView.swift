@@ -86,6 +86,7 @@ struct ContentView: View {
         
         var body: some View{
             
+            
             TabView(selection: $selection) {
                 
                 
@@ -101,7 +102,7 @@ struct ContentView: View {
                 ShowList()
                     .tabItem {
                         
-                        Label("Shows", systemImage: "list.bullet")
+                        Label("Shows", systemImage: "play.tv")
                         
                     }
                     .tag(Tab.list)
@@ -122,6 +123,8 @@ struct ContentView: View {
                     .tag(Tab.menu)
                     
                 
+            }.onAppear{
+                StoreReviewHelper.checkAndAskForReview()
             }
             .transition(.slide).animation(.easeInOut(duration: 0.5))
             

@@ -12,7 +12,7 @@ struct Show: Hashable, Codable, Identifiable {
     var id: String
     var name: String
     var casts: [String]
-    var currentEpisode: String
+    var currentEpisode: [String:String]
     var description: String
     var rating: Double
     var isFeatured: Bool
@@ -21,7 +21,7 @@ struct Show: Hashable, Codable, Identifiable {
     var category: [String]
     var numberOfSeasonDisplay: Int
     
-    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: "", description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "", category: [], numberOfSeasonDisplay: 0)
+    static let `default` = Show( id: "00000",name: "kshow",casts: [], currentEpisode: [:], description: "", rating: 0.0, isFeatured: false, thumbnailImageUrl: "",trailerUrl: "", category: [], numberOfSeasonDisplay: 0)
     
 
 }

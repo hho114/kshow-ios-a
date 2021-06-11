@@ -18,6 +18,7 @@ struct User: Codable {
     var photoUrl: String
     var vip: Bool
     
+    
     static let `default` = User( email: "email.com",username: "user", permission: "", photoUrl: "",vip: false)
     
 
