@@ -35,7 +35,7 @@ struct ShowList: View {
                 }
             }
             .navigationBarTitle("")
-                    .navigationBarHidden(true)
+//                    .navigationBarHidden(true)
         }
     }
 }

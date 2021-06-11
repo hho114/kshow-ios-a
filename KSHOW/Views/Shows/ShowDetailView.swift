@@ -166,7 +166,7 @@ struct MovieSubHeadingInfoView: View {
 //                .foregroundColor(.white)
             Text(show.name)
             RatingView(rating: "\(show.rating)")
-            Text("\(show.numberOfSeasonDisplay)")
+//            Text("\(show.numberOfSeasonDisplay)")
             HDView()
         }
 //        .foregroundColor(.gray)

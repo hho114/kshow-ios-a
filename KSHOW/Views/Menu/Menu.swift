@@ -21,6 +21,7 @@ struct Menu: View {
                         Label("Profile", systemImage: "person.crop.circle").padding()
                         
                     }
+                    
 //                    NavigationLink(destination: ProfileHost()){
 //                        Label("Setting", systemImage: "slider.horizontal.3").padding()
 //                        
@@ -48,7 +49,7 @@ struct Menu: View {
 
             }
             .navigationTitle("")
-            .navigationBarHidden(true)
+//            .navigationBarHidden(true)
         }
     }
     
