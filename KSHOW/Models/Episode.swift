@@ -9,21 +9,21 @@ import Foundation
 struct Episode: Hashable, Codable, Identifiable {
     
     var id: String
-    var episodeNumber: Int
+    var episodeNumber: String
 //    var description: String
-    var likes: Int
+    var likes: String
     var refCommentId: String
     var videoUrl: String
-    var views: Int
-    var dateRelease: Int
-    var season: Int
-    var length: Int
+    var views: String
+    var dateRelease: String
+    var season: String
+    var length: String
    
 //    var id: Int {
 //        episodeNumber
 //    }
     
-    static let `default` = Episode(id: "ep",episodeNumber: 1, likes: 0, refCommentId:"", videoUrl:"", views: 0, dateRelease: 0, season: 0, length: 0)
+    static let `default` = Episode(id: "ep",episodeNumber: "0", likes: "0", refCommentId:"0", videoUrl:"url", views: "0", dateRelease: "1", season: "0", length: "1")
     
 
 }

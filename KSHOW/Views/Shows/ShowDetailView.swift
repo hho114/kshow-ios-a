@@ -61,7 +61,10 @@ struct ShowDetailView: View {
                             }
                             .frame(width: 120)
                             .sheet(isPresented: $showingVideoPlayer, content: {
-                                VideoWebView(url: show.trailerUrl, isPresented: $showingVideoPlayer)
+                                if let sUrl = show.currentEpisode["url"]{
+                                    VideoWebView(url: sUrl, isPresented: $showingVideoPlayer)
+                                }
+                                
                             })
                             CurrentEpisodeInformationView(show: show)
                             
@@ -97,7 +100,7 @@ struct ShowDetailView: View {
                     Color.black.opacity(0.90)
                     VStack(spacing: 30) {
                         Spacer()
-                        ForEach(0..<(show.numberOfSeasonDisplay )) { season in
+                        ForEach(0..<(Int(show.numberOfSeasonDisplay) ?? 1 )) { season in
                             Button(action: {
                                 self.selectedSeason = season + 1
                                 self.showSeasonPicker = false

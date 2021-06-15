@@ -12,7 +12,7 @@ struct EpisodeView: View {
     @Binding var showSeasonPicker: Bool
     @Binding var selectedSeason: Int
     var imageUrl: String = ""
-    func getEpisodes(forSeason season: Int) -> [Episode] {
+    func getEpisodes(forSeason season: String) -> [Episode] {
         episodes.filter({ $0.season == season })
     }
     var body: some View {
@@ -33,7 +33,7 @@ struct EpisodeView: View {
             }
             
             // episode list
-            ForEach(getEpisodes(forSeason: selectedSeason)) { episode in
+            ForEach(getEpisodes(forSeason: String(selectedSeason))) { episode in
                 VStack(alignment: .leading) {
                     HStack {
                         VideoPreviewImage(imageURL: URL(string:imageUrl)!, videoURL: episode.videoUrl)
@@ -45,13 +45,13 @@ struct EpisodeView: View {
                                 .font(.system(size: 16))
                                 .foregroundColor(.gray)
                             
-                            Text("\(episode.length)m")
+                            Text("\(episode.length)")
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                         }
                         Spacer()
-                        Image(systemName: "arrow.down.to.line.alt")
-                            .font(.system(size: 20))
+//                        Image(systemName: "arrow.down.to.line.alt")
+//                            .font(.system(size: 20))
                     }
                     
 //                    Text(episode.description)
