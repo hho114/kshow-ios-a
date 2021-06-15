@@ -84,7 +84,7 @@ struct CustomTabSwitcher: View {
     
     func fetchEpisodeList(){
            
-        modelData.ref.child("shows").child(show.id).observe(.value) { snapshot in
+        modelData.ref.child("shows").child(show.id).observeSingleEvent(of:.value,with: { snapshot in
             
             modelData.episodes = []
                for child in snapshot.children.allObjects as! [DataSnapshot] {
@@ -95,13 +95,16 @@ struct CustomTabSwitcher: View {
                    UserDefaults.standard.set(false, forKey: "load")
                    NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
                } catch let error {
-                   print(error)
+                   bfprint(error)
                }
                    
                    
              }
                
-           }
+        }){(error) in
+            bfprint(error.localizedDescription)
+
+        }
        }
 }
 enum CustomTab: String {

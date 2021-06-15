@@ -9,14 +9,15 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import CodableFirebase
+import SwiftyUserDefaults
 
 struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
 //    @StateObject private var modelData = ModelData()
 
-    @State var status = false
-    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
+//    @State var status = false
+//    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
+//    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
 //    @State var loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
 //  
    
@@ -39,37 +40,37 @@ struct ContentView: View {
             
                         VStack{
                            
-                        if self.status {
+                            if Defaults[\.isUserLogin] {
                             
                             VStack{
             
                                 HomeScreen()
                             }
-                           .onAppear{
-                            
-                            NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-                                
-                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                            }
-                                
-                            }
+//                           .onAppear{
+//
+//                            NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+//
+//                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+//                            }
+//
+//                            }
                             
                             
                         } else {
                             VStack{
                                 Login()
                             }
-                            .onAppear{
-                                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-                                    
-                                    self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-//                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
-            //                        self.resetAccount()
-                                }
-
-                               
-                                
-                            }
+//                            .onAppear{
+//                                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
+//
+//                                    self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+////                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
+//            //                        self.resetAccount()
+//                                }
+//
+//
+//
+//                            }
                         }
                         
                         

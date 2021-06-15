@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
+import SwiftyUserDefaults
 
 struct SignUp: View{
     
@@ -154,13 +155,15 @@ struct SignUp: View{
                         if user.isEmailVerified
                         {
                             print("Login success!")
-                            UserDefaults.standard.set(true, forKey: "status")
-                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-                            UserDefaults.standard.set(email, forKey: "email")
-                            NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
-                            UserDefaults.standard.set(pass, forKey: "pass")
-                            NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
-                           
+//                            UserDefaults.standard.set(true, forKey: "status")
+//                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+//                            UserDefaults.standard.set(email, forKey: "email")
+//                            NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
+//                            UserDefaults.standard.set(pass, forKey: "pass")
+//                            NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
+                            Defaults[\.isUserLogin] = true
+                            Defaults[\.email] = email
+                            Defaults[\.password] = pass
                         }
                         else
                         {

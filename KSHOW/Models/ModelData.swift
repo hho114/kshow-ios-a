@@ -9,7 +9,6 @@ import Foundation
 import Combine
 import FirebaseDatabase
 import FirebaseAuth
-import ObjectMapper
 
 final class ModelData: ObservableObject{
     

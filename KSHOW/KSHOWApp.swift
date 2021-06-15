@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-import ObjectMapper
+@_exported import BugfenderSDK
 
 
 @main
@@ -37,6 +37,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         StoreReviewHelper.incrementAppOpenedCount()
+        Bugfender.activateLogger("uIKft1VrExpy7RuyrvuLL9Xa7WhBCguA")
+        Bugfender.enableCrashReporting()
+        Bugfender.enableUIEventLogging()  // optional, log user interactions automatically
+//        bfprint("Bugfender Initialization")
         return true
       }
 

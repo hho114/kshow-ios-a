@@ -9,11 +9,12 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import CodableFirebase
+import SwiftyUserDefaults
 
 struct Login: View{
     
-    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
+    @State var email = Defaults[\.email]
+    @State var pass = Defaults[\.pass]
     @State var color = Color.black.opacity(0.7)
     @State var visible = false
     @State var alert = false
@@ -211,7 +212,7 @@ struct Login: View{
                 modelData.user = model
                 fetchPermission()
             } catch let error {
-                print(error)
+                bfprint(error)
             }
         })
     }
@@ -226,13 +227,13 @@ struct Login: View{
                 modelData.permission = model
                 fetchCasts()
             } catch let error {
-                print(error)
+                bfprint(error)
             }
         })
     }
     func fetchCasts() {
 
-        modelData.ref.child("top-casts").observe(.value) { snapshot in
+        modelData.ref.child("top-casts").observeSingleEvent(of: .value, with: { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Cast.self, from: child.value as Any)
@@ -240,18 +241,20 @@ struct Login: View{
                 modelData.casts.append(model)
                 
             } catch let error {
-                print(error)
+                bfprint(error)
             }
                 
                 
           }
             self.fetchShows()
+        }){ (error) in
+            bfprint(error.localizedDescription)
         }
         
-    }
+}
     func fetchShows() {
 
-        self.modelData.ref.child("wiki").observe(.value) { snapshot in
+        self.modelData.ref.child("wiki").observeSingleEvent(of: .value, with: { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
@@ -259,12 +262,14 @@ struct Login: View{
                 modelData.shows.append(model)
                 
             } catch let error {
-                print(error)
+                bfprint(error)
             }
                 
                 
           }
             self.finalizeSignIn()
+        }){ (error) in
+            bfprint(error.localizedDescription)
         }
         
     }
@@ -272,14 +277,17 @@ struct Login: View{
     func finalizeSignIn() {
         print("Login success!")
         
-        UserDefaults.standard.set(true, forKey: "status")
-        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-        UserDefaults.standard.set(email, forKey: "email")
-        NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
-        UserDefaults.standard.set(pass, forKey: "pass")
-        NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
+//        UserDefaults.standard.set(true, forKey: "status")
+//        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+//        UserDefaults.standard.set(email, forKey: "email")
+//        NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
+//        UserDefaults.standard.set(pass, forKey: "pass")
+//        NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
 //        UserDefaults.standard.set(false, forKey: "loading")
 //        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+        Defaults[\.isUserLogin] = true
+        Defaults[\.email] = email
+        Defaults[\.password] = pass
         self.startVerify = false
     }
     

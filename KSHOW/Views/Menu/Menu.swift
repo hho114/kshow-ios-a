@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import StoreKit
-
+import SwiftyUserDefaults
 
 struct Menu: View {
     @EnvironmentObject var modelData: ModelData
@@ -57,8 +57,9 @@ struct Menu: View {
         let firebaseAuth = Auth.auth()
     do {
       try firebaseAuth.signOut()
-        UserDefaults.standard.set(false, forKey: "status")
-        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+//        UserDefaults.standard.set(false, forKey: "status")
+//        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+        Defaults[\.isUserLogin] = false
         modelData.shows = []
         modelData.user = User.default
         modelData.permission = Permission.default
