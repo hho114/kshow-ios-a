@@ -39,7 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         StoreReviewHelper.incrementAppOpenedCount()
         Bugfender.activateLogger("uIKft1VrExpy7RuyrvuLL9Xa7WhBCguA")
         Bugfender.enableCrashReporting()
-        Bugfender.enableUIEventLogging()  // optional, log user interactions automatically
+//        Bugfender.enableUIEventLogging()  // optional, log user interactions automatically
 //        bfprint("Bugfender Initialization")
         return true
       }

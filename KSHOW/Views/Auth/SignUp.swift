@@ -8,10 +8,10 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
-import SwiftyUserDefaults
+//import SwiftyUserDefaults
 
 struct SignUp: View{
-    
+    @EnvironmentObject var modelData: ModelData
     @State var email = ""
     @State var pass = ""
     @State var repass = ""
@@ -157,13 +157,12 @@ struct SignUp: View{
                             print("Login success!")
 //                            UserDefaults.standard.set(true, forKey: "status")
 //                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-//                            UserDefaults.standard.set(email, forKey: "email")
-//                            NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
-//                            UserDefaults.standard.set(pass, forKey: "pass")
-//                            NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
-                            Defaults[\.isUserLogin] = true
-                            Defaults[\.email] = email
-                            Defaults[\.password] = pass
+                            UserDefaults.standard.set(email, forKey: "email")
+                            UserDefaults.standard.set(pass, forKey: "pass")
+                            modelData.isSignin = true
+//                            Defaults[\.isUserLogin] = true
+//                            Defaults[\.email] = email
+//                            Defaults[\.password] = pass
                         }
                         else
                         {
@@ -185,9 +184,7 @@ struct SignUp: View{
                                 }
                                 
                                 }
-//
-//                            UserDefaults.standard.set(false, forKey: "status")
-//                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+
                             self.presentationMode.wrappedValue.dismiss()
 
                         }

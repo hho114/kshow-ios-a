@@ -8,10 +8,8 @@ target 'KSHOW' do
   # Pods for KSHOW
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  pod 'Firebase/Storage'
   pod 'Kingfisher'
   pod 'CodableFirebase'
   pod 'BugfenderSDK'
-  pod 'SwiftyUserDefaults', '~> 5.0'
 
 end

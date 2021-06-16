@@ -9,17 +9,16 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import CodableFirebase
-import SwiftyUserDefaults
+//import SwiftyUserDefaults
 
 struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
 //    @StateObject private var modelData = ModelData()
 
 //    @State var status = false
-//    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-//    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
-//    @State var loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
-//  
+    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
+    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
+  
    
     enum Tab {
         
@@ -35,12 +34,10 @@ struct ContentView: View {
     
     var body: some View {
         
-//        LoadingView(isShowing: .constant(UserDefaults.standard.value(forKey: "loading") as? Bool ?? false))
-//        {
             
                         VStack{
                            
-                            if Defaults[\.isUserLogin] {
+                            if modelData.isSignin {
                             
                             VStack{
             
@@ -63,19 +60,15 @@ struct ContentView: View {
 //                            .onAppear{
 //                                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
 //
-//                                    self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-////                                    self.loading = UserDefaults.standard.value(forKey: "loading") as? Bool ?? false
-//            //                        self.resetAccount()
+//                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+//
 //                                }
 //
-//
-//
-//                            }
-                        }
-                        
+//                        }
                         
                         }
-//        }
+                        }
+
 
     }
     

@@ -9,12 +9,12 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import CodableFirebase
-import SwiftyUserDefaults
+//import SwiftyUserDefaults
 
 struct Login: View{
     
-    @State var email = Defaults[\.email]
-    @State var pass = Defaults[\.pass]
+    @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
+    @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
     @State var color = Color.black.opacity(0.7)
     @State var visible = false
     @State var alert = false
@@ -24,7 +24,7 @@ struct Login: View{
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
     @State var startVerify = false
-//    var ref: DatabaseReference!
+
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
@@ -279,15 +279,12 @@ struct Login: View{
         
 //        UserDefaults.standard.set(true, forKey: "status")
 //        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-//        UserDefaults.standard.set(email, forKey: "email")
-//        NotificationCenter.default.post(name: NSNotification.Name("email"), object: nil)
-//        UserDefaults.standard.set(pass, forKey: "pass")
-//        NotificationCenter.default.post(name: NSNotification.Name("pass"), object: nil)
-//        UserDefaults.standard.set(false, forKey: "loading")
-//        NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
-        Defaults[\.isUserLogin] = true
-        Defaults[\.email] = email
-        Defaults[\.password] = pass
+        UserDefaults.standard.set(email, forKey: "email")
+        UserDefaults.standard.set(pass, forKey: "pass")
+        modelData.isSignin = true
+//        Defaults[\.isUserLogin] = true
+//        Defaults[\.email] = email
+//        Defaults[\.password] = pass
         self.startVerify = false
     }
     
