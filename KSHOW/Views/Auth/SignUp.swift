@@ -25,6 +25,7 @@ struct SignUp: View{
     @State var error = ""
     @State var title = ""
     @State var startSignup = false
+    @State private var checked = true
     @Environment(\.presentationMode) var presentationMode
  
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
@@ -103,21 +104,32 @@ struct SignUp: View{
                     .padding(.top, 10)
                     
                     
+                        Text("By tapping SIGN UP, you agree to the ")
+                                    HStack(spacing: 0) {
+                                        Link("privacy policy", destination: URL(string: "https://github.com/xstar-solution/kshow-docs/blob/main/PrivacyPolicy.md")!)
+                                        Text(" and ")
+                                        Link("terms of service", destination: URL(string: "https://github.com/xstar-solution/kshow-docs/blob/main/TermAndService.md")!)
+                                        Text(".")
+                                    }
                     // Sign up button
                     Button(action: {
-                        self.Register()
                         self.startSignup = true
+                        self.Register()
+                        
                     }) {
                         Text("SIGN UP")
-//                            .foregroundColor(.white)
-                            .fontWeight(.bold)
+                            .font(.system(size: 16, weight: .black, design: .rounded))
+                            .foregroundColor(Color(UIColor.label))
+//                            .fontWeight(.bold)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
                     }
-//                    .background(Color("Dominant"))
-                    .cornerRadius(6)
+                    .background(Color(UIColor.systemBlue))
+                    .cornerRadius(15)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     .padding(.top, 15)
                     .alert(isPresented: self.$alert){()->Alert in
+                        
                         return Alert(title: Text("\(self.title)"), message: Text("\(self.error)"), dismissButton:
                             .default(Text("OK").fontWeight(.semibold)))
                     }
@@ -207,4 +219,7 @@ struct SignUp: View{
     }
     
 }
+
+
+
 

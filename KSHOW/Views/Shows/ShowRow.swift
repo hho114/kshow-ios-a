@@ -12,6 +12,7 @@ struct ShowRow: View {
 //    var landmark: Landmark
     var show: Show
     
+    
     var body: some View {
         
         HStack {

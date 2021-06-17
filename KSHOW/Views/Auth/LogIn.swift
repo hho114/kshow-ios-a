@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import CodableFirebase
-//import SwiftyUserDefaults
+import LocalAuthentication
 
 struct Login: View{
     
@@ -24,7 +24,7 @@ struct Login: View{
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
     @State var startVerify = false
-
+    @State var rememberLogin = true
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
@@ -72,6 +72,8 @@ struct Login: View{
             .padding(.top, 10)
             
             HStack{
+                CheckBox(checked: $rememberLogin)
+                Text("Remember my Login").font(.subheadline)
                 Spacer()
                 Button(action: {
                     self.ResetPassword()
@@ -84,19 +86,22 @@ struct Login: View{
             
             // Sign in button
             Button(action: {
+                self.startVerify.toggle()
                 self.Verify()
-                self.startVerify = true
+                
 //                UserDefaults.standard.set(true, forKey: "loading")
 //                NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
             }) {
                 Text("SIGN IN")
-//                    .foregroundColor(.white)
-                    .fontWeight(.bold)
+                    .font(.system(size: 16, weight: .black, design: .rounded))
+                    .foregroundColor(Color(UIColor.label))
+//                    .fontWeight(.bold)
                     .padding(.vertical)
-//                 .frame(width: UIScreen.main.bounds.width - 50)
+                 .frame(width: UIScreen.main.bounds.width - 50)
             }
-//            .background(Color("Dominant"))
-            .cornerRadius(6)
+            .background(Color(UIColor.systemBlue))
+            .cornerRadius(15)
+            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             .padding(.top, 15)
             .alert(isPresented: $alert){()->Alert in
                 return Alert(title: Text("\(self.title)"), message: Text("\(self.error)"), dismissButton:
@@ -109,26 +114,86 @@ struct Login: View{
                 NavigationLink(destination: SignUp()){
                     Text("Sign Up")
                     .fontWeight(.bold)
-                        .foregroundColor(.primary)
+                        .foregroundColor(Color(UIColor.label))
                 }
                 
                 Text("now").multilineTextAlignment(.leading)
                 
             }.padding(.top, 25)
+            Button(action: {
+                self.startVerify = true
+                self.verifyWithFaceID()
+//                UserDefaults.standard.set(true, forKey: "loading")
+//                NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
+            }) {
+                Text("Sign In With Face ID")
+//                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .padding(.vertical)
+//                 .frame(width: UIScreen.main.bounds.width - 50)
+            }
+//            .background(Color("Dominant"))
+            .cornerRadius(6)
+            .padding(.top, 15)
+            .alert(isPresented: $alert){
+                ()->Alert in
+                return Alert(title: Text("\(self.title)"), message: Text("\(self.error)"), dismissButton:
+                    .default(Text("OK").fontWeight(.semibold)))
+            }
         }.padding(.horizontal, 25)
-        
         .navigationBarTitle("")
-                .navigationBarHidden(true)
+        .navigationBarHidden(true)
+        .onAppear(perform: {
+            if UserDefaults.standard.bool(forKey: "biounlock") {
+                self.startVerify = true
+                verifyWithFaceID()
+            }
+        })
        }}
 
         
     }
     
-   
+    func verifyWithFaceID() {
+        let context = LAContext()
+            var error: NSError?
+
+            // check whether biometric authentication is possible
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                // it's possible, so go ahead and use it
+                let reason = "We need to unlock KSHOW with your biometric authentication"
+
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                    // authentication has now completed
+                    DispatchQueue.main.async {
+                        if success {
+                            // authenticated successfully
+                            Verify()
+                            UserDefaults.standard.set(true, forKey: "biounlock")
+                            
+                        } else {
+                            // there was a problem
+                            self.error = ""
+                            self.title = "Face ID Error"
+                            self.alert.toggle()
+                            self.startVerify.toggle()
+                        }
+                    }
+                }
+            } else {
+                // no biometrics
+                self.error = ""
+                self.title = "There is no biometric authentication"
+                self.alert.toggle()
+                self.startVerify.toggle()
+            }
+    }
+    
     func Verify(){
         
         
-        if self.email != "" && self.pass != ""{
+        if self.email != "" && self.pass != "" {
+            
             Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
                 
                 if err != nil{
@@ -136,7 +201,7 @@ struct Login: View{
                     self.error = err!.localizedDescription
                     self.title = "Login Error"
                     self.alert.toggle()
-                    self.startVerify = false
+                    self.startVerify.toggle()
                     return
                 }
                 
@@ -145,7 +210,6 @@ struct Login: View{
                     {
                         userId = user.uid
                         fetchUserData()
-                        
                         
                     }
                     else
@@ -158,12 +222,14 @@ struct Login: View{
                                 self.error = error?.localizedDescription ?? "Email verify error"
                                 self.title = "Verify Error"
                                 self.alert.toggle()
+                                self.startVerify.toggle()
                             }
                             else{
                                 self.isSendVerify = true
                                 self.error = "Open your email that is used to sign up to verify your email in order to login"
                                 self.title = "Verify"
                                 self.alert.toggle()
+                                self.startVerify.toggle()
                             }
                             
                         }
@@ -172,6 +238,7 @@ struct Login: View{
                             self.title = "Verify"
 
                             self.alert.toggle()
+                            self.startVerify.toggle()
                         }
 
                     }
@@ -183,24 +250,11 @@ struct Login: View{
         }else{
             self.title = "Login Error"
             self.error = "Please fill all the content property"
-            self.alert = true
+            self.alert.toggle()
+            self.startVerify.toggle()
         }
     }
-//    func fetchAPI() {
-//
-//        modelData.ref.child("api").observeSingleEvent(of: .value, with: { (snapshot) in
-//                  // Get user value
-//                  let value = snapshot.value as? NSDictionary
-////                  let api = value?["mobile"] as? String ?? ""
-//                    if let api = value?["test"] as? String{
-//                        self.modelData.ref = Database.database(url: api).reference()
-//                    }
-//                   fetchUserData()
-//
-//                  }) { (error) in
-//                    print(error.localizedDescription)
-//                }
-//    }
+
     
     func fetchUserData() {
 
@@ -279,9 +333,19 @@ struct Login: View{
         
 //        UserDefaults.standard.set(true, forKey: "status")
 //        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-        UserDefaults.standard.set(email, forKey: "email")
-        UserDefaults.standard.set(pass, forKey: "pass")
+        if rememberLogin {
+            UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set(pass, forKey: "pass")
+        }
+        else
+        {
+            UserDefaults.standard.set("", forKey: "email")
+            UserDefaults.standard.set("", forKey: "pass")
+        }
+        
         modelData.isSignin = true
+//        modelData.unlock = true
+        
 //        Defaults[\.isUserLogin] = true
 //        Defaults[\.email] = email
 //        Defaults[\.password] = pass
@@ -310,3 +374,6 @@ struct Login: View{
         }
     }
 }
+
+
+

@@ -59,6 +59,7 @@ struct Menu: View {
       try firebaseAuth.signOut()
 //        UserDefaults.standard.set(false, forKey: "status")
 //        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+        UserDefaults.standard.set(false, forKey: "biounlock")
         modelData.isSignin = false
 //        Defaults[\.isUserLogin] = false
         modelData.shows = []

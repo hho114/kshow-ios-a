@@ -70,6 +70,8 @@
 		FAC10496264F140D008E56C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC10495264F140D008E56C4 /* User.swift */; };
 		FAC1049B264F1BBB008E56C4 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1049A264F1BBB008E56C4 /* SignUp.swift */; };
 		FAC1049D264F1BE7008E56C4 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1049C264F1BE7008E56C4 /* LogIn.swift */; };
+		FAC2AFA8267A649D0029876D /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2AFA7267A649D0029876D /* CheckBox.swift */; };
+		FAC2AFAA267A9F7F0029876D /* RowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2AFA9267A9F7F0029876D /* RowItem.swift */; };
 		FAF092C926617D4100CA897C /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF092C826617D4100CA897C /* Spinner.swift */; };
 		FAF092CB26617F6900CA897C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF092CA26617F6900CA897C /* ActivityIndicator.swift */; };
 		FAF092CD26617FCF00CA897C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF092CC26617FCF00CA897C /* LoadingView.swift */; };
@@ -143,6 +145,8 @@
 		FAC10495264F140D008E56C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FAC1049A264F1BBB008E56C4 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		FAC1049C264F1BE7008E56C4 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		FAC2AFA7267A649D0029876D /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		FAC2AFA9267A9F7F0029876D /* RowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowItem.swift; sourceTree = "<group>"; };
 		FAF092C826617D4100CA897C /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		FAF092CA26617F6900CA897C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		FAF092CC26617FCF00CA897C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				FAF092C826617D4100CA897C /* Spinner.swift */,
 				FAF092CA26617F6900CA897C /* ActivityIndicator.swift */,
 				FAF092CC26617FCF00CA897C /* LoadingView.swift */,
+				FAC2AFA7267A649D0029876D /* CheckBox.swift */,
+				FAC2AFA9267A9F7F0029876D /* RowItem.swift */,
 			);
 			path = HelperView;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 				FABF7E572673133A0060C361 /* StoreReviewHelper.swift in Sources */,
 				FA509794264D86A700D94F4E /* ProfileSummary.swift in Sources */,
 				FA50978D264D867400D94F4E /* PageView.swift in Sources */,
+				FAC2AFAA267A9F7F0029876D /* RowItem.swift in Sources */,
 				FAC1049B264F1BBB008E56C4 /* SignUp.swift in Sources */,
 				FA0FF952265D70EE004FA561 /* Cast.swift in Sources */,
 				FA50978F264D867400D94F4E /* PageViewController.swift in Sources */,
@@ -569,6 +576,7 @@
 				FA46527E2661374800EAE211 /* VideoWebView.swift in Sources */,
 				FA0FF92E265D480B004FA561 /* PlayButton.swift in Sources */,
 				FA509795264D86A700D94F4E /* ProfileEditor.swift in Sources */,
+				FAC2AFA8267A649D0029876D /* CheckBox.swift in Sources */,
 				FA0FF963265DE5D3004FA561 /* SearchResultsGrid.swift in Sources */,
 				FA5097B1264D8EEA00D94F4E /* ModelData.swift in Sources */,
 				FA0FF950265D70BC004FA561 /* CastRow.swift in Sources */,
