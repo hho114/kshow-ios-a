@@ -55,12 +55,30 @@ struct ShowDetailView: View {
                                     .font(.headline)
                             }
                             
-                            PlayButton(text: "Play", imageName: "play.fill", backgroundColor: .red) {
+                            PlayButton(text: "Play", imageName: "play.fill") {
                                 print("PlayButton Tapped")
                                 showingVideoPlayer = true
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                               
+                                if let ep = show.currentEpisode["ep"], let url = show.currentEpisode["url"]     {
+                                    if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == modelData.currentSelectedShow.name && $0.episodeNumber == ep}) {
+                                        print("update history")
+                                            modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
+                                            modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
+                                        
+                                    }
+                                    else{
+                                        print("add to history")
+                                        modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber:  show.currentEpisode["ep"] ?? "", imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: url))
+                                        
+                                    }
+                                }
+                                
+                                
                             }
                             .frame(width: 120)
-                            .sheet(isPresented: $showingVideoPlayer, content: {
+                            .fullScreenCover(isPresented: $showingVideoPlayer, content: {
                                 if let sUrl = show.currentEpisode["url"]{
                                     VideoWebView(url: sUrl, isPresented: $showingVideoPlayer)
                                 }
@@ -128,7 +146,9 @@ struct ShowDetailView: View {
                 }
                 .edgesIgnoringSafeArea(.all)
             }
-        }
+        }.onAppear(perform: {
+            modelData.currentSelectedShow = show
+        })
     }
     
 //    func fetchEpisodeList(){
@@ -167,7 +187,7 @@ struct MovieSubHeadingInfoView: View {
         HStack(spacing: 20) {
 //            Image(systemName: "hand.thumbsup.fill")
 //                .foregroundColor(.white)
-            Text(show.name)
+            Text(show.name).font(.system(size: 18, weight: .black, design: .rounded))
             RatingView(rating: "\(show.rating)")
 //            Text("\(show.numberOfSeasonDisplay)")
             HDView()
@@ -185,8 +205,9 @@ struct RatingView: View {
 ////                .background(Color.gray)
 //                .frame(width: 55, height: 20)
             
-            Text(rating)
+            Text("Rating: \(rating)")
 //                .foregroundColor(.black)
+//                .foregroundColor(Color(UIColor.label))
                 .font(.system(size: 14))
                 .bold()
         }

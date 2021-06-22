@@ -11,16 +11,16 @@ import Foundation
 
 struct Cast: Codable, Identifiable {
     
-   
+    var id: String
     var name: String
     var imageUrl: String
     var profileUrl: String
     
-    var id: String{
-        name
-    }
+//    var id: String{
+//        name.trimmingCharacters(in: .whitespacesAndNewlines)
+//    }
     
-    static let `default` = Cast(name: "namecast", imageUrl: "", profileUrl: "")
+    static let `default` = Cast(id:"",name: "namecast", imageUrl: "", profileUrl: "")
     
 
 }

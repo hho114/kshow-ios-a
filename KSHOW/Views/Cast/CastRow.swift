@@ -18,7 +18,7 @@ struct CastRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(title):")
+            Text("\(title)")
                 .font(.title3)
                 .bold()
 //                .foregroundColor(.white)

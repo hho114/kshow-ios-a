@@ -9,31 +9,52 @@ import SwiftUI
 import Kingfisher
 
 struct VideoPreviewImage: View {
-    var imageURL: URL
-    var videoURL: String
-
+    var imageURL: String
+//    var videoURL: String
+    var episode: Episode
+    @EnvironmentObject var modelData: ModelData
     @State private var showingVideoPlayer = false
     
     var body: some View {
         
         ZStack {
-            KFImage(imageURL)
+            KFImage(URL(string: imageURL))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
             
             Button(action: {
                 showingVideoPlayer = true
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                
+                if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == modelData.currentSelectedShow.name && $0.episodeNumber == episode.episodeNumber}) {
+                    print("update history")
+                        modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
+                        modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
+                    
+                }
+                else{
+                    print("add to history")
+                    modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: modelData.currentSelectedShow.name ,episodeNumber: episode.episodeNumber, imageUrl: imageURL, timestamp: Date().timeIntervalSince1970, videoUrl: episode.videoUrl))
+                    
+                }
+                
             }, label: {
                 Image(systemName: "play.circle")
                     .foregroundColor(.white)
                     .font(.system(size: 40))
             })
-            .sheet(isPresented: $showingVideoPlayer, content: {
+            .fullScreenCover(isPresented: $showingVideoPlayer, content: {
 //                SwiftUIVideoView(url: videoURL)
 //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
-                VideoWebView(url: videoURL, isPresented: $showingVideoPlayer)
+                VideoWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
             })
         }
+//        .fullScreenCover(isPresented: $showingVideoPlayer, content: {
+//            //                SwiftUIVideoView(url: videoURL)
+//            //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
+//                            VideoWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
+//                        })
         
         
     }

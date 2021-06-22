@@ -23,13 +23,14 @@ struct Login: View{
     @State var userId = ""
     @State var isSendVerify = false
     @EnvironmentObject var modelData: ModelData
-    @State var startVerify = false
+    @State var startLogin = false
     @State var rememberLogin = true
+    let generator = UINotificationFeedbackGenerator()
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
-        LoadingView(isShowing: $startVerify){
+        LoadingView(isShowing: $startLogin){
         NavigationView{
         VStack(){
             Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
@@ -60,6 +61,8 @@ struct Login: View{
                 
                 Button(action: {
                     self.visible.toggle()
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                 }) {
                     
                     Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
@@ -86,7 +89,9 @@ struct Login: View{
             
             // Sign in button
             Button(action: {
-                self.startVerify.toggle()
+//                self.generator.notificationOccurred(.success)
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                self.startLogin = true
                 self.Verify()
                 
 //                UserDefaults.standard.set(true, forKey: "loading")
@@ -117,16 +122,19 @@ struct Login: View{
                         .foregroundColor(Color(UIColor.label))
                 }
                 
+                
                 Text("now").multilineTextAlignment(.leading)
                 
             }.padding(.top, 25)
             Button(action: {
-                self.startVerify = true
-                self.verifyWithFaceID()
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                self.startLogin = true
+                self.loginWithFaceID()
+               
 //                UserDefaults.standard.set(true, forKey: "loading")
 //                NotificationCenter.default.post(name: NSNotification.Name("loading"), object: nil)
             }) {
-                Text("Sign In With Face ID")
+                Text("Sign In With Biometric")
 //                    .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.vertical)
@@ -145,8 +153,8 @@ struct Login: View{
         .navigationBarHidden(true)
         .onAppear(perform: {
             if UserDefaults.standard.bool(forKey: "biounlock") {
-                self.startVerify = true
-                verifyWithFaceID()
+                self.startLogin = true
+                loginWithFaceID()
             }
         })
        }}
@@ -154,14 +162,15 @@ struct Login: View{
         
     }
     
-    func verifyWithFaceID() {
+    func loginWithFaceID() {
+        
         let context = LAContext()
             var error: NSError?
 
             // check whether biometric authentication is possible
             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
                 // it's possible, so go ahead and use it
-                let reason = "We need to unlock KSHOW with your biometric authentication"
+                let reason = "Sign in KSHOW with your biometric authentication"
 
                 context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
                     // authentication has now completed
@@ -176,7 +185,7 @@ struct Login: View{
                             self.error = ""
                             self.title = "Face ID Error"
                             self.alert.toggle()
-                            self.startVerify.toggle()
+                            self.startLogin = false
                         }
                     }
                 }
@@ -185,7 +194,7 @@ struct Login: View{
                 self.error = ""
                 self.title = "There is no biometric authentication"
                 self.alert.toggle()
-                self.startVerify.toggle()
+                self.startLogin = false
             }
     }
     
@@ -201,7 +210,7 @@ struct Login: View{
                     self.error = err!.localizedDescription
                     self.title = "Login Error"
                     self.alert.toggle()
-                    self.startVerify.toggle()
+                    self.startLogin = false
                     return
                 }
                 
@@ -214,7 +223,8 @@ struct Login: View{
                     }
                     else
                     {
-                        self.startVerify = false
+                        
+                        self.startLogin = false
                         print("User need verify email")
                         if !self.isSendVerify {
                         user.sendEmailVerification { (error) in
@@ -222,23 +232,23 @@ struct Login: View{
                                 self.error = error?.localizedDescription ?? "Email verify error"
                                 self.title = "Verify Error"
                                 self.alert.toggle()
-                                self.startVerify.toggle()
+                                
                             }
                             else{
                                 self.isSendVerify = true
                                 self.error = "Open your email that is used to sign up to verify your email in order to login"
                                 self.title = "Verify"
                                 self.alert.toggle()
-                                self.startVerify.toggle()
+                               
                             }
                             
                         }
                         }else{
                             self.error = "Open your email that is used to sign up to verify your email in order to login"
                             self.title = "Verify"
-
                             self.alert.toggle()
-                            self.startVerify.toggle()
+                            
+                            
                         }
 
                     }
@@ -251,7 +261,7 @@ struct Login: View{
             self.title = "Login Error"
             self.error = "Please fill all the content property"
             self.alert.toggle()
-            self.startVerify.toggle()
+            self.startLogin = false
         }
     }
 
@@ -287,7 +297,7 @@ struct Login: View{
     }
     func fetchCasts() {
 
-        modelData.ref.child("top-casts").observeSingleEvent(of: .value, with: { snapshot in
+        modelData.ref.child("casts").observeSingleEvent(of: .value, with: { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
             do {
                 let model = try FirebaseDecoder().decode(Cast.self, from: child.value as Any)
@@ -300,6 +310,7 @@ struct Login: View{
                 
                 
           }
+            modelData.casts = modelData.updateImageCastAPI
             self.fetchShows()
         }){ (error) in
             bfprint(error.localizedDescription)
@@ -313,7 +324,10 @@ struct Login: View{
             do {
                 let model = try FirebaseDecoder().decode(Show.self, from: child.value as Any)
                 print(model)
+                
                 modelData.shows.append(model)
+                
+               
                 
             } catch let error {
                 bfprint(error)
@@ -321,6 +335,7 @@ struct Login: View{
                 
                 
           }
+            modelData.shows = modelData.updateImageShowAPI
             self.finalizeSignIn()
         }){ (error) in
             bfprint(error.localizedDescription)
@@ -349,7 +364,7 @@ struct Login: View{
 //        Defaults[\.isUserLogin] = true
 //        Defaults[\.email] = email
 //        Defaults[\.password] = pass
-        self.startVerify = false
+        self.startLogin = false
     }
     
     

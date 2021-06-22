@@ -91,28 +91,39 @@ struct ContentView: View {
                         
                     }
                     .tag(Tab.featured)
+                    
                 
-                
-                ShowList()
-                    .tabItem {
+//                
+//                ShowList()
+//                    .tabItem {
+//                        
+//                        Label("History", systemImage: "clock")
+//                        
+//                    }
+//                    .tag(Tab.list)
+                if (modelData.historyEpisodes.count > 0)
+                {
+                    HistoryEpisodeView(historyEpisodes: modelData.historyEpisodes).tabItem {
                         
-                        Label("Shows", systemImage: "play.tv")
+                        Label("History", systemImage: "clock")
                         
                     }
                     .tag(Tab.list)
-                
+                   
+                }
                
                 SearchView()
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }.tag(Tab.search)
+                        
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
+                    .tag(Tab.search)
+                    
               
                 Menu()
                     .tabItem {
                         
                         Label("Menu", systemImage: "slider.horizontal.3")
-                        
                     }
                     .tag(Tab.menu)
                     
@@ -120,6 +131,7 @@ struct ContentView: View {
             }.onAppear{
                 StoreReviewHelper.checkAndAskForReview()
             }
+            
             .transition(.slide).animation(.easeInOut(duration: 0.5))
             
         }

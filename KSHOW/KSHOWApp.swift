@@ -79,7 +79,28 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         
-        
+        bfprint("applicationWillTerminate")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+//            if url.absoluteString.lowercased().hasPrefix("recoverytrek://".lowercased()) {
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kSFViewControllerCloseNotification"), object: url)
+//            }
+
+        bfprint("application open url: \(url)")
+            return false
+        }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+
+
+      bfprint("applicationDidEnterBackground")
+    }
+
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        bfprint("applicationWillEnterForeground")
     }
     
     

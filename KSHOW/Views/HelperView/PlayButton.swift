@@ -10,7 +10,7 @@ import SwiftUI
 struct PlayButton: View {
     var text: String
     var imageName: String
-    var backgroundColor: Color = .white
+//    var backgroundColor: Color = .white
     
     var action: () -> Void
     var body: some View {
@@ -26,8 +26,9 @@ struct PlayButton: View {
                 Spacer()
             }
             .padding(.vertical, 6)
-//            .background(backgroundColor)
-//            .foregroundColor(backgroundColor == .white ? .black : .white)
+            .background(Color(UIColor.systemBlue))
+            .foregroundColor(Color(UIColor.label))
+            .shadow(radius: 10.0)
             .cornerRadius(3.0)
         })
     }

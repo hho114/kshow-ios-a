@@ -66,6 +66,7 @@ struct SignUp: View{
                         
                         Button(action: {
                             self.visible.toggle()
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         }) {
                             
                             Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
@@ -92,6 +93,7 @@ struct SignUp: View{
                         
                         Button(action: {
                             self.revisible.toggle()
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         }) {
                             //Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
                             Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
@@ -113,8 +115,10 @@ struct SignUp: View{
                                     }
                     // Sign up button
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         self.startSignup = true
                         self.Register()
+                        
                         
                     }) {
                         Text("SIGN UP")
@@ -196,7 +200,6 @@ struct SignUp: View{
                                 }
                                 
                                 }
-
                             self.presentationMode.wrappedValue.dismiss()
 
                         }
@@ -208,12 +211,14 @@ struct SignUp: View{
                 self.error = "Password mismatch"
                 self.title = "Sign up error"
                 self.alert.toggle()
+                self.startSignup = false
             }
         }
         else{
             
             self.error = "Please fill all the contents properly"
             self.alert.toggle()
+            self.startSignup = false
         }
         
     }

@@ -34,12 +34,8 @@ struct CategoryHome: View {
 //
 //                        }
 //                        )
-//
-//
-//
-//                                        .aspectRatio(3 / 2, contentMode: .fit)
-//
-//                                        .listRowInsets(EdgeInsets())
+//                        .aspectRatio(3 / 2, contentMode: .fit)
+//                        .listRowInsets(EdgeInsets())
 //                }
 
                 if (modelData.features.count > 0)
@@ -48,23 +44,27 @@ struct CategoryHome: View {
                         NavigationLink(
                             destination:ShowDetailView(show: modelData.features[0])
                            ){
-                            
+
                                 TopShowPreview(show: modelData.features[0])
             //                                        .frame(width: screen.width)
                                                     .padding(.top, -110)
                                                     .zIndex(-1)
-                           
+
                         }
                     })
-                   
-                   
+
+
                 }
                 
+                CastRow(casts: modelData.casts, title: "Casts")
 
 
-                
-                CastRow(casts: modelData.casts, title: "Top Star") 
-
+//                if (modelData.historyEpisodes.count > 0){
+//
+//                    HistoryEpisodeRow(categoryName: "Watch It Again", items: modelData.historyEpisodes).listRowInsets(EdgeInsets())
+//
+//                }
+               
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 
                     CategoryRow(categoryName: key, items: modelData.categories[key]!)
@@ -72,8 +72,7 @@ struct CategoryHome: View {
 
                 }.listRowInsets(EdgeInsets())
 
-            }
-            .listStyle(InsetListStyle())
+            }.listStyle(InsetListStyle())
 //            .navigationTitle("Featured")
 //            .navigationTitle(modelData.user.username)
 //            .toolbar {

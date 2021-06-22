@@ -7,6 +7,8 @@
 
 import SwiftUI
 import WebKit
+import AVKit
+
 
 struct VideoWebView: View {
     var url: String
@@ -16,19 +18,24 @@ struct VideoWebView: View {
 
             Button(action: {
                 print("close button was tapped")
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                 isPresented = false
             }) {
                 //            I
                 HStack {
+//                  Spacer()
+                    Image(systemName: "xmark").foregroundColor(Color(UIColor.label)).font(.system(size: 30))
                     Spacer()
-                    Image(systemName: "arrowtriangle.down").foregroundColor(.white)
-                    
-                    
-                    Spacer()
-                }
+                }.background(Color(UIColor.systemBackground))
             }
             
             Webview(url: URL(string: url)!)
+//            VideoPlayer(player: AVPlayer(url:  URL(string: url)!))
+        }
+        .onAppear(){
+//            NotificationCenter.default.addObserver(self, selector: #selector(dismissSFViewController(_:)), name:NSNotification.Name(rawValue: "kSFViewControllerCloseNotification"), object: nil)
+            
         }
         
     }
@@ -42,8 +49,14 @@ struct Webview: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<Webview>) -> WKWebView {
         let webview = WKWebView()
         webview.navigationDelegate = navigationHelper
+        // create javascript code as string
+        let javascriptSource = "window.post.accept({shouldShowAlert: false})"
+
+        // evaluate it on webView
+        webview.evaluateJavaScript(javascriptSource)
         webview.configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
         webview.allowsBackForwardNavigationGestures = false
+      
         webview.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
             for cookie in cookies {
                 if cookie.name == "authentication" {
@@ -53,25 +66,28 @@ struct Webview: UIViewRepresentable {
                 }
             }
         }
-        let request = URLRequest(url: self.url, cachePolicy: .returnCacheDataElseLoad)
+        let request = URLRequest(url: self.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
             webview.load(request)
-//        let embededHTML = "<html><body><iframe src=\"https://www.fembed.com/v/y24l0fe1dj0jqd6\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"422px\"></iframe></body></html>"
+//        let embededHTML = "<html><body><iframe src=\"\(self.url)\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
 //        webview.loadHTMLString(embededHTML, baseURL: nil)
 
 
         return webview
     }
+    
 
     func updateUIView(_ webview: WKWebView, context: UIViewRepresentableContext<Webview>) {
-        let request = URLRequest(url: self.url, cachePolicy: .returnCacheDataElseLoad)
+        let request = URLRequest(url: self.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
         webview.load(request)
-//        let embededHTML = "<html><body><iframe src=\"https://www.fembed.com/v/y24l0fe1dj0jqd6\" scrolling=\"false\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
+//        let embededHTML = "<html><body><iframe src=\"\(self.url)\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
 //        webview.loadHTMLString(embededHTML, baseURL: nil)
     }
     
 }
 
 class WebViewHelper: NSObject, WKNavigationDelegate {
+    
+    
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("webview didFinishNavigation")
@@ -90,7 +106,46 @@ class WebViewHelper: NSObject, WKNavigationDelegate {
 
         print("didReceiveAuthenticationChallenge")
         completionHandler(.performDefaultHandling, nil)
-
         
     }
+
+//    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+//        print("didReceiveServerRedirectForProvisionalNavigation navigation")
+//    }
+//    
+//    
+//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+//        print("decidePolicyFor navigationAction")
+//    }
+//    
+//    func webView(_ webView: WKWebView, authenticationChallenge challenge: URLAuthenticationChallenge, shouldAllowDeprecatedTLS decisionHandler: @escaping (Bool) -> Void) {
+//        print("authenticationChallenge challenge")
+//    }
+//    
+//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+//        print("didFail navigation")
+//    }
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        print("webViewWebContentProcessDidTerminate")
+    }
 }
+
+//extension AVPlayerViewController {
+//    // override 'viewWillDisappear'
+//    open override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        // now, check that this ViewController is dismissing
+//        if self.isBeingDismissed == false {
+//            return
+//        }
+//        print("viewWillDisappear")
+//        // and then , post a simple notification and observe & handle it, where & when you need to.....
+//        NotificationCenter.default.post(name: .kAVPlayerViewControllerDismissingNotification, object: nil)
+//    }
+//
+//
+//}
+//
+//extension Notification.Name {
+//static let kAVPlayerViewControllerDismissingNotification = Notification.Name.init("dismissing")
+//}

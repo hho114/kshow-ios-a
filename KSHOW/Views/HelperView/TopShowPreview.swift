@@ -25,23 +25,25 @@ struct TopShowPreview: View {
             
             VStack {
                 Spacer()
-                HStack {
-                    ForEach(show.category, id: \.self) { category in
-                        Text(category)
-                            .font(.footnote)
-                        if shouldShowCircleAfterCategory(category) {
-                            Image(systemName: "circle.fill")
-//                                .foregroundColor(.blue)
-                                .font(.system(size: 4))
-                        }
-                    }
-                }
+//                HStack {
+//                    ForEach(show.category, id: \.self) { category in
+//                        Text(category)
+//                            .font(.footnote)
+//                        if shouldShowCircleAfterCategory(category) {
+//                            Image(systemName: "circle.fill")
+////                                .foregroundColor(.blue)
+//                                .font(.system(size: 4))
+//                        }
+//                    }
+//                }
+                Text(show.name)
+                    .font(.system(size: 20, weight: .black, design: .rounded))
                 HStack {
                     Spacer()
-                    SmallVerticalButton(isOn: true, text: "My List", imageForSelected: "checkmark", imageForNonSelected: "plus") {
+                    SmallVerticalButton(isOn: true, text: show.rating, imageForSelected: "star.fill", imageForNonSelected: "star.fill") {
                         //
                     }
-                    Spacer()
+//                    Spacer()
 //                    PlayButton(text: "Play", imageName: "play.fill") {
 //                        //
 //                        showingVideoPlayer = true
@@ -52,7 +54,7 @@ struct TopShowPreview: View {
 //                    })
                     
                     Spacer()
-                    SmallVerticalButton(isOn: true, text: "Info", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {
+                    SmallVerticalButton(isOn: true, text: "Featured Show", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {
                         //
                     }
                     Spacer()

@@ -20,6 +20,9 @@ struct Menu: View {
                     NavigationLink(destination: ProfileHost()){
                         Label("Profile", systemImage: "person.crop.circle").padding()
                         
+                    }.onTapGesture {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                     }
                     
 //                    NavigationLink(destination: ProfileHost()){
@@ -28,13 +31,16 @@ struct Menu: View {
 //                    }
                     //TODO: Create contact new page with contact and report issue button
                     Button(action: {
-                        
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                     }, label: {
                         Label("Need Help", systemImage: "exclamationmark.bubble").padding()
                     })
                     
                    
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                         self.SignOut()
                     }) {
                         Label("Sign Out", systemImage: "arrow.forward.square").padding()

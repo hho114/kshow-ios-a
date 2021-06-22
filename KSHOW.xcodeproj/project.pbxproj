@@ -63,8 +63,12 @@
 		FA5097B3264D8EEA00D94F4E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5097AF264D8EEA00D94F4E /* Profile.swift */; };
 		FA5097B6264D8F6300D94F4E /* landmarkData.json in Resources */ = {isa = PBXBuildFile; fileRef = FA5097B4264D8F6200D94F4E /* landmarkData.json */; };
 		FA5097B7264D8F6300D94F4E /* hikeData.json in Resources */ = {isa = PBXBuildFile; fileRef = FA5097B5264D8F6300D94F4E /* hikeData.json */; };
+		FA562DB0267C48A4004A224F /* HistoryEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA562DAF267C48A4004A224F /* HistoryEpisode.swift */; };
+		FA562DB2267C58AA004A224F /* HistoryEpisodeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA562DB1267C58AA004A224F /* HistoryEpisodeRow.swift */; };
+		FA562DB4267C5943004A224F /* HistoryEpisodeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA562DB3267C5943004A224F /* HistoryEpisodeItem.swift */; };
+		FA562DB6267C6657004A224F /* HistoryEpisodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA562DB5267C6657004A224F /* HistoryEpisodeView.swift */; };
+		FA562DB8267C6835004A224F /* HistoryVideoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA562DB7267C6835004A224F /* HistoryVideoPreview.swift */; };
 		FA8BB32D26705F280085AD82 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA8BB32C26705F280085AD82 /* Launch Screen.storyboard */; };
-		FA99501026791A2F0003F5E9 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99500F26791A2E0003F5E9 /* DefaultsKeys.swift */; };
 		FABF7E572673133A0060C361 /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF7E562673133A0060C361 /* StoreReviewHelper.swift */; };
 		FABF7E5E2675C9B30060C361 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FABF7E5D2675C9B30060C361 /* GoogleService-Info.plist */; };
 		FAC10496264F140D008E56C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC10495264F140D008E56C4 /* User.swift */; };
@@ -138,8 +142,12 @@
 		FA5097AF264D8EEA00D94F4E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FA5097B4264D8F6200D94F4E /* landmarkData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = landmarkData.json; sourceTree = "<group>"; };
 		FA5097B5264D8F6300D94F4E /* hikeData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hikeData.json; sourceTree = "<group>"; };
+		FA562DAF267C48A4004A224F /* HistoryEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEpisode.swift; sourceTree = "<group>"; };
+		FA562DB1267C58AA004A224F /* HistoryEpisodeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEpisodeRow.swift; sourceTree = "<group>"; };
+		FA562DB3267C5943004A224F /* HistoryEpisodeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEpisodeItem.swift; sourceTree = "<group>"; };
+		FA562DB5267C6657004A224F /* HistoryEpisodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEpisodeView.swift; sourceTree = "<group>"; };
+		FA562DB7267C6835004A224F /* HistoryVideoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVideoPreview.swift; sourceTree = "<group>"; };
 		FA8BB32C26705F280085AD82 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		FA99500F26791A2E0003F5E9 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		FABF7E562673133A0060C361 /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		FABF7E5D2675C9B30060C361 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAC10495264F140D008E56C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 				FA0FF955265D9CE9004FA561 /* PlayerView.swift */,
 				FA0FF957265D9D34004FA561 /* VideoView.swift */,
 				FA0FF959265D9D70004FA561 /* VideoCard.swift */,
+				FA562DB7267C6835004A224F /* HistoryVideoPreview.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -216,7 +225,6 @@
 			children = (
 				FA0FF946265D699B004FA561 /* GlobalHelper.swift */,
 				FABF7E562673133A0060C361 /* StoreReviewHelper.swift */,
-				FA99500F26791A2E0003F5E9 /* DefaultsKeys.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 				FA0FF91E26586E86004FA561 /* Permission.swift */,
 				FA0FF922265C30BE004FA561 /* Episode.swift */,
 				FA0FF951265D70EE004FA561 /* Cast.swift */,
+				FA562DAF267C48A4004A224F /* HistoryEpisode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -369,6 +378,7 @@
 				FA0FF92F265D4913004FA561 /* CustomTabSwitcher.swift */,
 				FA0FF933265D4BC2004FA561 /* EpisodeView.swift */,
 				FA0FF935265D4D3B004FA561 /* TrailerListView.swift */,
+				FA562DB5267C6657004A224F /* HistoryEpisodeView.swift */,
 			);
 			path = Shows;
 			sourceTree = "<group>";
@@ -397,6 +407,8 @@
 				FA5097A6264D8E9700D94F4E /* CategoryHome.swift */,
 				FA5097A8264D8E9800D94F4E /* CategoryItem.swift */,
 				FA5097A7264D8E9700D94F4E /* CategoryRow.swift */,
+				FA562DB1267C58AA004A224F /* HistoryEpisodeRow.swift */,
+				FA562DB3267C5943004A224F /* HistoryEpisodeItem.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -531,8 +543,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA562DB0267C48A4004A224F /* HistoryEpisode.swift in Sources */,
 				FA50978E264D867400D94F4E /* PageControl.swift in Sources */,
-				FA99501026791A2F0003F5E9 /* DefaultsKeys.swift in Sources */,
+				FA562DB2267C58AA004A224F /* HistoryEpisodeRow.swift in Sources */,
 				FA0FF92C265D472E004FA561 /* StandardHomeShow.swift in Sources */,
 				FA0FF930265D4913004FA561 /* CustomTabSwitcher.swift in Sources */,
 				FA0FF961265DE5BB004FA561 /* PopularShowsView.swift in Sources */,
@@ -552,6 +565,7 @@
 				FAF092CD26617FCF00CA897C /* LoadingView.swift in Sources */,
 				FA509776264C325E00D94F4E /* ContentView.swift in Sources */,
 				FA0FF941265D683B004FA561 /* HomeView.swift in Sources */,
+				FA562DB8267C6835004A224F /* HistoryVideoPreview.swift in Sources */,
 				FA5097A2264D8E7A00D94F4E /* MapView.swift in Sources */,
 				FA5097AA264D8E9800D94F4E /* CategoryRow.swift in Sources */,
 				FA0FF93E265D5B63004FA561 /* VideoPreviewImage.swift in Sources */,
@@ -570,6 +584,7 @@
 				FA5097B2264D8EEA00D94F4E /* Landmark.swift in Sources */,
 				FA0FF95A265D9D70004FA561 /* VideoCard.swift in Sources */,
 				FA0FF923265C30BE004FA561 /* Episode.swift in Sources */,
+				FA562DB6267C6657004A224F /* HistoryEpisodeView.swift in Sources */,
 				FA50978C264D867400D94F4E /* FeatureCard.swift in Sources */,
 				FA0FF934265D4BC2004FA561 /* EpisodeView.swift in Sources */,
 				FA509796264D86A700D94F4E /* ProfileHost.swift in Sources */,
@@ -590,6 +605,7 @@
 				FA50979B264D8BB800D94F4E /* ShowDetail.swift in Sources */,
 				FA0FF928265C39E7004FA561 /* EpisodeRow.swift in Sources */,
 				FA0FF92A265D43C7004FA561 /* ShowDetailView.swift in Sources */,
+				FA562DB4267C5943004A224F /* HistoryEpisodeItem.swift in Sources */,
 				FA509774264C325E00D94F4E /* KSHOWApp.swift in Sources */,
 				FA0FF932265D4A72004FA561 /* SmallVerticalButton.swift in Sources */,
 			);

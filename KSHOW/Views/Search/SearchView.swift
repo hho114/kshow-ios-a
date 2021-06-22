@@ -35,6 +35,8 @@ struct SearchView: View {
     
     @State private var searchText = ""
     @State private var showingActionSheet = false
+    @State private var searchByCast = true
+    @State private var searchByShow = true
     
     var body: some View {
         
@@ -58,10 +60,8 @@ struct SearchView: View {
                             .foregroundColor(.purple)
                     }
                 }
-//                .padding()
                 
                 SearchBar(text: $searchText)
-//                    .padding(.top, -30)
 //                List(modelData.shows.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) })) { item in
 ////                    Text(item.name)
 //                        NavigationLink(destination: ShowDetailView(show: item)){
@@ -71,18 +71,23 @@ struct SearchView: View {
 //                        }
 //                }
                 List{
-                    ForEach(modelData.shows.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
-                    {item in
-                    NavigationLink(destination: ShowDetailView(show: item)){
-                            RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
+                    if searchByShow {
+                        ForEach(modelData.shows.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
+                        {item in
+                        NavigationLink(destination: ShowDetailView(show: item)){
+                                RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
+                            }
                         }
                     }
-                    ForEach(modelData.casts.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
-                    {item in
-                        NavigationLink(destination:  Webview(url: URL(string:item.profileUrl)!)){
-                            RowItem(imageUrl: item.imageUrl, name: item.name)
+                    if searchByCast {
+                        ForEach(modelData.casts.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
+                        {item in
+                            NavigationLink(destination:  Webview(url: URL(string:item.profileUrl)!)){
+                                RowItem(imageUrl: item.imageUrl, name: item.name)
+                            }
                         }
                     }
+                    
                 }
                 
                
@@ -94,8 +99,19 @@ struct SearchView: View {
             
     }.actionSheet(isPresented: $showingActionSheet) {
         ActionSheet(title: Text("Change Filter"), message: Text("Select search type"), buttons: [
-            .default(Text("Star Name")) {  },
-            .default(Text("Show Name")) {  },
+            .default(Text("Star Name")) {
+                searchByShow = false
+                searchByCast = true
+                
+            },
+            .default(Text("Show Name")) {
+                searchByCast = false
+                searchByShow = true
+            },
+            .default(Text("Clear Filter")) {
+                searchByCast = true
+                searchByShow = true
+            },
             .cancel()
         ])
     }
