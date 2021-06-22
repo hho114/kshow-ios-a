@@ -11,6 +11,7 @@ struct CategoryHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     let screen = UIScreen.main.bounds
+//    @State var openShow = false
 //    @State show: Show
     
     var body: some View {
@@ -18,43 +19,46 @@ struct CategoryHome: View {
                NavigationView {
                
             List {
-//                HStack{
-//                    Image("kshow_logo")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 50)
-//                }
-//                if !modelData.features.isEmpty
-//                {
-//
-//
-//                        PageView(pages: modelData.features.map {
-//
-//                            FeatureCard(show: $0)
-//
-//                        }
-//                        )
-//                        .aspectRatio(3 / 2, contentMode: .fit)
-//                        .listRowInsets(EdgeInsets())
-//                }
-
-                if (modelData.features.count > 0)
+                HStack{
+                    Spacer()
+                    Image("kshow_logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35)
+                        .cornerRadius(8.0)
+                    Spacer()
+                }
+                if !modelData.features.isEmpty
                 {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        NavigationLink(
-                            destination:ShowDetailView(show: modelData.features[0])
-                           ){
 
-                                TopShowPreview(show: modelData.features[0])
-            //                                        .frame(width: screen.width)
-                                                    .padding(.top, -110)
-                                                    .zIndex(-1)
+
+                        PageView(pages: modelData.features.map {
+
+                            FeatureCard(show: $0)
 
                         }
-                    })
-
-
+                        )
+                        .aspectRatio(3 / 2, contentMode: .fit)
+                        .listRowInsets(EdgeInsets())
                 }
+
+//                if (modelData.features.count > 0)
+//                {
+//                    ScrollView(.vertical, showsIndicators: false, content: {
+//                        NavigationLink(
+//                            destination:ShowDetailView(show: modelData.features[0])
+//                           ){
+//
+//                                TopShowPreview(show: modelData.features[0])
+//            //                                        .frame(width: screen.width)
+////                                                    .padding(.top, -110)
+////                                                    .zIndex(-1)
+//
+//                        }
+//                    })
+                    
+
+//                }
                 
                 CastRow(casts: modelData.casts, title: "Casts")
 
@@ -96,7 +100,10 @@ struct CategoryHome: View {
 //                        }
             .navigationBarTitle("")
             .navigationBarHidden(true)
-        }
+               }
+//               .fullScreenCover(isPresented: $openShow, content: {
+//                ShowDetailView(show: <#T##Show#>)
+//               })
 
             
 
@@ -104,8 +111,6 @@ struct CategoryHome: View {
 
     
 }
-
-
 
 
 

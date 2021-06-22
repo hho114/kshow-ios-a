@@ -11,8 +11,9 @@ import Kingfisher
 struct FeatureCard: View {
 
 //    var landmark: Landmark
+    @EnvironmentObject var modelData: ModelData
     var show: Show
-    
+    @State var isPresent: Bool = false
     var body: some View {
 
 //        landmark.featureImage?
@@ -22,11 +23,19 @@ struct FeatureCard: View {
 //            .aspectRatio(3 / 2, contentMode: .fit)
 //            .overlay(TextOverlay(landmark: landmark))
 //        NavigationView{
-            NavigationLink(destination: ShowDetailView(show: show)){
-                KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
-                            .aspectRatio(3 / 2, contentMode: .fit)
-                    .overlay(TextOverlay(show: show))
-            }
+//            NavigationLink(destination: ShowDetailView(show: show)){
+        Button(action: {
+            isPresent = true
+            modelData.currentSelectedShow = show
+        }, label: {
+            KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
+                        .aspectRatio(3 / 2, contentMode: .fit)
+                .overlay(TextOverlay(show: show))
+        }).sheet(isPresented: $isPresent, content: {
+            ShowDetailView(show: show, isPresented: $isPresent)
+        })
+                
+//            }
             
 //        }
         
@@ -67,8 +76,10 @@ struct TextOverlay: View {
                     .font(.title)
 
                     .bold()
-
-                Text(show.name)
+                if let ep = show.currentEpisode["ep"]{
+                    Text("Lastest Episode: \(ep)")
+                }
+               
 
             }
 

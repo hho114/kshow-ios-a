@@ -12,6 +12,7 @@ struct ShowList: View {
     @EnvironmentObject var modelData: ModelData
    
     @State private var showFavoritesOnly = false
+    @State var isPresented = false
     
 //    var filteredLandmarks: [Landmark]{
 //        modelData.landmarks.filter{
@@ -28,7 +29,7 @@ struct ShowList: View {
     //                })
                     ForEach(modelData.shows)
                     {show in
-                    NavigationLink(destination: ShowDetailView(show: show)){
+                    NavigationLink(destination: ShowDetailView(show: show, isPresented: $isPresented)){
                             ShowRow(show: show)
                         
                         }

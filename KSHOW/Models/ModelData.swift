@@ -56,6 +56,18 @@ final class ModelData: ObservableObject{
         }
             return newListCasts
         }
+    
+    var currentImageCasts: [Cast] {
+        var newListCasts : [Cast] = []
+        for cast in casts {
+//            var tempCast = cast
+            if currentSelectedShow.casts.contains(cast.id) {
+                newListCasts.append(cast)
+            }
+            
+        }
+            return newListCasts
+        }
 //    var features: [Landmark] {
 //
 //          let shows =  landmarks.filter { $0.isFeatured }

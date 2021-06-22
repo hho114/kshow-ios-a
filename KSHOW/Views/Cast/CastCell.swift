@@ -12,9 +12,13 @@ struct CastCell: View {
     
     var cast : Cast
     let colors: [Color] = [.yellow, .red, .gray, .green, .pink, .blue, .orange]
-    
+    @State var isPresented: Bool = false
     var body: some View {
 //        ZStack(alignment: .bottom) {
+        
+        Button(action: {
+            isPresented = true
+        }, label: {
             KFImage(URL(string:cast.imageUrl))
                 .resizable()
                 .scaledToFill()
@@ -24,6 +28,10 @@ struct CastCell: View {
                         .stroke(lineWidth: 3)
                         .foregroundColor(colors.randomElement())
             )
+        }).sheet(isPresented: $isPresented, content: {
+            CastProfile(cast: cast, isPresented: $isPresented)
+        })
+            
             
 //            Image(movie.previewImageName)
 //                .resizable()

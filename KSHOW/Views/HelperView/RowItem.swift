@@ -19,12 +19,14 @@ struct RowItem: View {
         
         HStack {
             KFImage(URL(string: imageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            Text(name)
+            Text(name).font(.system(size: 20, weight: .black, design: .rounded)).foregroundColor(Color(UIColor.label))
             Spacer()
 //            if landmark.isFavorite
 //            {
 //                Image(systemName: "star.fill").foregroundColor(.yellow)
 //            }
         }
+//        .background(Color(UIColor.systemBackground))
+        .padding()
     }
 }

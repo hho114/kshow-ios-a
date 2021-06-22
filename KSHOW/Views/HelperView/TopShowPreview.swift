@@ -18,12 +18,13 @@ struct TopShowPreview: View {
         return index + 1 != show.category.count
     }
     var body: some View {
-        ZStack {
-            KFImage(URL(string:show.thumbnailImageUrl))
-                .resizable()
-                .scaledToFit()
+//        ZStack {
+           
             
             VStack {
+                KFImage(URL(string:show.thumbnailImageUrl))
+                    .resizable()
+                    .scaledToFit()
                 Spacer()
 //                HStack {
 //                    ForEach(show.category, id: \.self) { category in
@@ -38,11 +39,14 @@ struct TopShowPreview: View {
 //                }
                 Text(show.name)
                     .font(.system(size: 20, weight: .black, design: .rounded))
-                HStack {
-                    Spacer()
-                    SmallVerticalButton(isOn: true, text: show.rating, imageForSelected: "star.fill", imageForNonSelected: "star.fill") {
-                        //
-                    }
+                Label("Lastest Episode: \(show.currentEpisode["ep"] ?? "n/a")", systemImage: "flame")
+                
+//                HStack {
+//                    Spacer()
+                    
+//                    SmallVerticalButton(isOn: true, text: "Lastest Episode: \(show.currentEpisode["ep"] ?? "n/a")", imageForSelected: "flame", imageForNonSelected: "flame") {
+//                        //
+//                    }
 //                    Spacer()
 //                    PlayButton(text: "Play", imageName: "play.fill") {
 //                        //
@@ -53,17 +57,18 @@ struct TopShowPreview: View {
 //                        VideoWebView(url: show.trailerUrl)
 //                    })
                     
-                    Spacer()
-                    SmallVerticalButton(isOn: true, text: "Featured Show", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {
-                        //
-                    }
-                    Spacer()
-                }
-                .padding(.vertical, 14)
+//                    Spacer()
+//                    Label("Featured Show", systemImage: "info.circle")
+//                    SmallVerticalButton(isOn: true, text: "Featured Show", imageForSelected: "info.circle", imageForNonSelected: "info.circle") {
+//
+//                    }
+//                    Spacer()
+//                }
+//                .padding(.vertical, 14)
             }
 //            .background(LinearGradient.blackTopToBottom)
-            .padding(.top, 300)
-        }
+//            .padding(.top, 300)
+//        }
 //        .foregroundColor(.white)
     }
 }

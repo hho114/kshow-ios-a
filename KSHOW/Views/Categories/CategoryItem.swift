@@ -12,11 +12,12 @@ import Kingfisher
 struct CategoryItem: View {
 
 //    var landmark: Landmark
+    @EnvironmentObject var modelData: ModelData
     var show: Show
-
+    @State var isPresented = false
     var body: some View {
 
-        VStack(alignment: .leading) {
+        VStack() {
 
 //            landmark.image
 //                .renderingMode(.original)
@@ -25,12 +26,23 @@ struct CategoryItem: View {
 //                .frame(width: 155, height: 155)
 //
 //                .cornerRadius(5)
-            KFImage(URL(string: show.thumbnailImageUrl)!).renderingMode(.original).resizable().frame(width: 155, height: 155).cornerRadius(5)
-
-            Text(show.name)
-                .foregroundColor(.primary)
-                .font(.caption)
+           
 //            ShowList()
+            Button(action: {
+                isPresented = true
+                modelData.currentSelectedShow = show
+            }, label: {
+                VStack(alignment: .leading){
+                    KFImage(URL(string: show.thumbnailImageUrl)!).renderingMode(.original).resizable().frame(width: 155, height: 155).cornerRadius(5)
+
+                    Text(show.name)
+                        .foregroundColor(.primary)
+                        .font(.caption)
+                }
+                
+            }).sheet(isPresented: $isPresented, content: {
+                ShowDetailView(show: show, isPresented: $isPresented)
+            })
             
 
         }

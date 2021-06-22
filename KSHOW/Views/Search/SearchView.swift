@@ -37,6 +37,7 @@ struct SearchView: View {
     @State private var showingActionSheet = false
     @State private var searchByCast = true
     @State private var searchByShow = true
+    @State var isPresented = false
     
     var body: some View {
         
@@ -74,17 +75,18 @@ struct SearchView: View {
                     if searchByShow {
                         ForEach(modelData.shows.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
                         {item in
-                        NavigationLink(destination: ShowDetailView(show: item)){
+                            
+//                        NavigationLink(destination: ShowDetailView(show: item, isPresented: $isPresented)){
                                 RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
-                            }
+//                            }
                         }
                     }
                     if searchByCast {
                         ForEach(modelData.casts.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) }))
                         {item in
-                            NavigationLink(destination:  Webview(url: URL(string:item.profileUrl)!)){
-                                RowItem(imageUrl: item.imageUrl, name: item.name)
-                            }
+//                            NavigationLink(destination:  Webview(url: URL(string:item.profileUrl)!)){
+                            RowItem(imageUrl: item.imageUrl, name: item.name)
+//                            }
                         }
                     }
                     

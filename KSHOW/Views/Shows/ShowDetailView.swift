@@ -14,6 +14,8 @@ struct ShowDetailView: View {
 //    var movie: Movie
     var show: Show
     let screen = UIScreen.main.bounds
+    var isFullScreen = false
+    @Binding var isPresented: Bool
     @EnvironmentObject var modelData: ModelData
     
     @State private var showSeasonPicker = false
@@ -29,8 +31,29 @@ struct ShowDetailView: View {
 //            Color.black
 //                .edgesIgnoringSafeArea(.all)
             
-            ZStack {
+//            ZStack {
                 VStack {
+                    if isPresented {
+//                        Button(action: {
+//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//                            isPresented = false
+//                        }) {
+//                            Image(systemName: "chevron.compact.down").padding(.vertical, 5)
+//                        }
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.blue)
+                        HStack{
+                            Image(systemName: "chevron.compact.down").padding(.vertical, 5).frame(maxWidth: .infinity)
+
+                        }
+                        .background(LinearGradient.bluePurple)
+                        .onTapGesture {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            isPresented = false
+                        }
+//
+                        
+                    }
 //                    HStack {
 //                        Spacer()
 //                        Button(action: {
@@ -87,23 +110,25 @@ struct ShowDetailView: View {
                             CurrentEpisodeInformationView(show: show)
                             
 //                            CastInfoView(show: show)
-                          
-                            CastRow(casts: modelData.casts, title: "Casts")
-                            
-                            HStack(spacing: 30) {
-                                SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
-                                    //
-                                }
-                                SmallVerticalButton(isOn: false, text: "Like", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
-                                    //
-                                }
-                                SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
-                                    //
-                                }
-                                
-                                Spacer()
+                            if !modelData.currentImageCasts.isEmpty{
+                                CastRow(casts: modelData.currentImageCasts, title: "Casts")
+
                             }
-                            .padding(.leading, 20)
+                            
+//                            HStack(spacing: 30) {
+//                                SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
+//                                    //
+//                                }
+//                                SmallVerticalButton(isOn: false, text: "Like", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
+//                                    //
+//                                }
+//                                SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
+//                                    //
+//                                }
+//                                
+//                                Spacer()
+//                            }
+//                            .padding(.leading, 20)
 //                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                             CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                         }
@@ -112,7 +137,7 @@ struct ShowDetailView: View {
 //                    Spacer()
                 }
 //                .foregroundColor(.white)
-            }
+//            }
             if showSeasonPicker {
                 Group {
                     Color.black.opacity(0.90)
@@ -146,8 +171,13 @@ struct ShowDetailView: View {
                 }
                 .edgesIgnoringSafeArea(.all)
             }
-        }.onAppear(perform: {
-            modelData.currentSelectedShow = show
+        }
+        .onAppear(perform: {
+            if !isPresented
+            {
+                modelData.currentSelectedShow = show
+            }
+            
         })
     }
     

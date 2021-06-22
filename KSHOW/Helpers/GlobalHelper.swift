@@ -15,6 +15,9 @@ import SwiftUI
 
 extension LinearGradient {
     static let blackTopToBottom = LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.95)]), startPoint: .top, endPoint: .bottom)
+    static let bluePurple = LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .top, endPoint: .bottom)
+   
+
 }
 
 extension Color {

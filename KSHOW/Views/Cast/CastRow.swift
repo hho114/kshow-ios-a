@@ -17,35 +17,38 @@ struct CastRow: View {
 //    @Binding var previewStartingIndex: Int
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(title)")
-                .font(.title3)
-                .bold()
-//                .foregroundColor(.white)
-                .padding(.leading, 6)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack {
-                    ForEach(casts) { cast in
-                       
-                        VStack
-                        {
-                            CastCell(cast: cast)
-                                .frame(width: 100, height: 100)
-                                .padding(.trailing, 8)
-                                .padding(.leading, 6)
-                                .onTapGesture(perform: {
-    //                                previewStartingIndex = index
-    //                                showPreviewFullscreen = true
-                                })
-                            Text(cast.name).bold()
+        
+            VStack(alignment: .leading) {
+                Text("\(title)")
+                    .font(.title3)
+                    .bold()
+    //                .foregroundColor(.white)
+                    .padding(.leading, 6)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(casts) { cast in
+                           
+                            VStack
+                            {
+                                CastCell(cast: cast)
+                                    .frame(width: 100, height: 100)
+                                    .padding(.trailing, 8)
+                                    .padding(.leading, 6)
+                                    .onTapGesture(perform: {
+        //                                previewStartingIndex = index
+        //                                showPreviewFullscreen = true
+                                    })
+                                Text(cast.name).bold()
+                            }
+                            
                         }
-                        
                     }
                 }
             }
-        }
-        .frame(height: 185)
+            .frame(height: 185)
+
+        
     }
 }
 

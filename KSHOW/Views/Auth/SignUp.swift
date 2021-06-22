@@ -128,7 +128,7 @@ struct SignUp: View{
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
                     }
-                    .background(Color(UIColor.systemBlue))
+                    .background(LinearGradient.bluePurple)
                     .cornerRadius(15)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     .padding(.top, 15)

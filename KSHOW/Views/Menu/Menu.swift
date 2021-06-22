@@ -72,6 +72,7 @@ struct Menu: View {
         modelData.user = User.default
         modelData.permission = Permission.default
         modelData.casts = []
+        modelData.historyEpisodes = []
         
         
         

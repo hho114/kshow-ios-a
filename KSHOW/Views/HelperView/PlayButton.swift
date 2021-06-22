@@ -26,7 +26,8 @@ struct PlayButton: View {
                 Spacer()
             }
             .padding(.vertical, 6)
-            .background(Color(UIColor.systemBlue))
+//            .background(Color(UIColor.systemBlue))
+            .background(LinearGradient.bluePurple)
             .foregroundColor(Color(UIColor.label))
             .shadow(radius: 10.0)
             .cornerRadius(3.0)
