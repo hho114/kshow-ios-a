@@ -26,7 +26,7 @@ struct FeatureCard: View {
 //            NavigationLink(destination: ShowDetailView(show: show)){
         Button(action: {
             isPresent = true
-            modelData.currentSelectedShow = show
+//            modelData.currentSelectedShow = show
         }, label: {
             KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
                         .aspectRatio(3 / 2, contentMode: .fit)

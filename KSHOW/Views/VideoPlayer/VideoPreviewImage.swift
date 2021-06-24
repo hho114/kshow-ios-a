@@ -9,16 +9,17 @@ import SwiftUI
 import Kingfisher
 
 struct VideoPreviewImage: View {
-    var imageURL: String
+//    var imageURL: String
 //    var videoURL: String
     var episode: Episode
+    var show: Show
     @EnvironmentObject var modelData: ModelData
     @State private var showingVideoPlayer = false
     
     var body: some View {
         
         ZStack {
-            KFImage(URL(string: imageURL))
+            KFImage(URL(string: show.thumbnailImageUrl))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
             
@@ -27,7 +28,7 @@ struct VideoPreviewImage: View {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                 
-                if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == modelData.currentSelectedShow.name && $0.episodeNumber == episode.episodeNumber}) {
+                if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == show.name && $0.episodeNumber == episode.episodeNumber}) {
                     print("update history")
                         modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
                         modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
@@ -35,7 +36,7 @@ struct VideoPreviewImage: View {
                 }
                 else{
                     print("add to history")
-                    modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: modelData.currentSelectedShow.name ,episodeNumber: episode.episodeNumber, imageUrl: imageURL, timestamp: Date().timeIntervalSince1970, videoUrl: episode.videoUrl))
+                    modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber: episode.episodeNumber, imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: episode.videoUrl))
                     
                 }
                 

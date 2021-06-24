@@ -14,7 +14,7 @@ struct ShowDetailView: View {
 //    var movie: Movie
     var show: Show
     let screen = UIScreen.main.bounds
-    var isFullScreen = false
+
     @Binding var isPresented: Bool
     @EnvironmentObject var modelData: ModelData
     
@@ -22,6 +22,19 @@ struct ShowDetailView: View {
     @State private var selectedSeason = 1
     @State private var showingVideoPlayer = false
 //    @Binding var showDetailToShow: Show?
+    func getCasts() -> [Cast] {
+        
+        var newListCasts : [Cast] = []
+        for cast in modelData.casts {
+//            var tempCast = cast
+            if show.casts.contains(cast.id) {
+                newListCasts.append(cast)
+            }
+            
+        }
+            return newListCasts
+        
+    }
     
     var body: some View {
         
@@ -34,24 +47,17 @@ struct ShowDetailView: View {
 //            ZStack {
                 VStack {
                     if isPresented {
-//                        Button(action: {
-//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//                            isPresented = false
-//                        }) {
-//                            Image(systemName: "chevron.compact.down").padding(.vertical, 5)
-//                        }
-//                        .frame(maxWidth: .infinity)
-//                        .background(Color.blue)
-                        HStack{
-                            Image(systemName: "chevron.compact.down").padding(.vertical, 5).frame(maxWidth: .infinity)
-
-                        }
-                        .background(LinearGradient.bluePurple)
-                        .onTapGesture {
+                        Button(action: {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             isPresented = false
-                        }
-//
+                        }, label: {
+                            HStack{
+                                Image(systemName: "chevron.compact.down").padding(.vertical, 4).frame(maxWidth: .infinity)
+
+                            }
+                        })
+                        
+
                         
                     }
 //                    HStack {
@@ -85,7 +91,7 @@ struct ShowDetailView: View {
 
                                
                                 if let ep = show.currentEpisode["ep"], let url = show.currentEpisode["url"]     {
-                                    if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == modelData.currentSelectedShow.name && $0.episodeNumber == ep}) {
+                                    if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == show.name && $0.episodeNumber == ep}) {
                                         print("update history")
                                             modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
                                             modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
@@ -110,8 +116,8 @@ struct ShowDetailView: View {
                             CurrentEpisodeInformationView(show: show)
                             
 //                            CastInfoView(show: show)
-                            if !modelData.currentImageCasts.isEmpty{
-                                CastRow(casts: modelData.currentImageCasts, title: "Casts")
+                            if !getCasts().isEmpty{
+                                CastRow(casts: getCasts(), title: "Casts")
 
                             }
                             
@@ -125,7 +131,7 @@ struct ShowDetailView: View {
 //                                SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
 //                                    //
 //                                }
-//                                
+//
 //                                Spacer()
 //                            }
 //                            .padding(.leading, 20)
@@ -173,10 +179,10 @@ struct ShowDetailView: View {
             }
         }
         .onAppear(perform: {
-            if !isPresented
-            {
-                modelData.currentSelectedShow = show
-            }
+//            if !isPresented
+//            {
+//                modelData.currentSelectedShow = show
+//            }
             
         })
     }

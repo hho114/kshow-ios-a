@@ -2,19 +2,33 @@
 //  RowItemShow.swift
 //  KSHOW
 //
-//  Created by Alex Ho on 6/22/21.
+//  Created by Alex Ho on 6/23/21.
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RowItemShow: View {
+//    var imageUrl: String
+//    var name: String
+    var show: Show
+    @State var isPresented: Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: {
+            isPresented = true
+        }, label: {
+            HStack {
+                KFImage(URL(string: show.thumbnailImageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Text(show.name).font(.system(size: 20, weight: .black, design: .rounded)).foregroundColor(Color(UIColor.label))
+                Spacer()
+
+            }
+            .padding()
+        })
+        .sheet(isPresented: $isPresented, content: {
+            ShowDetailView(show: show, isPresented: $isPresented)
+
+        })
     }
 }
 
-struct RowItemShow_Previews: PreviewProvider {
-    static var previews: some View {
-        RowItemShow()
-    }
-}

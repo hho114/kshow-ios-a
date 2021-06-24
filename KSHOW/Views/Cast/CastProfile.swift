@@ -12,8 +12,9 @@ struct CastProfile: View {
     @EnvironmentObject var modelData: ModelData
     let gradient = Gradient(colors: [.blue, .purple])
     @Binding var isPresented: Bool
+    @State var present: Bool = false
     var body: some View {
-//        NavigationView{
+        NavigationView{
             VStack {
                 HStack{
                     Image(systemName: "chevron.compact.down").padding(.vertical, 6).frame(maxWidth: .infinity)
@@ -50,7 +51,7 @@ struct CastProfile: View {
 
                 ForEach(modelData.shows.filter({ $0.casts.contains(cast.id) }))
                 {item in
-                NavigationLink(destination: ShowDetailView(show: item, isPresented: $isPresented)){
+                NavigationLink(destination: ShowDetailView(show: item, isPresented: $present)){
                     
                         RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
                     }
@@ -60,7 +61,7 @@ struct CastProfile: View {
             .background(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom))
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
-//        }
+        }
     }
 }
 

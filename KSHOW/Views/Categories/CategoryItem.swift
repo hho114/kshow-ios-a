@@ -30,7 +30,7 @@ struct CategoryItem: View {
 //            ShowList()
             Button(action: {
                 isPresented = true
-                modelData.currentSelectedShow = show
+//                modelData.currentSelectedShow = show
             }, label: {
                 VStack(alignment: .leading){
                     KFImage(URL(string: show.thumbnailImageUrl)!).renderingMode(.original).resizable().frame(width: 155, height: 155).cornerRadius(5)
