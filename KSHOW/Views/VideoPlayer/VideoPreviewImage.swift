@@ -45,7 +45,7 @@ struct VideoPreviewImage: View {
                     .foregroundColor(.white)
                     .font(.system(size: 40))
             })
-            .fullScreenCover(isPresented: $showingVideoPlayer, content: {
+            .sheet(isPresented: $showingVideoPlayer, content: {
 //                SwiftUIVideoView(url: videoURL)
 //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
                 VideoWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)

@@ -107,7 +107,7 @@ struct ShowDetailView: View {
                                 
                             }
                             .frame(width: 120)
-                            .fullScreenCover(isPresented: $showingVideoPlayer, content: {
+                            .sheet(isPresented: $showingVideoPlayer, content: {
                                 if let sUrl = show.currentEpisode["url"]{
                                     VideoWebView(url: sUrl, isPresented: $showingVideoPlayer)
                                 }

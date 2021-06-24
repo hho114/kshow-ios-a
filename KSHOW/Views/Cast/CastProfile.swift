@@ -16,16 +16,25 @@ struct CastProfile: View {
     var body: some View {
         NavigationView{
             VStack {
-                HStack{
-                    Image(systemName: "chevron.compact.down").padding(.vertical, 6).frame(maxWidth: .infinity)
-
-                }
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+//                HStack{
+//                    Image(systemName: "chevron.compact.down").padding(.vertical, 6).frame(maxWidth: .infinity)
+//
+//                }
+//                .background(Color.black.opacity(0.5))
+//                .onTapGesture {
+//                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//                    isPresented = false
+//                    print("tap close modal")
+//                }
+                Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     isPresented = false
-                    print("tap close modal")
-                }
+                }, label: {
+                    HStack{
+                        Image(systemName: "chevron.compact.down").padding(.vertical, 4).frame(maxWidth: .infinity).foregroundColor(Color.white)
+
+                    }
+                })
 //                Spacer()
                 HStack {
                     Spacer()
@@ -51,10 +60,11 @@ struct CastProfile: View {
 
                 ForEach(modelData.shows.filter({ $0.casts.contains(cast.id) }))
                 {item in
-                NavigationLink(destination: ShowDetailView(show: item, isPresented: $present)){
+                    RowItemShow(show: item)
+//                NavigationLink(destination: ShowDetailView(show: item, isPresented: $present)){
                     
-                        RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
-                    }
+//                        RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
+//                    }
                 }
                 Spacer()
             }

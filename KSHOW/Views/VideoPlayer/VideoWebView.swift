@@ -16,26 +16,32 @@ struct VideoWebView: View {
     var body: some View {
         VStack{
 
+//            Button(action: {
+//                print("close button was tapped")
+//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//
+//                isPresented = false
+//            }) {
+//                //            I
+////                HStack {
+////                  Spacer()
+////                    Spacer()
+////                }.background(Color.black)
+//                Image(systemName: "chevron.compact.down").foregroundColor(Color.white)
+//
+//            }
             Button(action: {
-                print("close button was tapped")
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
                 isPresented = false
-            }) {
-                //            I
-                HStack {
-//                  Spacer()
-                    Image(systemName: "xmark").foregroundColor(Color(UIColor.label)).font(.system(size: 30))
-                    Spacer()
-                }.background(Color(UIColor.systemBackground))
-            }
+            }, label: {
+                HStack{
+                    Image(systemName: "chevron.compact.down").padding(.vertical, 4).frame(maxWidth: .infinity).foregroundColor(Color.white)
+
+                }
+            })
             
             Webview(url: URL(string: url)!)
 //            VideoPlayer(player: AVPlayer(url:  URL(string: url)!))
-        }
-        .onAppear(){
-//            NotificationCenter.default.addObserver(self, selector: #selector(dismissSFViewController(_:)), name:NSNotification.Name(rawValue: "kSFViewControllerCloseNotification"), object: nil)
-            
         }
         
     }
