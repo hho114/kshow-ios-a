@@ -26,6 +26,7 @@ struct FeatureCard: View {
 //            NavigationLink(destination: ShowDetailView(show: show)){
         Button(action: {
             isPresent = true
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
 //            modelData.currentSelectedShow = show
         }, label: {
             KFImage(URL(string: show.thumbnailImageUrl)!).resizable()

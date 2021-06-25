@@ -138,7 +138,7 @@ struct ShowDetailView: View {
     //                            }
     //                            .padding(.leading, 20)
     //                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
-                                CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                                CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason).environmentObject(modelData)
                             }
                             .padding(.horizontal, 10)
                         }

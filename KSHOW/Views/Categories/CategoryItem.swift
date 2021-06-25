@@ -31,6 +31,8 @@ struct CategoryItem: View {
             Button(action: {
                 isPresented = true
 //                modelData.currentSelectedShow = show
+                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+
             }, label: {
                 VStack(alignment: .leading){
                     KFImage(URL(string: show.thumbnailImageUrl)!).renderingMode(.original).resizable().frame(width: 155, height: 155).cornerRadius(5)

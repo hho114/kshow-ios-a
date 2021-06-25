@@ -18,6 +18,7 @@ struct CastCell: View {
         
         Button(action: {
             isPresented = true
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         }, label: {
             KFImage(URL(string:cast.imageUrl))
                 .resizable()

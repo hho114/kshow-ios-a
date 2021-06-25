@@ -16,6 +16,7 @@ struct RowItemShow: View {
     var body: some View {
         Button(action: {
             isPresented = true
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         }, label: {
             HStack {
                 KFImage(URL(string: show.thumbnailImageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
