@@ -41,7 +41,7 @@ struct HistoryVideoPreview: View {
             .sheet(isPresented: $showingVideoPlayer, content: {
 //                SwiftUIVideoView(url: videoURL)
 //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
-                VideoWebView(url: historyEpisode.videoUrl, isPresented: $showingVideoPlayer)
+                OpenWebView(url: historyEpisode.videoUrl, isPresented: $showingVideoPlayer)
             })
         }
         

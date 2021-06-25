@@ -14,13 +14,13 @@ struct ProfileSummary: View {
     var body: some View {
        
         List{
-            Text("Username \(user.username)")
+            Text("Username: \(user.username)")
 
                 .bold()
 
                 
 
-         Text("Email \(user.email)")
+         Text("Email: \(user.email)")
 //                       Text("Notifications: \(user.prefersNotifications ? "On": "Off" )")
 
         

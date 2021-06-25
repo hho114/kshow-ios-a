@@ -48,7 +48,7 @@ struct VideoPreviewImage: View {
             .sheet(isPresented: $showingVideoPlayer, content: {
 //                SwiftUIVideoView(url: videoURL)
 //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
-                VideoWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
+                OpenWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
             })
         }
 //        .fullScreenCover(isPresented: $showingVideoPlayer, content: {

@@ -25,6 +25,7 @@ struct Login: View{
     @EnvironmentObject var modelData: ModelData
     @State var startLogin = false
     @State var rememberLogin = true
+    @State private var showingAlert = false
     let generator = UINotificationFeedbackGenerator()
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
@@ -79,12 +80,23 @@ struct Login: View{
                 Text("Remember my Login").font(.subheadline)
                 Spacer()
                 Button(action: {
-                    self.ResetPassword()
+                    bfprint("Forget Password button pressed")
+                    showingAlert = true
                     self.visible.toggle()
                 }) {
                     Text("Forget Password")
                         .fontWeight(.medium)
                 }.padding(.top, 10.0)
+                .alert(isPresented: $showingAlert) { () -> Alert in
+                            let primaryButton = Alert.Button.default(Text("Ok")) {
+                                bfprint("Ok button pressed")
+                                self.ResetPassword()
+                            }
+                            let secondaryButton = Alert.Button.cancel(Text("Cancel")) {
+                                bfprint("Cancel button pressed")
+                            }
+                            return Alert(title: Text("Reset Password"), message: Text("Do you want to send a reset link to \(email)?"), primaryButton: primaryButton, secondaryButton: secondaryButton)
+                        }
             }
             
             // Sign in button

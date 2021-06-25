@@ -108,9 +108,9 @@ struct SignUp: View{
                     
                         Text("By tapping SIGN UP, you agree to the ")
                                     HStack(spacing: 0) {
-                                        Link("privacy policy", destination: URL(string: "https://github.com/xstar-solution/kshow-docs/blob/main/PrivacyPolicy.md")!)
+                                        Link("privacy policy", destination: URL(string: "https://github.com/xstar-solution/kshow-public/blob/main/docs/PrivacyPolicy.md")!)
                                         Text(" and ")
-                                        Link("terms of service", destination: URL(string: "https://github.com/xstar-solution/kshow-docs/blob/main/TermAndService.md")!)
+                                        Link("terms of service", destination: URL(string: "https://github.com/xstar-solution/kshow-public/blob/main/docs/TermAndService.md")!)
                                         Text(".")
                                     }
                     // Sign up button

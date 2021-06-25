@@ -10,7 +10,7 @@ import WebKit
 import AVKit
 
 
-struct VideoWebView: View {
+struct OpenWebView: View {
     var url: String
     @Binding var isPresented: Bool
     var body: some View {
@@ -43,6 +43,8 @@ struct VideoWebView: View {
             Webview(url: URL(string: url)!)
 //            VideoPlayer(player: AVPlayer(url:  URL(string: url)!))
         }
+//        .ignoresSafeArea()
+        .edgesIgnoringSafeArea(.all)
         
     }
 }

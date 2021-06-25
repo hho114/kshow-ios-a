@@ -52,15 +52,23 @@ struct CastProfile: View {
                         Text(cast.name).font(.system(size: 20)).bold().foregroundColor(.white)
                             .padding(.top, 12)
                         
-                        Text("@venom").font(.system(size: 18)).foregroundColor(.white)
-                        .padding(.top, 4)
+//                        Text("@venom").font(.system(size: 18)).foregroundColor(.white)
+//                        .padding(.top, 4)
                     }
                     Spacer()
                 }
-
+                HStack{
+                    Label(
+                        title: { Text("Show") },
+                        icon: { Image(systemName: "play.tv") }).padding(.leading,10)
+                    Spacer()
+                    
+                }
+                Divider()
+                
                 ForEach(modelData.shows.filter({ $0.casts.contains(cast.id) }))
                 {item in
-                    RowItemShow(show: item)
+                    RowItemShow(show: item).environmentObject(modelData)
 //                NavigationLink(destination: ShowDetailView(show: item, isPresented: $present)){
                     
 //                        RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)

@@ -12,18 +12,30 @@ import StoreKit
 
 struct Menu: View {
     @EnvironmentObject var modelData: ModelData
+    @State var showingProfile: Bool = false
+    @State var showingHelp: Bool = false
+    
     
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 20) {
                 List {
-                    NavigationLink(destination: ProfileHost()){
-                        Label("Profile", systemImage: "person.crop.circle").padding()
-                        
-                    }.onTapGesture {
+//                    NavigationLink(destination: ProfileHost()){
+//
+//
+//                    }.onTapGesture {
+//                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//
+//                    }
+                    
+                    Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                    }
+                        showingProfile = true
+                    }, label: {
+                        Label("Profile", systemImage: "person.crop.circle").padding()
+                    }).sheet(isPresented: $showingProfile, content: {
+                        ProfileHost().environmentObject(modelData)
+                    })
                     
 //                    NavigationLink(destination: ProfileHost()){
 //                        Label("Setting", systemImage: "slider.horizontal.3").padding()
@@ -32,9 +44,11 @@ struct Menu: View {
                     //TODO: Create contact new page with contact and report issue button
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
+                        showingHelp = true
                     }, label: {
                         Label("Need Help", systemImage: "exclamationmark.bubble").padding()
+                    }).sheet(isPresented: $showingHelp, content: {
+                        ContactUs()
                     })
                     
                    

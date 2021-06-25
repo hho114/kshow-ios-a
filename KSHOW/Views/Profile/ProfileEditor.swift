@@ -29,7 +29,7 @@ struct ProfileEditor: View {
 
             HStack {
 
-                Text("Username").bold()
+                Text("Username:").bold()
 
                 Divider()
 
@@ -38,7 +38,7 @@ struct ProfileEditor: View {
             }
             HStack {
 
-                Text("Email").bold()
+                Text("Email:").bold()
 
                 Divider()
 

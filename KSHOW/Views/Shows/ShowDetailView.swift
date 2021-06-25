@@ -14,200 +14,186 @@ struct ShowDetailView: View {
 //    var movie: Movie
     var show: Show
     let screen = UIScreen.main.bounds
-
+    
     @Binding var isPresented: Bool
     @EnvironmentObject var modelData: ModelData
-    
+    @State private var currentCasts: [Cast]=[]
     @State private var showSeasonPicker = false
     @State private var selectedSeason = 1
     @State private var showingVideoPlayer = false
+    @State private var loading = false
 //    @Binding var showDetailToShow: Show?
-    func getCasts() -> [Cast] {
-        
-        var newListCasts : [Cast] = []
+    
+    func getCasts(){
+        loading = true
+//        var newListCasts : [Cast] = []
         for cast in modelData.casts {
 //            var tempCast = cast
             if show.casts.contains(cast.id) {
-                newListCasts.append(cast)
+                currentCasts.append(cast)
             }
             
         }
-            return newListCasts
-        
+            
+        loading = false
     }
     
     var body: some View {
         
-       
-        
-        ZStack {
-//            Color.black
-//                .edgesIgnoringSafeArea(.all)
-            
-//            ZStack {
-                VStack {
-                    if isPresented {
-                        Button(action: {
-                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            isPresented = false
-                        }, label: {
-                            HStack{
-                                Image(systemName: "chevron.compact.down").padding(.vertical, 4).frame(maxWidth: .infinity)
-
-                            }
-                        })
-                        
-
-                        
-                    }
-//                    HStack {
-//                        Spacer()
-//                        Button(action: {
-////                            self.movieDetailToShow = nil
-//                        }, label: {
-//                            Image(systemName: "xmark.circle")
-//                                .font(.system(size: 28))
-//                        })
-//                    }
-//                    .padding(.trailing, 22)
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack {
-//                            StandardHomeShow(show: show)
-//                                .frame(width: screen.width / 2.5)
-                            KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
-                                .aspectRatio(contentMode: .fit)
-                            MovieSubHeadingInfoView(show: show)
-                            if let text = show.currentEpisode["ep"]  {
-                                Text("Lastest Episode: \(text)")
-                                    .bold()
-                                    .font(.headline)
-                            }
-                            
-                            PlayButton(text: "Play", imageName: "play.fill") {
-                                print("PlayButton Tapped")
-                                showingVideoPlayer = true
-                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                               
-                                if let ep = show.currentEpisode["ep"], let url = show.currentEpisode["url"]     {
-                                    if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == show.name && $0.episodeNumber == ep}) {
-                                        print("update history")
-                                            modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
-                                            modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
-                                        
-                                    }
-                                    else{
-                                        print("add to history")
-                                        modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber:  show.currentEpisode["ep"] ?? "", imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: url))
-                                        
-                                    }
-                                }
-                                
-                                
-                            }
-                            .frame(width: 120)
-                            .sheet(isPresented: $showingVideoPlayer, content: {
-                                if let sUrl = show.currentEpisode["url"]{
-                                    VideoWebView(url: sUrl, isPresented: $showingVideoPlayer)
-                                }
-                                
-                            })
-                            CurrentEpisodeInformationView(show: show)
-                            
-//                            CastInfoView(show: show)
-                            if !getCasts().isEmpty{
-                                CastRow(casts: getCasts(), title: "Casts")
-
-                            }
-                            
-//                            HStack(spacing: 30) {
-//                                SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
-//                                    //
-//                                }
-//                                SmallVerticalButton(isOn: false, text: "Like", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
-//                                    //
-//                                }
-//                                SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
-//                                    //
-//                                }
-//
-//                                Spacer()
-//                            }
-//                            .padding(.leading, 20)
-//                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
-                            CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
-                        }
-                        .padding(.horizontal, 10)
-                    }
-//                    Spacer()
-                }
-//                .foregroundColor(.white)
-//            }
-            if showSeasonPicker {
-                Group {
-                    Color.black.opacity(0.90)
-                    VStack(spacing: 30) {
-                        Spacer()
-                        ForEach(0..<(Int(show.numberOfSeasonDisplay) ?? 1 )) { season in
+        LoadingView(isShowing: $loading, content: {
+            ZStack {
+    //            Color.black
+    //                .edgesIgnoringSafeArea(.all)
+                
+    //            ZStack {
+                    VStack {
+                        if isPresented {
                             Button(action: {
-                                self.selectedSeason = season + 1
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                isPresented = false
+                            }, label: {
+                                HStack{
+                                    Image(systemName: "chevron.compact.down").padding(.vertical, 4).frame(maxWidth: .infinity)
+
+                                }
+                            })
+                            
+
+                            
+                        }
+    //                    HStack {
+    //                        Spacer()
+    //                        Button(action: {
+    ////                            self.movieDetailToShow = nil
+    //                        }, label: {
+    //                            Image(systemName: "xmark.circle")
+    //                                .font(.system(size: 28))
+    //                        })
+    //                    }
+    //                    .padding(.trailing, 22)
+                        
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack {
+    //                            StandardHomeShow(show: show)
+    //                                .frame(width: screen.width / 2.5)
+                                KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                MovieSubHeadingInfoView(show: show)
+                                if let text = show.currentEpisode["ep"]  {
+                                    Text("Lastest Episode: \(text)")
+                                        .bold()
+                                        .font(.headline)
+                                }
+                                
+                                PlayButton(text: "Play", imageName: "play.fill") {
+                                    print("PlayButton Tapped")
+                                    showingVideoPlayer = true
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                                   
+                                    if let ep = show.currentEpisode["ep"], let url = show.currentEpisode["url"]     {
+                                        if let row = modelData.historyEpisodes.firstIndex(where: {$0.episodeName == show.name && $0.episodeNumber == ep}) {
+                                            print("update history")
+                                                modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
+                                                modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
+                                            
+                                        }
+                                        else{
+                                            print("add to history")
+                                            modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber:  show.currentEpisode["ep"] ?? "", imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: url))
+                                            
+                                        }
+                                    }
+                                    
+                                    
+                                }
+                                .frame(width: 120)
+                                .sheet(isPresented: $showingVideoPlayer, content: {
+                                    if let sUrl = show.currentEpisode["url"]{
+                                        OpenWebView(url: sUrl, isPresented: $showingVideoPlayer)
+                                    }
+                                    
+                                })
+                                CurrentEpisodeInformationView(show: show)
+                                
+    //                            CastInfoView(show: show)
+    //                            if !getCasts().isEmpty{
+                                
+                                    CastRow(casts: currentCasts, title: "Casts")
+
+    //                            }
+                                
+    //                            HStack(spacing: 30) {
+    //                                SmallVerticalButton(isOn: true, text: "Follow", imageForSelected: "checkmark", imageForNonSelected: "plus") {
+    //                                    //
+    //                                }
+    //                                SmallVerticalButton(isOn: false, text: "Like", imageForSelected: "hand.thumbsup.fill", imageForNonSelected: "hand.thumbsup") {
+    //                                    //
+    //                                }
+    //                                SmallVerticalButton(isOn: true, text: "Share", imageForSelected: "square.and.arrow.up", imageForNonSelected: "square.and.arrow.up") {
+    //                                    //
+    //                                }
+    //
+    //                                Spacer()
+    //                            }
+    //                            .padding(.leading, 20)
+    //                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                                CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
+                            }
+                            .padding(.horizontal, 10)
+                        }
+    //                    Spacer()
+                    }
+    //                .foregroundColor(.white)
+    //            }
+                if showSeasonPicker {
+                    Group {
+                        Color.black.opacity(0.90)
+                        VStack(spacing: 30) {
+                            Spacer()
+                            ForEach(0..<(Int(show.numberOfSeasonDisplay) ?? 1 )) { season in
+                                Button(action: {
+                                    self.selectedSeason = season + 1
+                                    self.showSeasonPicker = false
+                                }, label: {
+                                    Text("Season \(season + 1)")
+                                        .font(selectedSeason == season + 1 ? .title : .title2)
+                                        .bold()
+    //                                    .foregroundColor(selectedSeason == season + 1 ? .white : .secondary)
+                                    
+                                })
+                                
+                            }
+                            Spacer()
+                            
+                            Button(action: {
                                 self.showSeasonPicker = false
                             }, label: {
-                                Text("Season \(season + 1)")
-                                    .font(selectedSeason == season + 1 ? .title : .title2)
-                                    .bold()
-//                                    .foregroundColor(selectedSeason == season + 1 ? .white : .secondary)
-                                
+                                Image(systemName: "x.circle.fill")
+                                    .font(.system(size: 40))
+                                    .scaleEffect(x: 1.1)
+    //                                .foregroundColor(.white)
                             })
-                            
+                            .padding(.bottom, 30)
                         }
-                        Spacer()
-                        
-                        Button(action: {
-                            self.showSeasonPicker = false
-                        }, label: {
-                            Image(systemName: "x.circle.fill")
-                                .font(.system(size: 40))
-                                .scaleEffect(x: 1.1)
-//                                .foregroundColor(.white)
-                        })
-                        .padding(.bottom, 30)
                     }
+                    .edgesIgnoringSafeArea(.all)
                 }
-                .edgesIgnoringSafeArea(.all)
             }
-        }
-        .onAppear(perform: {
-//            if !isPresented
-//            {
-//                modelData.currentSelectedShow = show
-//            }
-            
+            .onAppear(perform: {
+    //            if !isPresented
+    //            {
+    //                modelData.currentSelectedShow = show
+    //            }
+                getCasts()
+               
+                
+            })
         })
+        
+       
     }
     
-//    func fetchEpisodeList(){
-//           
-//           Database.database().reference().child("shows").child(show.id).observe(.value) { snapshot in
-//            
-//            modelData.episodes = []
-//               for child in snapshot.children.allObjects as! [DataSnapshot] {
-//               do {
-//                   let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)
-//                   print(model)
-//                    modelData.episodes.append(model)
-//                   UserDefaults.standard.set(false, forKey: "load")
-//                   NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
-//               } catch let error {
-//                   print(error)
-//               }
-//                   
-//                   
-//             }
-//               
-//           }
-//       }
     
 }
 
