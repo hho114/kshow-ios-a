@@ -43,7 +43,7 @@ struct SearchView: View {
     var body: some View {
         
 //        ZStack {
-        NavigationView{
+//        NavigationView{
             
         
             VStack {
@@ -94,37 +94,37 @@ struct SearchView: View {
                
                 
                 
+            }.actionSheet(isPresented: $showingActionSheet) {
+                ActionSheet(title: Text("Change Filter"), message: Text("Select search type"), buttons: [
+                    .default(Text("Cast Name")) {
+                        searchByShow = false
+                        searchByCast = true
+        //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                        
+                    },
+                    .default(Text("Show Name")) {
+                        searchByCast = false
+                        searchByShow = true
+        //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                    },
+                    .default(Text("Clear Filter")) {
+                        searchByCast = true
+                        searchByShow = true
+        //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                    },
+                    .cancel(){
+        //                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                                }
+                ])
             }
             .navigationTitle("")
             .navigationBarHidden(true)
             
-    }.actionSheet(isPresented: $showingActionSheet) {
-        ActionSheet(title: Text("Change Filter"), message: Text("Select search type"), buttons: [
-            .default(Text("Star Name")) {
-                searchByShow = false
-                searchByCast = true
-//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                
-            },
-            .default(Text("Show Name")) {
-                searchByCast = false
-                searchByShow = true
-//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-            },
-            .default(Text("Clear Filter")) {
-                searchByCast = true
-                searchByShow = true
-//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-            },
-            .cancel(){
-//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                        }
-        ])
-    }
+//    }
 //        }
     }
 

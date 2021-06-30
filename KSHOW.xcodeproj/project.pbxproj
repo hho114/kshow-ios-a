@@ -219,7 +219,6 @@
 				FA0FF955265D9CE9004FA561 /* PlayerView.swift */,
 				FA0FF957265D9D34004FA561 /* VideoView.swift */,
 				FA0FF959265D9D70004FA561 /* VideoCard.swift */,
-				FA562DB7267C6835004A224F /* HistoryVideoPreview.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -388,7 +387,6 @@
 				FA0FF92F265D4913004FA561 /* CustomTabSwitcher.swift */,
 				FA0FF933265D4BC2004FA561 /* EpisodeView.swift */,
 				FA0FF935265D4D3B004FA561 /* TrailerListView.swift */,
-				FA562DB5267C6657004A224F /* HistoryEpisodeView.swift */,
 			);
 			path = Shows;
 			sourceTree = "<group>";
@@ -427,6 +425,8 @@
 			children = (
 				FA562DB1267C58AA004A224F /* HistoryEpisodeRow.swift */,
 				FA562DB3267C5943004A224F /* HistoryEpisodeItem.swift */,
+				FA562DB7267C6835004A224F /* HistoryVideoPreview.swift */,
+				FA562DB5267C6657004A224F /* HistoryEpisodeView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -762,7 +762,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"KSHOW/Preview Content\"";
 				DEVELOPMENT_TEAM = V885G793SP;
 				ENABLE_PREVIEWS = YES;
@@ -788,7 +788,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"KSHOW/Preview Content\"";
 				DEVELOPMENT_TEAM = V885G793SP;
 				ENABLE_PREVIEWS = YES;

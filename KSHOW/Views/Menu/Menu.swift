@@ -17,7 +17,7 @@ struct Menu: View {
     @State var showingFAQ: Bool = false
     @State var showingSignoutAlert = false
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack(alignment: .center, spacing: 20) {
                 List {
 //                    NavigationLink(destination: ProfileHost()){
@@ -93,7 +93,7 @@ struct Menu: View {
             }
             .navigationTitle("")
 //            .navigationBarHidden(true)
-        }
+//        }
     }
     
     func SignOut() {

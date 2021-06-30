@@ -16,7 +16,7 @@ struct CategoryHome: View {
     
     var body: some View {
                 
-               NavigationView {
+//               NavigationView {
                
             List {
                 HStack{
@@ -95,7 +95,7 @@ struct CategoryHome: View {
 //                        }
             .navigationBarTitle("")
             .navigationBarHidden(true)
-               }
+//               }
 //               .fullScreenCover(isPresented: $openShow, content: {
 //                ShowDetailView(show: <#T##Show#>)
 //               })

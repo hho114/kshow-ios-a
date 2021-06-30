@@ -29,12 +29,14 @@ struct Login: View{
     @State private var isUseBioID = false
     let generator = UINotificationFeedbackGenerator()
     @State var showingSignup = false
+    @State var showingSignupIpad = false
+    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
         LoadingView(isShowing: $startLogin){
-        NavigationView{
+//        NavigationView{
         VStack(){
             Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
             
@@ -155,13 +157,21 @@ struct Login: View{
 //                }
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                    showingSignup = true
+                    if idiom == .pad {
+                                showingSignupIpad = true
+                            } else {
+                                showingSignup = true
+                            }
+                    
                 }, label: {
                     Text("Sign Up")
                     .fontWeight(.bold)
 //                        .foregroundColor(Color(UIColor.label))
-                }).sheet(isPresented: $showingSignup, content: {
+                })
+                .sheet(isPresented: $showingSignup, content: {
+                    SignUp()
+                })
+                .fullScreenCover(isPresented: $showingSignupIpad, content: {
                     SignUp()
                 })
                 
@@ -211,7 +221,9 @@ struct Login: View{
                 print("Perform nothing")
             }
         })
-       }}
+//       }
+            
+        }
 
         
     }

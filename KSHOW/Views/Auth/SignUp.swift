@@ -164,10 +164,10 @@ struct SignUp: View{
                             
                         }.padding(.top, 30)
                     
-                }
+                }.padding(.horizontal, 25)
                     
                 }
-                .padding(.horizontal, 25)
+//                .padding(.horizontal, 25)
 //            }
 //        }
     }

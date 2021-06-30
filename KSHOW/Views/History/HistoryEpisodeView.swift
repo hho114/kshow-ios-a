@@ -17,10 +17,10 @@ struct HistoryEpisodeView: View {
         historyEpisodes.sorted(by: {$0.timestamp > $1.timestamp})
     }
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
                 
-                
+                Label("History", systemImage: "clock.fill").padding()
                 // episode list
                 List{
                     ForEach(getEpisodes()) { episode in
@@ -52,8 +52,8 @@ struct HistoryEpisodeView: View {
                 
 
             }
-            .navigationTitle("History")
-        }
+//            .navigationTitle("History")
+//        }
         
 
     }
