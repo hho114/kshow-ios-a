@@ -15,7 +15,7 @@ struct CustomTabSwitcher: View {
 
     var tabs: [CustomTab]
     var show: Show
-    @State var load = true
+//    @State var load = true
     @Binding var showSeasonPicker: Bool
     @Binding var selectedSeason: Int
     
@@ -53,21 +53,21 @@ struct CustomTabSwitcher: View {
             
             case .episodes:
                 
-                if !self.load {
-                    EpisodeView(episodes: modelData.episodes , showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason,show: show)
-                }
-                else
-                {
-                    ProgressView().onAppear{
-                        fetchEpisodeList()
-                        NotificationCenter.default.addObserver(forName: NSNotification.Name("load"), object: nil, queue: .main) { (_) in
-                            
-                            self.load = UserDefaults.standard.value(forKey: "load") as? Bool ?? true
-
-                        }
-                    }
-                    
-                }
+//                if !self.load {
+                    EpisodeView(episodes: modelData.currentEpisodes, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason,show: show)
+//                }
+//                else
+//                {
+//                    ProgressView().onAppear{
+//                        fetchEpisodeList()
+//                        NotificationCenter.default.addObserver(forName: NSNotification.Name("load"), object: nil, queue: .main) { (_) in
+//
+//                            self.load = UserDefaults.standard.value(forKey: "load") as? Bool ?? true
+//
+//                        }
+//                    }
+//
+//                }
                 //TODO: Future feature
             case .trailer:
                 TrailerListView(showName: show.name, thumbnailImageURL: show.thumbnailImageUrl, videoURL: show.trailerUrl)
@@ -82,30 +82,7 @@ struct CustomTabSwitcher: View {
 //        .foregroundColor(.white)
     }
     
-    func fetchEpisodeList(){
-           
-        modelData.ref.child("shows").child(show.id).observeSingleEvent(of:.value,with: { snapshot in
-            
-            modelData.episodes = []
-               for child in snapshot.children.allObjects as! [DataSnapshot] {
-               do {
-                   let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)
-                   print(model)
-                modelData.episodes.append(model)
-                   UserDefaults.standard.set(false, forKey: "load")
-                   NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
-               } catch let error {
-                   bfprint(error)
-               }
-                   
-                   
-             }
-               
-        }){(error) in
-            bfprint(error.localizedDescription)
-
-        }
-       }
+    
 }
 enum CustomTab: String {
     case episodes = "EPISODES"

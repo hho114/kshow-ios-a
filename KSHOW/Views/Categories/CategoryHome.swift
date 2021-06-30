@@ -24,7 +24,7 @@ struct CategoryHome: View {
                     Image("kshow_logo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 35)
+                        .frame(width: 40)
                         .cornerRadius(8.0)
                     Spacer()
                 }
@@ -63,11 +63,6 @@ struct CategoryHome: View {
                 CastRow(casts: modelData.casts, title: "Casts")
 
 
-//                if (modelData.historyEpisodes.count > 0){
-//
-//                    HistoryEpisodeRow(categoryName: "Watch It Again", items: modelData.historyEpisodes).listRowInsets(EdgeInsets())
-//
-//                }
                
                 ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
 

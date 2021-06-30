@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseDatabase
 
 struct ProfileHost: View {
     @Environment(\.editMode) var editMode
@@ -16,8 +17,10 @@ struct ProfileHost: View {
     
     var body: some View {
        
-            VStack(alignment: .leading, spacing: 10) {
-
+            VStack(alignment: .center, spacing: 10) {
+                Label(
+                    title: { Text("Profile") },
+                    icon: { Image(systemName: "person.crop.circle") }).padding()
                 HStack {
 //
 ////                    if editMode?.wrappedValue == .active {
@@ -52,9 +55,13 @@ struct ProfileHost: View {
                                                    }
 
                                                    .onDisappear {
-
-                                                       modelData.user = draftUser
-
+                                                    if modelData.user.username != draftUser.username
+                                                    {
+                                                        modelData.user = draftUser
+                                                        updateUserName()
+                                                     
+                                                    }
+                                                      
                                                    }
 
                            }
@@ -71,6 +78,17 @@ struct ProfileHost: View {
         
     }
     
+    func updateUserName() {
+        modelData.ref.child("users").child(modelData.user.id).updateChildValues(["username": modelData.user.username]) {
+          (error:Error?, ref:DatabaseReference) in
+          if let error = error {
+            bfprint("Username could not be saved: \(error).")
+          } else {
+            bfprint("Username saved successfully!")
+          }
+        }
+
+    }
     
 }
 

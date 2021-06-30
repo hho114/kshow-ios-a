@@ -74,9 +74,10 @@ struct TextOverlay: View {
 
                 Text(show.name)
 
-                    .font(.title)
-
-                    .bold()
+//                    .font(.title)
+//
+//                    .bold()
+                    .font(.system(size: 24, weight: .black, design: .rounded))
                 if let ep = show.currentEpisode["ep"]{
                     Text("Lastest Episode: \(ep)")
                 }

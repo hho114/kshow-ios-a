@@ -26,8 +26,9 @@ struct SignUp: View{
     @State var title = ""
     @State var startSignup = false
     @State private var checked = true
+    @State private var isNeedVerify = false
     @Environment(\.presentationMode) var presentationMode
- 
+//    @Binding var isPresented: Bool
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
     var body: some View{
@@ -42,7 +43,7 @@ struct SignUp: View{
                     Text("Sign up a new account")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(self.color)
+//                        .foregroundColor(self.color)
                         .padding(.top, 15)
                     
                     TextField("Email",text:self.$email)
@@ -133,12 +134,39 @@ struct SignUp: View{
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     .padding(.top, 15)
                     .alert(isPresented: self.$alert){()->Alert in
-                        
+                        let button = Alert.Button.default(Text("Ok")) {
+                            bfprint("Ok button pressed")
+//                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                            if isNeedVerify ||  modelData.isSignin{
+                                self.presentationMode.wrappedValue.dismiss()
+
+                            }
+                        }
                         return Alert(title: Text("\(self.title)"), message: Text("\(self.error)"), dismissButton:
-                            .default(Text("OK").fontWeight(.semibold)))
+                            button)
                     }
+                        
+                        HStack(spacing: 5){
+                            Text("Already have an account?")
+                            
+            
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                                self.presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                Text("Sign In")
+                                .fontWeight(.bold)
+            //                        .foregroundColor(Color(UIColor.label))
+                            })
+                            
+                            
+                        }.padding(.top, 30)
                     
-                }}
+                }
+                    
+                }
                 .padding(.horizontal, 25)
 //            }
 //        }
@@ -183,8 +211,8 @@ struct SignUp: View{
                         else
                         {
                             print("User need verify email")
-                            
-
+                            isNeedVerify = true
+                                
                                 user.sendEmailVerification { (error) in
                                 if error != nil{
                                     self.error = error?.localizedDescription ?? "Email verify error, please try again"
@@ -192,15 +220,17 @@ struct SignUp: View{
                                     self.alert.toggle()
                                 }
                                 else{
-                                    
-                                    self.error = "Open your email that is used to sign up to verify your email in order to login"
+                                    UserDefaults.standard.set(email, forKey: "email")
+//                                    UserDefaults.standard.set(pass, forKey: "pass")
+//                                    modelData.isSignin = false
+                                    self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
                                     self.title = "Verify"
                                     self.alert.toggle()
-                                    
+//                                    self.presentationMode.wrappedValue.dismiss()
                                 }
                                 
                                 }
-                            self.presentationMode.wrappedValue.dismiss()
+                            
 
                         }
                     }

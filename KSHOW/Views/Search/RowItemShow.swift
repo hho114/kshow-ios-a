@@ -19,7 +19,7 @@ struct RowItemShow: View {
             UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         }, label: {
             HStack {
-                KFImage(URL(string: show.thumbnailImageUrl)!).resizable().frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                KFImage(URL(string: show.thumbnailImageUrl)!).resizable().frame(width: 50, height: 50, alignment: .center)
                 Text(show.name).font(.system(size: 20, weight: .black, design: .rounded)).foregroundColor(Color(UIColor.label))
                 Spacer()
 

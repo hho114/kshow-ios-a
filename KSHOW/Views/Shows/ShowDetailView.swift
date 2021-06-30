@@ -24,19 +24,8 @@ struct ShowDetailView: View {
     @State private var loading = false
 //    @Binding var showDetailToShow: Show?
     
-    func getCasts(){
-        loading = true
-//        var newListCasts : [Cast] = []
-        for cast in modelData.casts {
-//            var tempCast = cast
-            if show.casts.contains(cast.id) {
-                currentCasts.append(cast)
-            }
-            
-        }
-            
-        loading = false
-    }
+    
+    
     
     var body: some View {
         
@@ -101,6 +90,20 @@ struct ShowDetailView: View {
                                         else{
                                             print("add to history")
                                             modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber:  show.currentEpisode["ep"] ?? "", imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: url))
+                                            do {
+                                                // Create JSON Encoder
+                                                let encoder = JSONEncoder()
+
+                                                // Encode Note
+                                                let data = try encoder.encode(modelData.historyEpisodes)
+
+                                                // Write/Set Data
+                                                UserDefaults.standard.set(data, forKey: "historyEpisodes")
+
+                                            } catch {
+                                                print("Unable to Encode Note (\(error))")
+                                            }
+
                                             
                                         }
                                     }
@@ -138,7 +141,10 @@ struct ShowDetailView: View {
     //                            }
     //                            .padding(.leading, 20)
     //                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
-                                CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason).environmentObject(modelData)
+                                
+                                    CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason).environmentObject(modelData)
+                                
+                                
                             }
                             .padding(.horizontal, 10)
                         }
@@ -185,7 +191,9 @@ struct ShowDetailView: View {
     //            {
     //                modelData.currentSelectedShow = show
     //            }
-                getCasts()
+                fetchEpisodeList()
+                
+                
                
                 
             })
@@ -194,6 +202,45 @@ struct ShowDetailView: View {
        
     }
     
+    func fetchEpisodeList()
+    {
+        loading = true
+        modelData.ref.child("shows").child(show.id).observeSingleEvent(of:.value,with: { snapshot in
+            
+            modelData.currentEpisodes = []
+               for child in snapshot.children.allObjects as! [DataSnapshot] {
+               do {
+                   let model = try FirebaseDecoder().decode(Episode.self, from: child.value as Any)
+                   print(model)
+                modelData.currentEpisodes.append(model)
+                   UserDefaults.standard.set(false, forKey: "load")
+                   NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
+               } catch let error {
+                   bfprint(error)
+               }
+                   
+                   
+             }
+            getCasts()
+        }){ (error) in
+            bfprint(error.localizedDescription)
+            
+        }
+    }
+    
+    func getCasts(){
+        
+//        var newListCasts : [Cast] = []
+        for cast in modelData.casts {
+//            var tempCast = cast
+            if show.casts.contains(cast.id) {
+                currentCasts.append(cast)
+            }
+            
+        }
+            
+        loading = false
+    }
     
 }
 

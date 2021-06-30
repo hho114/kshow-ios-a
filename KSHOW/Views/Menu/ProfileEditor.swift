@@ -36,15 +36,15 @@ struct ProfileEditor: View {
                 TextField("Username", text: $user.username)
 
             }
-            HStack {
-
-                Text("Email:").bold()
-
-                Divider()
-
-                TextField("Email", text: $user.email)
-
-            }
+//            HStack {
+//
+//                Text("Email:").bold()
+//
+//                Divider()
+//
+//                TextField("Email", text: $user.email)
+//
+//            }
 //            Toggle(isOn: $user.prefersNotifications) {
 //
 //                Text("Enable Notifications").bold()

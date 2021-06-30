@@ -21,7 +21,7 @@ final class ModelData: ObservableObject{
     @Published var user = User.default
     @Published var shows : [Show] = []
     @Published var historyEpisodes: [HistoryEpisode] = []
-    @Published var episodes : [Episode] = []
+    @Published var currentEpisodes : [Episode] = []
     @Published var currentSelectedShow : Show = Show.default
 //    @Published var show = Show.default
     @Published var permission = Permission.default

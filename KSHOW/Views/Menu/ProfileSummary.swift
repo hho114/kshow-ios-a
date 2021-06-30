@@ -20,7 +20,7 @@ struct ProfileSummary: View {
 
                 
 
-         Text("Email: \(user.email)")
+//         Text("Email: \(user.email)")
 //                       Text("Notifications: \(user.prefersNotifications ? "On": "Off" )")
 
         

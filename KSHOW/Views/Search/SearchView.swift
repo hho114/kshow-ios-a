@@ -55,6 +55,7 @@ struct SearchView: View {
                     Text("Filter")
                     Button(action: {
                         // show new task view
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         showingActionSheet = true
                     }) {
                         Image(systemName: "line.horizontal.3.decrease.circle")
@@ -102,17 +103,26 @@ struct SearchView: View {
             .default(Text("Star Name")) {
                 searchByShow = false
                 searchByCast = true
+//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                 
             },
             .default(Text("Show Name")) {
                 searchByCast = false
                 searchByShow = true
+//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
             },
             .default(Text("Clear Filter")) {
                 searchByCast = true
                 searchByShow = true
+//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
             },
-            .cancel()
+            .cancel(){
+//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                        }
         ])
     }
 //        }

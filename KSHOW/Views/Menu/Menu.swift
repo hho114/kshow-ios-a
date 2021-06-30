@@ -14,8 +14,8 @@ struct Menu: View {
     @EnvironmentObject var modelData: ModelData
     @State var showingProfile: Bool = false
     @State var showingHelp: Bool = false
-    
-    
+    @State var showingFAQ: Bool = false
+    @State var showingSignoutAlert = false
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 20) {
@@ -51,13 +51,36 @@ struct Menu: View {
                         ContactUs()
                     })
                     
+                    
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        showingFAQ = true
+                    }, label: {
+                        Label("FAQ", systemImage: "questionmark").padding()
+                    }).sheet(isPresented: $showingFAQ, content: {
+                        FAQView()
+                    })
+                    
                    
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-                        self.SignOut()
+                        showingSignoutAlert = true
+                        
                     }) {
                         Label("Sign Out", systemImage: "arrow.forward.square").padding()
+                    }
+                    .alert(isPresented: $showingSignoutAlert) { () -> Alert in
+                        let primaryButton = Alert.Button.default(Text("Yes")) {
+                            bfprint("Yes signout button pressed")
+//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            self.SignOut()
+                        }
+                        let secondaryButton = Alert.Button.cancel(Text("No")) {
+                            bfprint("No signout button pressed")
+//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                        }
+                        return Alert(title: Text("Notice"), message: Text("If you sign out, the history watch will be clear out.\n\nDo you want to sign out?"), primaryButton: primaryButton, secondaryButton: secondaryButton)
                     }
                     
                     
@@ -80,6 +103,10 @@ struct Menu: View {
 //        UserDefaults.standard.set(false, forKey: "status")
 //        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
         UserDefaults.standard.set(false, forKey: "biounlock")
+        UserDefaults.standard.set(false, forKey: "rememberLogin")
+        UserDefaults.standard.set("", forKey: "pass")
+        UserDefaults.standard.set(nil, forKey: "historyEpisodes")
+        
         modelData.isSignin = false
 //        Defaults[\.isUserLogin] = false
         modelData.shows = []

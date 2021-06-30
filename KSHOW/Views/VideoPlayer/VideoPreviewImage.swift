@@ -37,6 +37,20 @@ struct VideoPreviewImage: View {
                 else{
                     print("add to history")
                     modelData.historyEpisodes.append(HistoryEpisode(id: "\(Date().timeIntervalSince1970)", episodeName: show.name ,episodeNumber: episode.episodeNumber, imageUrl: show.thumbnailImageUrl, timestamp: Date().timeIntervalSince1970, videoUrl: episode.videoUrl))
+                    do {
+                        // Create JSON Encoder
+                        let encoder = JSONEncoder()
+
+                        // Encode Note
+                        let data = try encoder.encode(modelData.historyEpisodes)
+
+                        // Write/Set Data
+                        UserDefaults.standard.set(data, forKey: "historyEpisodes")
+
+                    } catch {
+                        print("Unable to Encode Note (\(error))")
+                    }
+
                     
                 }
                 

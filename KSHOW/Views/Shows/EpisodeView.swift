@@ -17,6 +17,7 @@ struct EpisodeView: View {
     func getEpisodes(forSeason season: String) -> [Episode] {
         episodes.filter({ $0.season == season }).sorted(by: {$0.episodeNumber > $1.episodeNumber})
     }
+    
     var body: some View {
         VStack(spacing: 14) {
             // season picker

@@ -26,7 +26,9 @@ struct Login: View{
     @State var startLogin = false
     @State var rememberLogin = true
     @State private var showingAlert = false
+    @State private var isUseBioID = false
     let generator = UINotificationFeedbackGenerator()
+    @State var showingSignup = false
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
     
@@ -81,19 +83,37 @@ struct Login: View{
                 Spacer()
                 Button(action: {
                     bfprint("Forget Password button pressed")
-                    showingAlert = true
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                    pass = ""
+                    if textFieldValidatorEmail(email)
+                    {
+                        showingAlert = true
+                    }else
+                    {
+                        
+                        title = "Invalid Email"
+                        error = "The email is invalid format. Please reenter your email."
+                        email = ""
+                        alert = true
+                    }
+                    
                     self.visible.toggle()
                 }) {
                     Text("Forget Password")
                         .fontWeight(.medium)
                 }.padding(.top, 10.0)
                 .alert(isPresented: $showingAlert) { () -> Alert in
-                            let primaryButton = Alert.Button.default(Text("Ok")) {
-                                bfprint("Ok button pressed")
+                            let primaryButton = Alert.Button.default(Text("Yes")) {
+                                bfprint("Yes button pressed")
+//                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                                 self.ResetPassword()
                             }
-                            let secondaryButton = Alert.Button.cancel(Text("Cancel")) {
-                                bfprint("Cancel button pressed")
+                            let secondaryButton = Alert.Button.cancel(Text("No")) {
+                                bfprint("No button pressed")
+//                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
                             }
                             return Alert(title: Text("Reset Password"), message: Text("Do you want to send a reset link to \(email)?"), primaryButton: primaryButton, secondaryButton: secondaryButton)
                         }
@@ -128,16 +148,27 @@ struct Login: View{
             HStack(spacing: 5){
                 Text("Don't have an account?")
                 
-                NavigationLink(destination: SignUp()){
+//                NavigationLink(destination: SignUp()){
+//                    Text("Sign Up")
+//                    .fontWeight(.bold)
+//                        .foregroundColor(Color(UIColor.label))
+//                }
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+                    showingSignup = true
+                }, label: {
                     Text("Sign Up")
                     .fontWeight(.bold)
-                        .foregroundColor(Color(UIColor.label))
-                }
+//                        .foregroundColor(Color(UIColor.label))
+                }).sheet(isPresented: $showingSignup, content: {
+                    SignUp()
+                })
                 
                 
                 Text("now").multilineTextAlignment(.leading)
                 
-            }.padding(.top, 25)
+            }.padding(.top, 30)
             Button(action: {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 self.startLogin = true
@@ -165,13 +196,34 @@ struct Login: View{
         .navigationBarHidden(true)
         .onAppear(perform: {
             if UserDefaults.standard.bool(forKey: "biounlock") {
+                print("Perform login with biounlock")
                 self.startLogin = true
                 loginWithFaceID()
+            }
+            else if UserDefaults.standard.bool(forKey: "rememberLogin")
+            {
+                print("Perform login with remember")
+                self.startLogin = true
+                Verify()
+            }
+            else
+            {
+                print("Perform nothing")
             }
         })
        }}
 
         
+    }
+    
+    func textFieldValidatorEmail(_ string: String) -> Bool {
+        if string.count > 100 {
+            return false
+        }
+        let emailFormat = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" + "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-" + "z0-9-]*[\\p{L}0-9])?\\.)+[\\p{L}0-9](?:[\\p{L}0-9-]*[\\p{L}0-9])?|\\[(?:(?:25[0-5" + "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" + "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        //let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: string)
     }
     
     func loginWithFaceID() {
@@ -190,7 +242,7 @@ struct Login: View{
                         if success {
                             // authenticated successfully
                             Verify()
-                            UserDefaults.standard.set(true, forKey: "biounlock")
+                            isUseBioID = true
                             
                         } else {
                             // there was a problem
@@ -211,7 +263,7 @@ struct Login: View{
     }
     
     func Verify(){
-        
+        print("Start verify")
         
         if self.email != "" && self.pass != "" {
             
@@ -256,7 +308,7 @@ struct Login: View{
                             
                         }
                         }else{
-                            self.error = "Open your email that is used to sign up to verify your email in order to login"
+                            self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
                             self.title = "Verify"
                             self.alert.toggle()
                             
@@ -360,22 +412,46 @@ struct Login: View{
         
 //        UserDefaults.standard.set(true, forKey: "status")
 //        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-        if rememberLogin {
+        
+//        UserDefaults.standard.set(modelData.historyEpisodes, forKey: "historyEpisodes")
+        if let data = UserDefaults.standard.data(forKey: "historyEpisodes") {
+            do {
+                    // Create JSON Decoder
+                    let decoder = JSONDecoder()
+
+                    // Decode Note
+                modelData.historyEpisodes = try decoder.decode([HistoryEpisode].self, from: data)
+
+                } catch {
+                    print("Unable to Decode Note (\(error))")
+                }
+        }
+        
+        if isUseBioID {
+            print("Remember BIO ID")
+            UserDefaults.standard.set(true, forKey: "biounlock")
             UserDefaults.standard.set(email, forKey: "email")
             UserDefaults.standard.set(pass, forKey: "pass")
+            UserDefaults.standard.set(true, forKey: "rememberLogin")
+        }
+        else if rememberLogin {
+            print("Remember login")
+            UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set(pass, forKey: "pass")
+            UserDefaults.standard.set(true, forKey: "rememberLogin")
+            UserDefaults.standard.set(false, forKey: "biounlock")
         }
         else
         {
+            print("Do not remember and bioID")
+            UserDefaults.standard.set(false, forKey: "biounlock")
             UserDefaults.standard.set("", forKey: "email")
             UserDefaults.standard.set("", forKey: "pass")
+            UserDefaults.standard.set(false, forKey: "rememberLogin")
         }
         
         modelData.isSignin = true
-//        modelData.unlock = true
-        
-//        Defaults[\.isUserLogin] = true
-//        Defaults[\.email] = email
-//        Defaults[\.password] = pass
+
         self.startLogin = false
     }
     

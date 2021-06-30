@@ -32,6 +32,20 @@ struct HistoryVideoPreview: View {
                     modelData.historyEpisodes[row].timestamp = Date().timeIntervalSince1970
                     modelData.historyEpisodes[row].id = "\(Date().timeIntervalSince1970)"
                     print("update \( modelData.historyEpisodes[row].timestamp) \( modelData.historyEpisodes[row].episodeName) \( modelData.historyEpisodes[row].episodeNumber)")
+                    do {
+                        // Create JSON Encoder
+                        let encoder = JSONEncoder()
+
+                        // Encode Note
+                        let data = try encoder.encode(modelData.historyEpisodes)
+
+                        // Write/Set Data
+                        UserDefaults.standard.set(data, forKey: "historyEpisodes")
+
+                    } catch {
+                        print("Unable to Encode Note (\(error))")
+                    }
+
                 }
             }, label: {
                 Image(systemName: "play.circle")
