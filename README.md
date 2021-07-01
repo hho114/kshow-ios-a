@@ -4,7 +4,7 @@ KSHOW IOS
 
 **Note**: This is an demo and prototype app, just use for show case of IOS development
 
-If you have any question or want to hire me develop your app, contact me at huyho114@gmail.com (Alex) or learn more about me at alexhuyho.com
+If you have any question or want to hire me develop your app, contact me at huyho114@gmail.com (Alex) or learn more about me [here](https://alexhuyho.com/)
 
 ## About the app
 
