@@ -22,8 +22,6 @@ struct ShowDetailView: View {
     @State private var selectedSeason = 1
     @State private var showingVideoPlayer = false
     @State private var loading = false
-//    @Binding var showDetailToShow: Show?
-    
     
     
     
@@ -31,8 +29,7 @@ struct ShowDetailView: View {
         
         LoadingView(isShowing: $loading, content: {
             ZStack {
-    //            Color.black
-    //                .edgesIgnoringSafeArea(.all)
+
                 
     //            ZStack {
                     VStack {
@@ -142,7 +139,7 @@ struct ShowDetailView: View {
     //                            .padding(.leading, 20)
     //                            CustomTabSwitcher(tabs: [.episodes,.more,.trailer], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                                 
-                                    CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason).environmentObject(modelData)
+                                    CustomTabSwitcher(tabs: [.episodes], show: show, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason)
                                 
                                 
                             }

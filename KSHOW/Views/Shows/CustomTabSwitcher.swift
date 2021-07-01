@@ -52,22 +52,8 @@ struct CustomTabSwitcher: View {
             switch currentTab {
             
             case .episodes:
-                
-//                if !self.load {
-                    EpisodeView(episodes: modelData.currentEpisodes, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason,show: show)
-//                }
-//                else
-//                {
-//                    ProgressView().onAppear{
-//                        fetchEpisodeList()
-//                        NotificationCenter.default.addObserver(forName: NSNotification.Name("load"), object: nil, queue: .main) { (_) in
-//
-//                            self.load = UserDefaults.standard.value(forKey: "load") as? Bool ?? true
-//
-//                        }
-//                    }
-//
-//                }
+                EpisodeView(episodes: modelData.currentEpisodes, showSeasonPicker: $showSeasonPicker, selectedSeason: $selectedSeason,show: show)
+
                 //TODO: Future feature
             case .trailer:
                 TrailerListView(showName: show.name, thumbnailImageURL: show.thumbnailImageUrl, videoURL: show.trailerUrl)

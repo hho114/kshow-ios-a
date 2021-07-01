@@ -11,10 +11,7 @@ struct CastRow: View {
     
     var  casts: [Cast]
     var title: String
-//    @EnvironmentObject var modelData: ModelData
 
-//    @Binding var showPreviewFullscreen: Bool
-//    @Binding var previewStartingIndex: Int
     
     var body: some View {
         
@@ -22,7 +19,6 @@ struct CastRow: View {
                 Text("\(title)")
                     .font(.title3)
                     .bold()
-    //                .foregroundColor(.white)
                     .padding(.leading, 6)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -36,8 +32,7 @@ struct CastRow: View {
                                     .padding(.trailing, 8)
                                     .padding(.leading, 6)
                                     .onTapGesture(perform: {
-        //                                previewStartingIndex = index
-        //                                showPreviewFullscreen = true
+        
                                     })
                                 Text(cast.name).bold()
                             }

@@ -13,20 +13,13 @@ struct ShowList: View {
    
     @State private var showFavoritesOnly = false
     @State var isPresented = false
-    
-//    var filteredLandmarks: [Landmark]{
-//        modelData.landmarks.filter{
-//            landmark in (!showFavoritesOnly || landmark.isFavorite)
-//        }
-//    }
+
     
     var body: some View {
         NavigationView {
             VStack {
                 List{
-    //                Toggle(isOn: $showFavoritesOnly, label: {
-    //                    Text("Favorites only")
-    //                })
+   
                     ForEach(modelData.shows)
                     {show in
                     NavigationLink(destination: ShowDetailView(show: show, isPresented: $isPresented)){
@@ -36,8 +29,6 @@ struct ShowList: View {
                     }
                 }
             }
-            .navigationBarTitle("History")
-//                    .navigationBarHidden(true)
         }
     }
 }

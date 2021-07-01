@@ -17,30 +17,20 @@ struct Menu: View {
     @State var showingFAQ: Bool = false
     @State var showingSignoutAlert = false
     var body: some View {
-//        NavigationView {
             VStack(alignment: .center, spacing: 20) {
                 List {
-//                    NavigationLink(destination: ProfileHost()){
-//
-//
-//                    }.onTapGesture {
+
+                    
+//                    Button(action: {
 //                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//
-//                    }
-                    
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        showingProfile = true
-                    }, label: {
-                        Label("Profile", systemImage: "person.crop.circle").padding()
-                    }).sheet(isPresented: $showingProfile, content: {
-                        ProfileHost().environmentObject(modelData)
-                    })
-                    
-//                    NavigationLink(destination: ProfileHost()){
-//                        Label("Setting", systemImage: "slider.horizontal.3").padding()
-//                        
-//                    }
+//                        showingProfile = true
+//                    }, label: {
+//                        Label("Profile", systemImage: "person.crop.circle").padding()
+//                    }).sheet(isPresented: $showingProfile, content: {
+//                        ProfileHost().environmentObject(modelData)
+//                    })
+//                    
+
                     //TODO: Create contact new page with contact and report issue button
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -72,12 +62,10 @@ struct Menu: View {
                     .alert(isPresented: $showingSignoutAlert) { () -> Alert in
                         let primaryButton = Alert.Button.default(Text("Yes")) {
                             bfprint("Yes signout button pressed")
-//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             self.SignOut()
                         }
                         let secondaryButton = Alert.Button.cancel(Text("No")) {
                             bfprint("No signout button pressed")
-//                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                         }
                         return Alert(title: Text("Notice"), message: Text("If you sign out, the history watch will be clear out.\n\nDo you want to sign out?"), primaryButton: primaryButton, secondaryButton: secondaryButton)
@@ -92,8 +80,7 @@ struct Menu: View {
 
             }
             .navigationTitle("")
-//            .navigationBarHidden(true)
-//        }
+
     }
     
     func SignOut() {
@@ -105,6 +92,7 @@ struct Menu: View {
         UserDefaults.standard.set(false, forKey: "biounlock")
         UserDefaults.standard.set(false, forKey: "rememberLogin")
         UserDefaults.standard.set("", forKey: "pass")
+        UserDefaults.standard.set("", forKey: "email")
         UserDefaults.standard.set(nil, forKey: "historyEpisodes")
         
         modelData.isSignin = false

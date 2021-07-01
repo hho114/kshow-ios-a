@@ -12,12 +12,10 @@ import FirebaseDatabase
 
 struct ShowDetail: View {
     @EnvironmentObject var modelData: ModelData
-//    var landmark : Landmark
     @State var episodes: [Episode] = []
     var show: Show
     @State var load = true
     var landmarkIndex: Int {
-//        modelData.landmarks.firstIndex(where: {$0.id == landmark.id})!
         modelData.shows.firstIndex(where: {$0.id == show.id})!
     }
     
@@ -28,9 +26,7 @@ struct ShowDetail: View {
             .aspectRatio(contentMode: .fit)
         VStack(alignment: .leading) {
             HStack {
-//                    Text(landmark.name).font( .title).foregroundColor(.primary)
                 Text(show.name).font( .title).foregroundColor(.primary)
-//                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
             }
 
             HStack {
@@ -58,7 +54,6 @@ struct ShowDetail: View {
                         }
                     }.listStyle(InsetListStyle()).transition(.slide).animation(.easeInOut(duration: 0.5))
                 }
-    //            .navigationTitle("Landmasks")
             }
             else
             {

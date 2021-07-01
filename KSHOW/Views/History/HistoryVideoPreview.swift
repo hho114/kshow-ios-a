@@ -9,8 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct HistoryVideoPreview: View {
-//    var imageURL: String
-//    var videoURL: String
+
     var historyEpisode: HistoryEpisode
     @EnvironmentObject var modelData: ModelData
     @State private var showingVideoPlayer = false
@@ -53,8 +52,7 @@ struct HistoryVideoPreview: View {
                     .font(.system(size: 40))
             })
             .sheet(isPresented: $showingVideoPlayer, content: {
-//                SwiftUIVideoView(url: videoURL)
-//                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
+
                 OpenWebView(url: historyEpisode.videoUrl, isPresented: $showingVideoPlayer)
             })
         }

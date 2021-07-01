@@ -13,8 +13,8 @@ struct CastCell: View {
     var cast : Cast
     let colors: [Color] = [.yellow, .red, .gray, .green, .pink, .blue, .orange]
     @State var isPresented: Bool = false
+    @EnvironmentObject var modelData: ModelData
     var body: some View {
-//        ZStack(alignment: .bottom) {
         
         Button(action: {
             isPresented = true
@@ -30,17 +30,11 @@ struct CastCell: View {
                         .foregroundColor(colors.randomElement())
             )
         }).sheet(isPresented: $isPresented, content: {
-            CastProfile(cast: cast, isPresented: $isPresented)
+            CastProfile(cast: cast, isPresented: $isPresented).environmentObject(modelData)
         })
             
             
-//            Image(movie.previewImageName)
-//                .resizable()
-//                .scaledToFit()
-//                .offset(y: -20)
-//                .frame(height: 65)
-//            Text(cast.name).bold()
-//        }
+
         
     }
 }

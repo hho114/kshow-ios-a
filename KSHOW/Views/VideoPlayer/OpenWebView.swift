@@ -16,20 +16,6 @@ struct OpenWebView: View {
     var body: some View {
         VStack{
 
-//            Button(action: {
-//                print("close button was tapped")
-//                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//
-//                isPresented = false
-//            }) {
-//                //            I
-////                HStack {
-////                  Spacer()
-////                    Spacer()
-////                }.background(Color.black)
-//                Image(systemName: "chevron.compact.down").foregroundColor(Color.white)
-//
-//            }
             Button(action: {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 isPresented = false
@@ -41,9 +27,8 @@ struct OpenWebView: View {
             })
             
             Webview(url: URL(string: url)!)
-//            VideoPlayer(player: AVPlayer(url:  URL(string: url)!))
         }
-//        .ignoresSafeArea()
+
         .edgesIgnoringSafeArea(.all)
         
     }
@@ -76,8 +61,7 @@ struct Webview: UIViewRepresentable {
         }
         let request = URLRequest(url: self.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
             webview.load(request)
-//        let embededHTML = "<html><body><iframe src=\"\(self.url)\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
-//        webview.loadHTMLString(embededHTML, baseURL: nil)
+
 
 
         return webview
@@ -87,8 +71,7 @@ struct Webview: UIViewRepresentable {
     func updateUIView(_ webview: WKWebView, context: UIViewRepresentableContext<Webview>) {
         let request = URLRequest(url: self.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
         webview.load(request)
-//        let embededHTML = "<html><body><iframe src=\"\(self.url)\" scrolling=\"no\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe></body></html>"
-//        webview.loadHTMLString(embededHTML, baseURL: nil)
+
     }
     
 }

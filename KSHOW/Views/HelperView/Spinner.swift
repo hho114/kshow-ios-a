@@ -90,10 +90,10 @@ struct SpinnerCircle: View {
     }
 }
 
-struct Spinner_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Spinner()
-        }
-    }
-}
+//struct Spinner_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            Spinner()
+//        }
+//    }
+//}

@@ -16,16 +16,7 @@ struct CastProfile: View {
     var body: some View {
         NavigationView{
             VStack {
-//                HStack{
-//                    Image(systemName: "chevron.compact.down").padding(.vertical, 6).frame(maxWidth: .infinity)
-//
-//                }
-//                .background(Color.black.opacity(0.5))
-//                .onTapGesture {
-//                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//                    isPresented = false
-//                    print("tap close modal")
-//                }
+
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     isPresented = false
@@ -52,8 +43,6 @@ struct CastProfile: View {
                         Text(cast.name).font(.system(size: 20)).bold().foregroundColor(.white)
                             .padding(.top, 12)
                         
-//                        Text("@venom").font(.system(size: 18)).foregroundColor(.white)
-//                        .padding(.top, 4)
                     }
                     Spacer()
                 }
@@ -68,11 +57,7 @@ struct CastProfile: View {
                 
                 ForEach(modelData.shows.filter({ $0.casts.contains(cast.id) }))
                 {item in
-                    RowItemShow(show: item).environmentObject(modelData)
-//                NavigationLink(destination: ShowDetailView(show: item, isPresented: $present)){
-                    
-//                        RowItem(imageUrl: item.thumbnailImageUrl, name: item.name)
-//                    }
+                    RowItemShow(show: item)
                 }
                 Spacer()
             }

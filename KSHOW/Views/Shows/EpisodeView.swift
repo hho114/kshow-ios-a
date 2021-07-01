@@ -53,20 +53,16 @@ struct EpisodeView: View {
                                 .foregroundColor(.gray)
                         }
                         Spacer()
-//                        Image(systemName: "arrow.down.to.line.alt")
-//                            .font(.system(size: 20))
+
                     }
                     
-//                    Text(episode.description)
-//                        .font(.system(size: 13))
-//                        .lineLimit(3)
+
                 }
                 .padding(.bottom, 20)
                 
             }
             Spacer()
         }
-//        .foregroundColor(.white)
         .padding(.horizontal, 20)
     }
 }

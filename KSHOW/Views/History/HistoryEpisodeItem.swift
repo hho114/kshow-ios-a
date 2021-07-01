@@ -11,20 +11,13 @@ import Kingfisher
 
 struct HistoryEpisodeItem: View {
 
-//    var landmark: Landmark
     var historyEpisode: HistoryEpisode
 
     var body: some View {
 
         VStack(alignment: .leading) {
 
-//            landmark.image
-//                .renderingMode(.original)
-//                .resizable()
-//
-//                .frame(width: 155, height: 155)
-//
-//                .cornerRadius(5)
+
             KFImage(URL(string: historyEpisode.imageUrl)!).renderingMode(.original).resizable().frame(width: 155, height: 155).cornerRadius(5)
 
             HStack{Text(historyEpisode.episodeName)

@@ -173,80 +173,99 @@ struct SignUp: View{
     }
     
     func Register(){
-        if self.email != ""{
-            
-            if self.pass == self.repass{
+        print("Start verify")
+        let locale = Locale.current
+        bfprint("Region: \(locale.regionCode ?? "n/a")")
+        var isSimulator = false
+        #if targetEnvironment(simulator)
+            isSimulator = true
+        bfprint("Using SIMULATOR")
+        #endif
+        
+        if locale.regionCode == "US" || isSimulator {
+            if self.email != ""{
                 
-                Auth.auth().createUser(withEmail: self.email, password: self.pass) { (res, err) in
+                if self.pass == self.repass{
                     
-                    if err != nil{
-                        print(err!.localizedDescription)
-                        self.error = err!.localizedDescription
-                        self.title = "Sign up error"
-                        self.alert.toggle()
-                        self.startSignup = false
-                        return
-                    }
-                    
-                    print("success")
-
-                    if let user = res?.user{
-//                        let token = email.components(separatedBy: "@")
-//                        let username = token[0]
-                        let ref = Database.database().reference()
-                        ref.child("users").child(user.uid).setValue(["id": user.uid,"email": self.email])
-                        self.startSignup = false
-                        if user.isEmailVerified
-                        {
-                            print("Login success!")
-//                            UserDefaults.standard.set(true, forKey: "status")
-//                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-                            UserDefaults.standard.set(email, forKey: "email")
-                            UserDefaults.standard.set(pass, forKey: "pass")
-                            modelData.isSignin = true
-//                            Defaults[\.isUserLogin] = true
-//                            Defaults[\.email] = email
-//                            Defaults[\.password] = pass
+                    Auth.auth().createUser(withEmail: self.email, password: self.pass) { (res, err) in
+                        
+                        if err != nil{
+                            print(err!.localizedDescription)
+                            self.error = err!.localizedDescription
+                            self.title = "Sign up error"
+                            self.alert.toggle()
+                            self.startSignup = false
+                            return
                         }
-                        else
-                        {
-                            print("User need verify email")
-                            isNeedVerify = true
-                                
-                                user.sendEmailVerification { (error) in
-                                if error != nil{
-                                    self.error = error?.localizedDescription ?? "Email verify error, please try again"
-                                    self.title = "Verify Error"
-                                    self.alert.toggle()
-                                }
-                                else{
-                                    UserDefaults.standard.set(email, forKey: "email")
-//                                    UserDefaults.standard.set(pass, forKey: "pass")
-//                                    modelData.isSignin = false
-                                    self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
-                                    self.title = "Verify"
-                                    self.alert.toggle()
-//                                    self.presentationMode.wrappedValue.dismiss()
-                                }
-                                
-                                }
-                            
+                        
+                        print("success")
 
+                        if let user = res?.user{
+    //                        let token = email.components(separatedBy: "@")
+    //                        let username = token[0]
+                            let ref = Database.database().reference()
+                            ref.child("users").child(user.uid).setValue(["id": user.uid,"email": self.email])
+                            self.startSignup = false
+                            if user.isEmailVerified
+                            {
+                                print("Login success!")
+    //                            UserDefaults.standard.set(true, forKey: "status")
+    //                            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                                UserDefaults.standard.set(email, forKey: "email")
+                                UserDefaults.standard.set(pass, forKey: "pass")
+                                modelData.isSignin = true
+    //                            Defaults[\.isUserLogin] = true
+    //                            Defaults[\.email] = email
+    //                            Defaults[\.password] = pass
+                            }
+                            else
+                            {
+                                print("User need verify email")
+                                isNeedVerify = true
+                                    
+                                    user.sendEmailVerification { (error) in
+                                    if error != nil{
+                                        self.error = error?.localizedDescription ?? "Email verify error, please try again"
+                                        self.title = "Verify Error"
+                                        self.alert.toggle()
+                                    }
+                                    else{
+                                        UserDefaults.standard.set(email, forKey: "email")
+    //                                    UserDefaults.standard.set(pass, forKey: "pass")
+    //                                    modelData.isSignin = false
+                                        self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
+                                        self.title = "Verify"
+                                        self.alert.toggle()
+    //                                    self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                    
+                                    }
+                                
+
+                            }
                         }
                     }
                 }
+                else{
+                    
+                    self.error = "Password mismatch"
+                    self.title = "Sign up error"
+                    self.alert.toggle()
+                    self.startSignup = false
+                }
             }
             else{
-                
-                self.error = "Password mismatch"
                 self.title = "Sign up error"
+                self.error = "Please fill all the contents properly"
                 self.alert.toggle()
                 self.startSignup = false
             }
+
         }
-        else{
-            
-            self.error = "Please fill all the contents properly"
+        else
+        {
+            self.title = "Sign up error"
+            self.error = "KSHOW is not available in your region"
             self.alert.toggle()
             self.startSignup = false
         }

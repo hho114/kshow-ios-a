@@ -10,7 +10,6 @@ import SwiftUI
 struct SearchResultsGrid: View {
     var shows: [Show]
     
-//    @Binding var movieDetailToShow: Movie?
     
     let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -24,7 +23,6 @@ struct SearchResultsGrid: View {
                 StandardHomeShow(show: show)
                     .frame(height: 160)
                     .onTapGesture(perform: {
-//                        movieDetailToShow = movie
                     })
             }
         }

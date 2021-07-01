@@ -9,15 +9,13 @@ import SwiftUI
 
 
 struct HistoryEpisodeView: View {
-    var historyEpisodes: [HistoryEpisode] = []
-   
-//    var imageUrl: String = ""
+
+    @EnvironmentObject var modelData: ModelData
     
     func getEpisodes() -> [HistoryEpisode] {
-        historyEpisodes.sorted(by: {$0.timestamp > $1.timestamp})
+        modelData.historyEpisodes.sorted(by: {$0.timestamp > $1.timestamp})
     }
     var body: some View {
-//        NavigationView{
             VStack {
                 
                 Label("History", systemImage: "clock.fill").padding()
@@ -52,8 +50,7 @@ struct HistoryEpisodeView: View {
                 
 
             }
-//            .navigationTitle("History")
-//        }
+
         
 
     }

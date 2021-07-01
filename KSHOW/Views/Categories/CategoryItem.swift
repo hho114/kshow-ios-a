@@ -11,7 +11,6 @@ import Kingfisher
 
 struct CategoryItem: View {
 
-//    var landmark: Landmark
     @EnvironmentObject var modelData: ModelData
     var show: Show
     @State var isPresented = false
@@ -19,18 +18,8 @@ struct CategoryItem: View {
 
         VStack() {
 
-//            landmark.image
-//                .renderingMode(.original)
-//                .resizable()
-//
-//                .frame(width: 155, height: 155)
-//
-//                .cornerRadius(5)
-           
-//            ShowList()
             Button(action: {
                 isPresented = true
-//                modelData.currentSelectedShow = show
                 UIImpactFeedbackGenerator(style: .soft).impactOccurred()
 
             }, label: {
@@ -43,7 +32,7 @@ struct CategoryItem: View {
                 }
                 
             }).sheet(isPresented: $isPresented, content: {
-                ShowDetailView(show: show, isPresented: $isPresented)
+                ShowDetailView(show: show, isPresented: $isPresented).environmentObject(modelData)
             })
             
 

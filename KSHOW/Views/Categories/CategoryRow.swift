@@ -28,12 +28,6 @@ struct CategoryRow: View {
 
                     ForEach(items) { show in
 
-//                        NavigationLink(destination: ShowDetailView(show: show, isPresented: $isPresent)) {
-//
-//                                                    CategoryItem(show: show)
-//
-//
-//                                                }
                         CategoryItem(show: show)
                         
                         

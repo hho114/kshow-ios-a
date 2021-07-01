@@ -10,35 +10,24 @@ import Kingfisher
 
 struct FeatureCard: View {
 
-//    var landmark: Landmark
     @EnvironmentObject var modelData: ModelData
     var show: Show
     @State var isPresent: Bool = false
     var body: some View {
 
-//        landmark.featureImage?
-//
-//            .resizable()
-//
-//            .aspectRatio(3 / 2, contentMode: .fit)
-//            .overlay(TextOverlay(landmark: landmark))
-//        NavigationView{
-//            NavigationLink(destination: ShowDetailView(show: show)){
+
         Button(action: {
             isPresent = true
             UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-//            modelData.currentSelectedShow = show
         }, label: {
             KFImage(URL(string: show.thumbnailImageUrl)!).resizable()
-                        .aspectRatio(3 / 2, contentMode: .fit)
+                .aspectRatio(1.5, contentMode: .fit)
                 .overlay(TextOverlay(show: show))
         }).sheet(isPresented: $isPresent, content: {
-            ShowDetailView(show: show, isPresented: $isPresent)
+            ShowDetailView(show: show, isPresented: $isPresent).environmentObject(modelData)
         })
                 
-//            }
-            
-//        }
+
         
     }
 
@@ -46,7 +35,6 @@ struct FeatureCard: View {
 
 struct TextOverlay: View {
 
-//    var landmark: Landmark
     var show: Show
 
     var gradient: LinearGradient {
@@ -74,9 +62,7 @@ struct TextOverlay: View {
 
                 Text(show.name)
 
-//                    .font(.title)
-//
-//                    .bold()
+
                     .font(.system(size: 24, weight: .black, design: .rounded))
                 if let ep = show.currentEpisode["ep"]{
                     Text("Lastest Episode: \(ep)")

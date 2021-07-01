@@ -11,12 +11,10 @@ struct CategoryHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     let screen = UIScreen.main.bounds
-//    @State var openShow = false
-//    @State show: Show
+
     
     var body: some View {
                 
-//               NavigationView {
                
             List {
                 HStack{
@@ -42,23 +40,7 @@ struct CategoryHome: View {
                         .listRowInsets(EdgeInsets())
                 }
 
-//                if (modelData.features.count > 0)
-//                {
-//                    ScrollView(.vertical, showsIndicators: false, content: {
-//                        NavigationLink(
-//                            destination:ShowDetailView(show: modelData.features[0])
-//                           ){
-//
-//                                TopShowPreview(show: modelData.features[0])
-//            //                                        .frame(width: screen.width)
-////                                                    .padding(.top, -110)
-////                                                    .zIndex(-1)
-//
-//                        }
-//                    })
-                    
 
-//                }
                 
                 CastRow(casts: modelData.casts, title: "Casts")
 
@@ -72,33 +54,10 @@ struct CategoryHome: View {
                 }.listRowInsets(EdgeInsets())
 
             }.listStyle(InsetListStyle())
-//            .navigationTitle("Featured")
-//            .navigationTitle(modelData.user.username)
-//            .toolbar {
-//
-//                Button(action: { self.showingProfile.toggle() }) {
-//
-//                                Image(systemName: "person.crop.circle")
-//
-//                                    .accessibilityLabel("User Profile")
-//
-//                            }
-//
-//                        }
-//
-//                        .sheet(isPresented: $showingProfile) {
-//
-//                            ProfileHost()
-//
-//                                .environmentObject(modelData)
-//
-//                        }
+
             .navigationBarTitle("")
             .navigationBarHidden(true)
-//               }
-//               .fullScreenCover(isPresented: $openShow, content: {
-//                ShowDetailView(show: <#T##Show#>)
-//               })
+
 
             
 

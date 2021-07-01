@@ -27,9 +27,9 @@ struct Login: View{
     @State var rememberLogin = true
     @State private var showingAlert = false
     @State private var isUseBioID = false
-    let generator = UINotificationFeedbackGenerator()
     @State var showingSignup = false
     @State var showingSignupIpad = false
+    @State var isAnonymous = false
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
     let borderColor = Color(red: 107.0/255.0, green: 164.0/255.0, blue: 252.0/255.0)
@@ -38,6 +38,16 @@ struct Login: View{
         LoadingView(isShowing: $startLogin){
 //        NavigationView{
         VStack(){
+            HStack{
+                Spacer()
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    self.skipAuth()
+                }, label: {
+                    Text("Skip").font(.system(size: 20, weight: .medium, design: .default))
+
+                })
+            }
             Image("kshow_logo").resizable().frame(width: 150.0, height: 150.0, alignment: .top).cornerRadius(25)
             
             Text("Sign in to your account")
@@ -274,68 +284,96 @@ struct Login: View{
             }
     }
     
+    func skipAuth() {
+        bfprint("Anonymous login")
+        self.startLogin = true
+        self.userId = "1234567890"
+        self.isAnonymous = true
+        self.fetchUserData()
+    }
+    
     func Verify(){
+        //only allow login for US and simulator
         print("Start verify")
+        let locale = Locale.current
+        bfprint("Region: \(locale.regionCode ?? "n/a")")
+        var isSimulator = false
+        #if targetEnvironment(simulator)
+            isSimulator = true
+        bfprint("Using SIMULATOR")
+        #endif
         
-        if self.email != "" && self.pass != "" {
+        if locale.regionCode == "US" || isSimulator {
             
-            Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
-                
-                if err != nil{
-                    print(err!.localizedDescription)
-                    self.error = err!.localizedDescription
-                    self.title = "Login Error"
-                    self.alert.toggle()
-                    self.startLogin = false
-                    return
-                }
-                
-                if let user = res?.user{
-                    if user.isEmailVerified
-                    {
-                        userId = user.uid
-                        fetchUserData()
-                        
-                    }
-                    else
-                    {
-                        
+         
+            
+            if self.email != "" && self.pass != "" {
+                Auth.auth().signIn(withEmail: self.email, password: self.pass) { (res, err) in
+                    
+                    if err != nil{
+                        print(err!.localizedDescription)
+                        self.error = err!.localizedDescription
+                        self.title = "Login Error"
+                        self.alert.toggle()
                         self.startLogin = false
-                        print("User need verify email")
-                        if !self.isSendVerify {
-                        user.sendEmailVerification { (error) in
-                            if error != nil{
-                                self.error = error?.localizedDescription ?? "Email verify error"
-                                self.title = "Verify Error"
-                                self.alert.toggle()
+                        return
+                    }
+                    
+                    if let user = res?.user{
+                        if user.isEmailVerified
+                        {
+                            userId = user.uid
+                            fetchUserData()
+                            
+                        }
+                        else
+                        {
+                            
+                            self.startLogin = false
+                            print("User need verify email")
+                            if !self.isSendVerify {
+                            user.sendEmailVerification { (error) in
+                                if error != nil{
+                                    self.error = error?.localizedDescription ?? "Email verify error"
+                                    self.title = "Verify Error"
+                                    self.alert.toggle()
+                                    
+                                }
+                                else{
+                                    self.isSendVerify = true
+                                    self.error = "Open your email that is used to sign up to verify your email in order to login"
+                                    self.title = "Verify"
+                                    self.alert.toggle()
+                                   
+                                }
                                 
                             }
-                            else{
-                                self.isSendVerify = true
-                                self.error = "Open your email that is used to sign up to verify your email in order to login"
+                            }else{
+                                self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
                                 self.title = "Verify"
                                 self.alert.toggle()
-                               
+                                
+                                
                             }
-                            
-                        }
-                        }else{
-                            self.error = "Checkout your email \(email) that is used to sign up and verify your email in order to login"
-                            self.title = "Verify"
-                            self.alert.toggle()
-                            
-                            
-                        }
 
+                        }
                     }
+                    
+                    
+                    
                 }
-                
-                
-                
+            }else{
+                self.title = "Login Error"
+                self.error = "Please fill all the content property"
+                self.alert.toggle()
+                self.startLogin = false
             }
-        }else{
+
+        }
+        else
+        {
             self.title = "Login Error"
-            self.error = "Please fill all the content property"
+            self.error = "KSHOW is not available in your region"
             self.alert.toggle()
             self.startLogin = false
         }
@@ -438,7 +476,7 @@ struct Login: View{
                     print("Unable to Decode Note (\(error))")
                 }
         }
-        
+        if !isAnonymous {
         if isUseBioID {
             print("Remember BIO ID")
             UserDefaults.standard.set(true, forKey: "biounlock")
@@ -460,6 +498,8 @@ struct Login: View{
             UserDefaults.standard.set("", forKey: "email")
             UserDefaults.standard.set("", forKey: "pass")
             UserDefaults.standard.set(false, forKey: "rememberLogin")
+        }
+            
         }
         
         modelData.isSignin = true
@@ -483,7 +523,7 @@ struct Login: View{
             }
         }
         else{
-            
+            self.title = "Password Reset Fail"
             self.error = "Email Id is empty"
             self.alert.toggle()
         }

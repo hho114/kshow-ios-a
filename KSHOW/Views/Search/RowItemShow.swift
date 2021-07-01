@@ -9,10 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct RowItemShow: View {
-//    var imageUrl: String
-//    var name: String
+
     var show: Show
     @State var isPresented: Bool = false
+    @EnvironmentObject var modelData: ModelData
     var body: some View {
         Button(action: {
             isPresented = true
@@ -27,7 +27,7 @@ struct RowItemShow: View {
             .padding()
         })
         .sheet(isPresented: $isPresented, content: {
-            ShowDetailView(show: show, isPresented: $isPresented)
+            ShowDetailView(show: show, isPresented: $isPresented).environmentObject(modelData)
 
         })
     }

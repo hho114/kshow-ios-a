@@ -9,8 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct VideoPreviewImage: View {
-//    var imageURL: String
-//    var videoURL: String
+
     var episode: Episode
     var show: Show
     @EnvironmentObject var modelData: ModelData
@@ -60,16 +59,11 @@ struct VideoPreviewImage: View {
                     .font(.system(size: 40))
             })
             .sheet(isPresented: $showingVideoPlayer, content: {
-//                SwiftUIVideoView(url: videoURL)
-//                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
+
                 OpenWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
             })
         }
-//        .fullScreenCover(isPresented: $showingVideoPlayer, content: {
-//            //                SwiftUIVideoView(url: videoURL)
-//            //                VideoCard(videoURL: videoURL, showPlayIcon: false, previewLength: 10)
-//                            VideoWebView(url: episode.videoUrl, isPresented: $showingVideoPlayer)
-//                        })
+
         
         
     }

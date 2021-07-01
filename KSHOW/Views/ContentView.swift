@@ -13,9 +13,6 @@ import CodableFirebase
 
 struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
-//    @StateObject private var modelData = ModelData()
-
-//    @State var status = false
     @State var email = UserDefaults.standard.value(forKey: "email") as? String ?? ""
     @State var pass = UserDefaults.standard.value(forKey: "pass") as? String ?? ""
   
@@ -43,28 +40,13 @@ struct ContentView: View {
             
                                 HomeScreen()
                             }
-//                           .onAppear{
-//
-//                            NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-//
-//                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-//                            }
-//
-//                            }
                             
                             
                         } else {
                             VStack{
                                 Login()
                             }
-//                            .onAppear{
-//                                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-//
-//                                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-//
-//                                }
-//
-//                        }
+
                         
                         }
                         }
@@ -93,17 +75,10 @@ struct ContentView: View {
                     .tag(Tab.featured)
                     
                 
-//                
-//                ShowList()
-//                    .tabItem {
-//                        
-//                        Label("History", systemImage: "clock")
-//                        
-//                    }
-//                    .tag(Tab.list)
                 if (modelData.historyEpisodes.count > 0)
                 {
-                    HistoryEpisodeView(historyEpisodes: modelData.historyEpisodes).tabItem {
+                    HistoryEpisodeView()
+                        .tabItem {
                         
                         Label("History", systemImage: "clock")
                         

@@ -11,7 +11,6 @@ import Kingfisher
 struct PopularMovieView: View {
     var show: Show
     
-//    @Binding var movieDetailToShow: Movie?
     
     var body: some View {
         GeometryReader { proxy in
