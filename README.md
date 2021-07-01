@@ -14,7 +14,7 @@ Have questions, comments, or suggestions, report issues?  [here](https://github.
 
 ## Screenshots
 
-<img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.35.14.png" width="300em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.11.02.png" width="300em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.11.12.png" width="300em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.12.03.png" width="300em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.12.34.png" width="300em" />
+<img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.35.14.png" width="150em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.11.02.png" width="150em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.11.12.png" width="150em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.12.03.png" width="150em" /> <img src="Screenshots/Simulator Screen Shot - iPhone 11 Pro Max - 2021-06-30 at 01.12.34.png" width="150em" />
 
 ## Current Features
 
