@@ -13,15 +13,12 @@ import FirebaseAuth
 final class ModelData: ObservableObject{
     
 
-//    @Published var ref = Database.database(url: "https://kshow-product.firebaseio.com/").reference()
-//    @Published var api = "https://kshow-product.firebaseio.com/"
     @Published var ref = Database.database().reference()
     @Published var user = User.default
     @Published var shows : [Show] = []
     @Published var historyEpisodes: [HistoryEpisode] = []
     @Published var currentEpisodes : [Episode] = []
     @Published var currentSelectedShow : Show = Show.default
-//    @Published var show = Show.default
     @Published var permission = Permission.default
     @Published var casts : [Cast] = []
     @Published var isSignin: Bool = false
@@ -44,6 +41,7 @@ final class ModelData: ObservableObject{
         }
             return newListShows
         }
+    
     var updateImageCastAPI: [Cast] {
         var newListCasts : [Cast] = []
         for cast in casts {
@@ -56,7 +54,6 @@ final class ModelData: ObservableObject{
         }
     
 
-    
     var categories: [String: [Show]] {
 
         var cate: [String: [Show]] = [:]

@@ -6,31 +6,11 @@
 //
 
 import SwiftUI
-//import Foundation
-//import CoreData
 
-//enum Priority: Int {
-//    case low = 0
-//    case normal = 1
-//    case high = 2
-//}
-
-//struct ToDoItem: Identifiable {
-//    var id = UUID()
-//    var name: String = ""
-//    var priorityNum: Priority = .normal
-//    var isComplete: Bool = false
-//}
 
 
 struct SearchView: View {
         
-//    private var todoItems = [ ToDoItem(name: "Meet Eddie for lunch"),
-//                              ToDoItem(name: "Buy toilet paper"),
-//                              ToDoItem(name: "Write a new tutorial"),
-//                              ToDoItem(name: "Buy two bottles of wine"),
-//                              ToDoItem(name: "Prepare the presentation deck")
-//                                ]
     @EnvironmentObject var modelData: ModelData
     
     @State private var searchText = ""
@@ -48,8 +28,6 @@ struct SearchView: View {
         
             VStack {
                 HStack {
-//                    Text("Search")
-//                        .font(.system(size: 40, weight: .black, design: .rounded))
                         
                     Spacer()
                     Text("Filter")
@@ -66,24 +44,20 @@ struct SearchView: View {
                             .default(Text("Cast Name")) {
                                 searchByShow = false
                                 searchByCast = true
-                //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                                 
                             },
                             .default(Text("Show Name")) {
                                 searchByCast = false
                                 searchByShow = true
-                //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                             },
                             .default(Text("Clear Filter")) {
                                 searchByCast = true
                                 searchByShow = true
-                //                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                             },
                             .cancel(){
-                //                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
                                         }
                         ])

@@ -16,9 +16,6 @@ struct Cast: Codable, Identifiable {
     var imageUrl: String
     var profileUrl: String
     
-//    var id: String{
-//        name.trimmingCharacters(in: .whitespacesAndNewlines)
-//    }
     
     static let `default` = Cast(id:"",name: "namecast", imageUrl: "", profileUrl: "")
     

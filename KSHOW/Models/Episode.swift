@@ -10,7 +10,6 @@ struct Episode: Hashable, Codable, Identifiable {
     
     var id: String
     var episodeNumber: String
-//    var description: String
     var likes: String
     var refCommentId: String
     var videoUrl: String
@@ -19,9 +18,6 @@ struct Episode: Hashable, Codable, Identifiable {
     var season: String
     var length: String
    
-//    var id: Int {
-//        episodeNumber
-//    }
     
     static let `default` = Episode(id: "ep",episodeNumber: "0", likes: "0", refCommentId:"0", videoUrl:"url", views: "0", dateRelease: "1", season: "0", length: "1")
     

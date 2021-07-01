@@ -13,7 +13,6 @@ struct User: Codable {
     var id: String
     var email: String
     var username: String
-//    var prefersNotifications = true
     var permission: String
     var photoUrl: String
     var vip: Bool

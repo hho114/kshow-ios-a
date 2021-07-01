@@ -31,9 +31,7 @@ struct PopularMovieView: View {
                 })
                 .padding(.trailing, 20)
             }
-//            .foregroundColor(.white)
             .onTapGesture(perform: {
-//                self.movieDetailToShow = movie
             })
         }
     }

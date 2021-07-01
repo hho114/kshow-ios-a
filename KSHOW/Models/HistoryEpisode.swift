@@ -17,10 +17,6 @@ struct HistoryEpisode: Hashable, Codable, Identifiable {
     var videoUrl: String
    
    
-//    var id: Int {
-//        episodeNumber
-//    }
-    
     static let `default` = HistoryEpisode(id: "ep",episodeName: "",episodeNumber: "", imageUrl:"", timestamp: 0.0, videoUrl: "")
     
 
